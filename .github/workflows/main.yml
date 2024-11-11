@@ -4,11 +4,12 @@
   uses: Tour-de-App/upload-app@tda-25
   with:
     # Name of the Docker image
-    image_name: 
+    image_name:
     # Path to the Docker image
     image_path: 
-    # Acces token
+    # Access token
     team_token: 
     # Base domain for the registry and authfish
-    base_domain: # optional, default is registry.tourde.app
+    base_domain: 
+    # optional, default is registry.tourde.app
           
