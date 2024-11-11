@@ -2,7 +2,7 @@
 
 FROM python:3.10-buster
 
-WORKDIR /
+WORKDIR /app
 
 RUN pip install pipenv
 
