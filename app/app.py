@@ -9,7 +9,7 @@ def main():
 
 @app.route("/api")
 def api():
-    return jsonify("{\"organization\": \"Student Cyber Games\"}"), 200
+    return jsonify({"organization": "Student Cyber Games"}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
