@@ -12,4 +12,4 @@ def api():
     return "{\"organization\": \"Student Cyber Games\"}"
 
 if __name__ == '__main__':
-    app.run(debug=True, port=3000)
+    app.run(debug=True, port=80)
