@@ -9,7 +9,7 @@ def main():
 
 @app.route("/api")
 def api():
-    return "{\"organization\": \"Student Cyber Games\"}", 201
+    return "{\"organization\": \"Student Cyber Games\"}", 200
 
 if __name__ == '__main__':
     app.run(debug=True)
