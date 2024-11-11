@@ -6,8 +6,6 @@ WORKDIR /
 
 RUN pip install pipenv
 
-RUN pipenv install --system --deploy
-
 COPY . .
 
 EXPOSE 80
