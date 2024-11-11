@@ -13,6 +13,6 @@ RUN pipenv install --system --deploy
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 80
 
 CMD ["/start.sh"]
