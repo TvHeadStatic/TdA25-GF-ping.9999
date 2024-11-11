@@ -1,0 +1,14 @@
+            - name: Upload app to TdA
+  # You may pin to the exact commit or the version.
+  # uses: Tour-de-App/upload-app@c8e92e66f256fd5bda409dadecdd69b5b80e645d
+  uses: Tour-de-App/upload-app@tda-25
+  with:
+    # Name of the Docker image
+    image_name: 
+    # Path to the Docker image
+    image_path: 
+    # Acces token
+    team_token: 
+    # Base domain for the registry and authfish
+    base_domain: # optional, default is registry.tourde.app
+          
