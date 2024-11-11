@@ -6,6 +6,11 @@ WORKDIR /
 
 RUN pip install pipenv
 
+COPY Pipfile .
+COPY Pipfile.lock .
+
+RUN pipenv install --system --deploy
+
 COPY . .
 
 EXPOSE 80
