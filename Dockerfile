@@ -13,9 +13,8 @@ RUN pipenv install --system --deploy
 
 COPY . .
 
-# ARG API_SECRET
-# ENV API_SECRET=${API_SECRET}
-RUN --mount=type=secret,id=apisecret,env=API_SECRET
+ARG API_SECRET
+ENV API_SECRET=${API_SECRET}
 
 EXPOSE 3000
 
