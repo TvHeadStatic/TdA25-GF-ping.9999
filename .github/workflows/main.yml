@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  SEEEECRET: ${{ secrets.API_SECRET }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,7 +28,7 @@ jobs:
           tags: tda:latest
           outputs: type=docker,dest=/tmp/tda.tar
           build-args: |
-            API_SECRET=${{ secrets.API_SECRET }}
+            API_SECRET=${{ env.SEEEECRET }}
 
       - name: Upload to TdA
         uses: Tour-de-App/upload-app@tda-25
