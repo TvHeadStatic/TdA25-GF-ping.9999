@@ -13,7 +13,7 @@ RUN pipenv install --system --deploy
 
 COPY . .
 
-ENV FOO=${FOO}
+ENV FOO=${tags}
 
 EXPOSE 3000
 
