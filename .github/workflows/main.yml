@@ -24,8 +24,8 @@ jobs:
           cache-to: type=gha,mode=max
           tags: tda:latest
           outputs: type=docker,dest=/tmp/tda.tar
-          build-args: |
-            API_SECRET=${{ secrets.API_SECRET }}
+          secrets: |
+            "apisecret=${{ secrets.API_SECRET }}"
 
       - name: Upload to TdA
         uses: Tour-de-App/upload-app@tda-25
