@@ -24,6 +24,8 @@ jobs:
           cache-to: type=gha,mode=max
           tags: tda:latest
           outputs: type=docker,dest=/tmp/tda.tar
+          secrets: |
+            "FOO=bar"
 
       - name: Upload to TdA
         uses: Tour-de-App/upload-app@tda-25
