@@ -15,7 +15,8 @@ COPY . .
 
 # ARG API_SECRET
 # ENV API_SECRET=${API_SECRET}
+RUN --mount=type=secret,id=apisecret,env=API_SECRET
 
 EXPOSE 3000
 
-RUN --mount=type=secret,id=api_secret,env=API_SECRET ["python3", "-m", "flask", "--app", "app/app.py", "run", "--host=0.0.0.0", "--port=3000"]
+CMD ["python3", "-m", "flask", "--app", "app/app.py", "run", "--host=0.0.0.0", "--port=3000"]
