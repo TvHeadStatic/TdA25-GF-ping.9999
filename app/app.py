@@ -9,6 +9,6 @@ app = Flask(__name__)
 app.register_blueprint(api_bp)
 app.register_blueprint(game_bp)
 
+print("m: " + str(os.getenv("FOO")))
 if __name__ == '__main__':
-    print("m: " + str(os.getenv("FOO")))
     app.run(debug=True)
