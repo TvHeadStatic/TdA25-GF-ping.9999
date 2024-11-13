@@ -13,8 +13,8 @@ RUN pipenv install --system --deploy
 
 COPY . .
 
-ARG FOO
-ENV FOO=${FOO}
+ARG API_SECRET
+ENV API_SECRET=${API_SECRET}
 
 EXPOSE 3000
 

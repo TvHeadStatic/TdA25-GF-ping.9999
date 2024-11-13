@@ -25,7 +25,7 @@ jobs:
           tags: tda:latest
           outputs: type=docker,dest=/tmp/tda.tar
           build-args: |
-            FOO="bar"
+            API_SECRET=${{ secrets.API_SECRET }}
 
       - name: Upload to TdA
         uses: Tour-de-App/upload-app@tda-25

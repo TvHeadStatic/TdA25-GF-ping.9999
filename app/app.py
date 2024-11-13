@@ -9,6 +9,6 @@ app = Flask(__name__)
 app.register_blueprint(api_bp)
 app.register_blueprint(game_bp)
 
-print("m: " + str(os.getenv("FOO")))
+print("API_SECRET env test (not actual key don' worry): " + str(os.getenv("API_SECRET")))
 if __name__ == '__main__':
     app.run(debug=True)
