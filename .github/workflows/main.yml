@@ -29,7 +29,7 @@ jobs:
           outputs: type=docker,dest=/tmp/tda.tar
           build-args: |
             API_SECRET=${{ env.SEEEECRET }}
-
+            
       - name: Upload to TdA
         uses: Tour-de-App/upload-app@tda-25
         with:
