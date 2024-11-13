@@ -10,5 +10,5 @@ app.register_blueprint(api_bp)
 app.register_blueprint(game_bp)
 
 if __name__ == '__main__':
-    print(os.getenv("FOO"))
+    print("m: " + str(os.getenv("FOO")))
     app.run(debug=True)
