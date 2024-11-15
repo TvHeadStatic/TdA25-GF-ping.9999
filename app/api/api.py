@@ -23,7 +23,6 @@ def api_getall():
     match(request.method):
         case "POST": result = api_post(request.get_json(force=True))
         case _: result = api_get_all()
-    print(result)
     return result
 
 @api_bp.route("/api/v1/games/<id>", methods=["GET", "PUT", "DELETE"])
