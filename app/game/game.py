@@ -16,5 +16,4 @@ def game():
 def gaming(id):
     # request.url_root + 
     apiRes = requests.get("https://50336bc6.app.deploy.tourde.app/api/v1/games/" + id)
-    apiResponse = literal_eval(apiRes.text)
-    return render_template("game.html", title = "TdA", gameData = apiResponse), 200
+    return render_template("game.html", title = "TdA", gameData = apiRes.json()), 200
