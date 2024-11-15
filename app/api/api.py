@@ -24,7 +24,7 @@ def api_getall():
     cursor = conn.cursor()
     cursor.execute(sqlInit)
     match(request.method):
-        case "POST": result = api_post(cursor, request.get_json(), conn)
+        case "POST": result = api_post(cursor, request.get_json(force=True), conn)
         case _: result = api_get_all(cursor)
     cursor.close()
     conn.close()
