@@ -1,6 +1,6 @@
 from flask import Flask, render_template, Blueprint, request
 import requests
-import json
+from ast import literal_eval
 
 game_bp = Blueprint('game_bp', __name__, template_folder = "./templates")
 
@@ -15,5 +15,5 @@ def game():
 @game_bp.route("/game/<id>")
 def gaming(id):
     apiRes = requests.get(request.url_root + "api/v1/games/" + id)
-    apiResponse = json.loads(apiRes.text)
+    apiResponse = literal_eval(apiRes.text)
     return render_template("game.html", title = "TdA", gameData = apiResponse), 200
