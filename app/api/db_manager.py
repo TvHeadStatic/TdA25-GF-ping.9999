@@ -1,5 +1,9 @@
 import sqlite3
 
+def dict_factory(cursor, row):
+    fields = [x[0] for x in cursor.description]
+    return {key: value for key, value in zip(fields, row)}
+
 class db_manager:
     sqlDBPath = "app/db/sql.db"
     sqlInit = '''
@@ -15,17 +19,13 @@ class db_manager:
     '''
     conn = None
     cursor = None
-
-    def dict_factory(cursor, row):
-        r = [dict((cursor.description[i][0], value) \
-            for i, value in enumerate(row)) for row in cursor.fetchall()]
-        return (r[0] if r else None) if False else r
-
+    
     def __init__(self):
+        print("uwu")
         self.conn = sqlite3.connect(self.sqlDBPath)
+        self.conn.row_factory = dict_factory
         self.cursor = self.conn.cursor()
         self.cursor.execute(self.sqlInit)
-        self.conn.row_factory = self.dict_factory
     
     def free(self):
         print("owo")
