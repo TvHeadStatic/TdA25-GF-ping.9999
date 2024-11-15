@@ -28,7 +28,7 @@ def api_getall():
     conn.close()
     return result
 
-@api_bp.route("/api/<id>", methods=["GET", "POST", "PUT", "DELETE"])
+@api_bp.route("/api/v1/games/<id>", methods=["GET", "POST", "PUT", "DELETE"])
 def api(id):
     conn = sqlite3.connect(sqlDBPath)
     cursor = conn.cursor()
