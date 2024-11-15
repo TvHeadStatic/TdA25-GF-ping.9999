@@ -34,7 +34,7 @@ def api(id):
     cursor = conn.cursor()
     cursor.execute(sqlInit)
     match(request.method):
-        case "POST": result = api_post(id, cursor)
+        case "POST": result = api_post(id, cursor, request.get_json(), conn)
         case "PUT": pass
         case "DELETE": pass
         case _: result = api_get(id, cursor)
