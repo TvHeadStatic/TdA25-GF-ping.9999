@@ -10,11 +10,11 @@ def main():
 
 @game_bp.route("/game")
 def game():
+    print(request.url_root + "api/v1/games/")
     return render_template("game.html", title = "TdA"), 200
 
 @game_bp.route("/game/<id>")
 def gaming(id):
-    print(request.url_root + "api/v1/games/" + id)
     apiRes = requests.get(request.url_root + "api/v1/games/" + id)
     apiResponse = literal_eval(apiRes.text)
     return render_template("game.html", title = "TdA", gameData = apiResponse), 200
