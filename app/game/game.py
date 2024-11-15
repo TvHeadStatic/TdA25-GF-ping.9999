@@ -14,6 +14,6 @@ def game():
 
 @game_bp.route("/game/<id>")
 def gaming(id):
-    # request.url_root + 
+    # "http://" + request.url_root + "api/v1/games/"
     apiRes = requests.get("https://50336bc6.app.deploy.tourde.app/api/v1/games/" + id)
     return render_template("game.html", title = "TdA", gameData = apiRes.json()), 200

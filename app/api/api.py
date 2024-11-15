@@ -1,20 +1,8 @@
 from flask import Flask, jsonify, Blueprint, request
 from api.api_get import api_get, api_get_all
 from api.api_post import api_post
+from api.api_delete import api_delete
 import sqlite3
-
-sqlDBPath = "app/db/sql.db"
-sqlInit = '''
-    CREATE TABLE IF NOT EXISTS piskvorky (
-        uuid TEXT PRIMARY KEY,
-        createdAt DATE,
-        updatedAt DATE,
-        name TEXT,
-        difficulty TEXT,
-        gameState TEXT,
-        board TEXT
-    )
-    '''
 
 api_bp = Blueprint('api_bp', __name__)
 
@@ -29,6 +17,6 @@ def api_getall():
 def api(id):
     match(request.method):
         case "PUT": pass
-        case "DELETE": pass
+        case "DELETE": api_delete(id)
         case _: result = api_get(id)
     return result
