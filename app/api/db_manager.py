@@ -4,7 +4,7 @@ class db_manager:
     sqlDBPath = "app/db/sql.db"
     sqlInit = '''
     CREATE TABLE IF NOT EXISTS piskvorky (
-        uuid TEXT PRIMARY KEY,
+        uuid VARCHAR(36) PRIMARY KEY,
         createdAt DATE,
         updatedAt DATE,
         name TEXT,
