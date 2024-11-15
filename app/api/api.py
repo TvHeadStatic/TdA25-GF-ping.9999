@@ -17,6 +17,6 @@ def api_getall():
 def api(id):
     match(request.method):
         case "PUT": pass
-        case "DELETE": api_delete(id)
+        case "DELETE": result = api_delete(id)
         case _: result = api_get(id)
     return result
