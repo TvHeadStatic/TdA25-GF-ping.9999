@@ -17,8 +17,9 @@ class db_manager:
     cursor = None
 
     def dict_factory(cursor, row):
-        fields = [x[0] for x in cursor.description]
-        return {key: value for key, value in zip(fields, row)}
+        r = [dict((cursor.description[i][0], value) \
+            for i, value in enumerate(row)) for row in cursor.fetchall()]
+        return (r[0] if r else None) if False else r
 
     def __init__(self):
         self.conn = sqlite3.connect(self.sqlDBPath)
