@@ -21,7 +21,7 @@ api_bp = Blueprint('api_bp', __name__)
 @api_bp.route("/api/v1/games", methods=["GET", "POST"])
 def api_getall():
     match(request.method):
-        case "POST": result = api_post(request.get_json())
+        case "POST": result = api_post(request.get_json(force=True))
         case _: result = api_get_all()
     return result
 
