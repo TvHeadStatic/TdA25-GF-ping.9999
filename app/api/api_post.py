@@ -13,6 +13,7 @@ def api_post(req):
     updatedAt = str(datetime.datetime.now())
     dbMan.cursor.execute(state, [newuuid, createdAt, updatedAt, req["name"], req["difficulty"], None, str(req["board"])])
     dbMan.conn.commit()
+    print("uwu")
     return jsonify({
         "uuid": newuuid,
         "createdAt": createdAt,
