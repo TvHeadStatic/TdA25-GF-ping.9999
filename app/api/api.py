@@ -20,25 +20,15 @@ api_bp = Blueprint('api_bp', __name__)
 
 @api_bp.route("/api/v1/games", methods=["GET", "POST"])
 def api_getall():
-    conn = sqlite3.connect(sqlDBPath)
-    cursor = conn.cursor()
-    cursor.execute(sqlInit)
     match(request.method):
-        case "POST": result = api_post(cursor, request.get_json(), conn)
-        case _: result = api_get_all(cursor)
-    cursor.close()
-    conn.close()
+        case "POST": result = api_post(request.get_json())
+        case _: result = api_get_all()
     return result
 
 @api_bp.route("/api/v1/games/<id>", methods=["GET", "PUT", "DELETE"])
 def api(id):
-    conn = sqlite3.connect(sqlDBPath)
-    cursor = conn.cursor()
-    cursor.execute(sqlInit)
     match(request.method):
         case "PUT": pass
         case "DELETE": pass
-        case _: result = api_get(id, cursor)
-    cursor.close()
-    conn.close()
+        case _: result = api_get(id)
     return result
