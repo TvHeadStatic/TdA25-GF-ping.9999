@@ -8,6 +8,16 @@ from api.db_manager import db_manager
 def api_post(req):
     dbMan = db_manager()
     state = "INSERT INTO piskvorky(uuid, createdAt, updatedAt, name, difficulty, gameState, board) VALUES(?, ?, ?, ?, ?, ?, ?)"
-    dbMan.cursor.execute(state, [str(uuid.uuid4), str(datetime.datetime.now()), str(datetime.datetime.now()), req["name"], req["difficulty"], None, str(req["board"])])
+    newuuid = str(uuid.uuid4())
+    createdAt = str(datetime.datetime.now())
+    updatedAt = str(datetime.datetime.now())
+    dbMan.cursor.execute(state, [newuuid, createdAt, updatedAt, req["name"], req["difficulty"], None, str(req["board"])])
     dbMan.conn.commit()
-    return req, 201
+    return jsonify({
+        "uuid": newuuid,
+        "createdAt": createdAt,
+        "updatedAt": updatedAt,
+        "name": req["name"],
+        "difficulty": req["difficulty"],
+        "board": req["board"]
+    }), 201
