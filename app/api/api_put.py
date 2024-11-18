@@ -17,4 +17,4 @@ def api_put(id, req):
     if result is None: return jsonify({ "response": 404 }), 404
     result["board"] = literal_eval(result["board"])
     dbMan.free()
-    return jsonify(result), 201
+    return jsonify(result), 200
