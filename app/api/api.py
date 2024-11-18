@@ -2,6 +2,7 @@ from flask import Flask, jsonify, Blueprint, request
 from api.api_get import api_get, api_get_all
 from api.api_post import api_post
 from api.api_delete import api_delete
+from api.api_put import api_put
 import sqlite3
 
 api_bp = Blueprint('api_bp', __name__)
@@ -16,7 +17,7 @@ def api_getall():
 @api_bp.route("/api/v1/games/<id>", methods=["GET", "PUT", "DELETE"])
 def api(id):
     match(request.method):
-        case "PUT": pass
+        case "PUT": result = api_put(id, request.get_json(force=True))
         case "DELETE": result = api_delete(id)
         case _: result = api_get(id)
     return result
