@@ -10,20 +10,40 @@
 
 <body>
     <div class="container">
-        <h1>{{ gameData["name"] }}</h1>
-        <p>{{ gameData["difficulty"] }}</p>
-        <div class="container" style="aspect-ratio: 1/ 1">
-            {% for y in gameData["board"] %}
-            <div class="row justify-content-center align-items-center g-0">
-                {% for x in y %}
-                <button type="button" class="col btn btn-light rounded-0 border-light" style="aspect-ratio: 1/ 1">
-                    {{ x or ".."}}
-                </button>
-                {% endfor %}
+        <h1 class="text-center">{{ gameData["name"] }}</h1>
+        <p class="text-center">{{ gameData["difficulty"] }}</p>
+        <div class="row justify-content-center">
+            <div class="overflown col-auto g-0 p-0">
+                <table>
+                    {% for y in gameData["board"] %}
+                    <tr>
+                        {% for x in y %}
+                        <td style="padding: 0px;">
+                            <button type="button"
+                                class="btn btn-light rounded-0"
+                                style="aspect-ratio: 1/ 1; width: 2.5em;"
+                            >
+                                {{ x or "" }}
+                            </button>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
             </div>
-            {% endfor %}
         </div>
     </div>
 </body>
+
+<style>
+    .overflown {
+        overflow: hidden;
+    }
+    @media (orientation: portrait) {
+        .overflown {
+            overflow: scroll;
+        }
+    }
+</style>
 
 </html>
