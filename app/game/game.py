@@ -10,7 +10,7 @@ def main():
 
 @game_bp.route("/game")
 def game():
-    return render_template("game.html", title = "TdA"), 200
+    return render_template("index.html", title = "TdA"), 200
 
 @game_bp.route("/game/<id>")
 def gaming(id):
