@@ -4,7 +4,7 @@ import uuid
 import datetime
 
 from api.db_manager import db_manager
-from api.ticktacktoe_functionality import validate_gamestate, has_invalid_char, has_illegal_size
+from api.ticktacktoe_functionality import validate_gamestate, has_invalid_char, has_illegal_size, has_bad_actor
 
 def api_post(req):
     dbMan = db_manager()
@@ -12,7 +12,7 @@ def api_post(req):
     newuuid = str(uuid.uuid4())
     createdAt = str(datetime.datetime.now())
     updatedAt = str(datetime.datetime.now())
-    if has_invalid_char(req["board"]) or has_illegal_size(req["board"]):
+    if has_invalid_char(req["board"]) or has_illegal_size(req["board"]) or has_bad_actor(req["board"]):
         return jsonify({
             "status": 422
         }), 422

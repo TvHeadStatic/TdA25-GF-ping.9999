@@ -4,13 +4,13 @@ import uuid
 import datetime
 from ast import literal_eval
 from api.db_manager import db_manager
-from api.ticktacktoe_functionality import validate_gamestate, has_invalid_char, has_illegal_size
+from api.ticktacktoe_functionality import validate_gamestate, has_invalid_char, has_illegal_size, has_bad_actor
 
 def api_put(id, req):
     dbMan = db_manager()
     methodQuery = "UPDATE piskvorky SET updatedAt = ?, name = ?, difficulty = ?, gameState = ?, board = ? WHERE uuid LIKE ?"
     updatedAt = str(datetime.datetime.now())
-    if has_invalid_char(req["board"]) or has_illegal_size(req["board"]):
+    if has_invalid_char(req["board"]) or has_illegal_size(req["board"]) or has_bad_actor(req["board"]):
         return jsonify({
             "status": 422
         }), 422
