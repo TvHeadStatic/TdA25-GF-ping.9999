@@ -55,3 +55,14 @@ def has_illegal_size(board):
     for x in board:
         if len(x) != 15: return True
     return False
+
+def has_bad_actor(board):
+    xCount = 0
+    oCount = 0
+    for y in board:
+        for x in y:
+            xCount += int(x =="X")
+            oCount += int(x =="O")
+    difference = xCount - oCount
+    if abs(difference) > 1: return True
+    else: return False
