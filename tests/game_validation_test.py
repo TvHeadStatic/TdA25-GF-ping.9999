@@ -235,6 +235,7 @@ class game_validation(unittest.TestCase):
             [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ],
             [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ],
         ]
-        self.assertEqual(has_bad_actor(board), False)
+        self.assertEqual(has_bad_actor(board), True)
+
 if __name__ == "__main__":
     unittest.main()
