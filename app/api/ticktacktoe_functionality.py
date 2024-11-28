@@ -64,5 +64,5 @@ def has_bad_actor(board):
             xCount += int(x =="X")
             oCount += int(x =="O")
     difference = xCount - oCount
-    if abs(difference) > 1: return True
+    if difference < 0: return True
     else: return False
