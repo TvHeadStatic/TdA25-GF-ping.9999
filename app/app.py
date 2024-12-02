@@ -1,11 +1,13 @@
 from flask import Flask, render_template, jsonify
 import os
 
+from gateway.gateway import gateway_bp
 from api.api import api_bp
 from game.game import game_bp
 
 app = Flask(__name__)
 
+app.register_blueprint(gateway_bp)
 app.register_blueprint(api_bp)
 app.register_blueprint(game_bp)
 
