@@ -1,7 +1,7 @@
 from flask import jsonify
 import sqlite3
 
-from api.db_manager import db_manager
+from db.db_manager import db_manager
 
 def api_delete(id):
     dbMan = db_manager()

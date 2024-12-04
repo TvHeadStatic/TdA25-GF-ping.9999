@@ -3,7 +3,7 @@ import sqlite3
 import uuid
 import datetime
 from ast import literal_eval
-from api.db_manager import db_manager
+from db.db_manager import db_manager
 from api.ticktacktoe_functionality import validate_gamestate, has_invalid_char, has_illegal_size, has_bad_actor
 
 def api_put(id, req):

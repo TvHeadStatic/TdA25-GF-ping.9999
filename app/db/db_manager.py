@@ -5,8 +5,8 @@ def dict_factory(cursor, row):
     return {key: value for key, value in zip(fields, row)}
 
 class db_manager:
-    sqlDBPath = "app/db/sql.db"
-    sqlInit = '''
+    sqlDBPath = "app/db/games.db"
+    sqlInitPiskvorky = '''
     CREATE TABLE IF NOT EXISTS piskvorky (
         uuid VARCHAR(36) PRIMARY KEY,
         createdAt DATE,
@@ -17,17 +17,26 @@ class db_manager:
         board TEXT
     )
     '''
+    sqlInitUsers = '''
+    CREATE TABLE IF NOT EXISTS users (
+        address VARCHAR(36) PRIMARY KEY,
+        username TEXT,
+        password TEXT,
+        salt TEXT
+    )
+    '''
     conn = None
     cursor = None
     
     def __init__(self):
-        print("uwu")
+        print("[uwu] database has been opened")
         self.conn = sqlite3.connect(self.sqlDBPath)
         self.conn.row_factory = dict_factory
         self.cursor = self.conn.cursor()
-        self.cursor.execute(self.sqlInit)
+        self.cursor.execute(self.sqlInitPiskvorky)
+        self.cursor.execute(self.sqlInitUsers)
     
     def free(self):
-        print("owo")
+        print("[owo] database has been closed")
         self.cursor.close()
         self.conn.close()
