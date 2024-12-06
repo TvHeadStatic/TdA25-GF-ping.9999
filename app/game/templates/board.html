@@ -18,7 +18,7 @@
     <p class="text-center">
         <img
             draggable="false"
-            src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/' + gameData["difficulty"] + '/zarivka_' + gameData["difficulty"] + '_modre.png')}}"
+            src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/' + gameData["difficulty"].title() + '/zarivka_' + gameData["difficulty"] + '_modre.png')}}"
             class="img-fluid align-self-center"
             alt="X"
             style="height: 1.5rem"
