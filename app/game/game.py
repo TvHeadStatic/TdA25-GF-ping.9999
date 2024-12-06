@@ -2,7 +2,7 @@ from flask import Flask, render_template, Blueprint, request
 import requests
 from ast import literal_eval
 
-game_bp = Blueprint('game_bp', __name__, template_folder = "./templates", static_folder="./static")
+game_bp = Blueprint('game_bp', __name__, template_folder = "./templates", static_folder="static", static_url_path="/")
 
 @game_bp.route("/")
 def main():
