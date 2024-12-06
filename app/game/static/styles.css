@@ -1,0 +1,9 @@
+html {
+    width: 100%;
+}
+
+.container-fluid {
+    max-width: 1280px;
+    margin-right: auto;
+    margin-left: auto;
+}
