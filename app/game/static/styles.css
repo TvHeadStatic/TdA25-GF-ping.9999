@@ -1,12 +1,26 @@
 :root {
     --tda-blue: #0070BB;
-    --tda-blue-darker: #395A9A;
-    --tda-white: #FFFFFF;
+    --tda-secondary: #395A9A;
+    --tda-danger: #E31837;
+    --tda-warning: #AB2E58;
+    --tda-info: #724479;
     --tda-light: #F6F6F6;
+    --tda-dark: #080808;
+    --tda-muted: #1A1A1A;
+    --tda-white: #FFFFFF;
 }
 
 html {
     width: 100%;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .container-fluid {

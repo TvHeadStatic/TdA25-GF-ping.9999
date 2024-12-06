@@ -7,6 +7,7 @@ from game.game import game_bp
 from users.users import users_bp
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 
 app.register_blueprint(gateway_bp)
 app.register_blueprint(api_bp)
