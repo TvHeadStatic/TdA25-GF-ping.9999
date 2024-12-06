@@ -6,14 +6,14 @@ game_bp = Blueprint('game_bp', __name__, template_folder = "./templates", static
 
 @game_bp.route("/")
 def main():
-    return render_template("index.html", title = "TdA"), 200
+    return render_template("index.html", title = "TdA | Home"), 200
 
 @game_bp.route("/game")
 def game():
-    return render_template("game.html", title = "TdA"), 200
+    return render_template("game.html", title = "TdA | Game"), 200
 
 @game_bp.route("/game/<id>")
 def gaming(id):
     # "http://" + request.url_root + "api/v1/games/"
     apiRes = requests.get("https://50336bc6.app.deploy.tourde.app/api/v1/games/" + id)
-    return render_template("board.html", title = "TdA", gameData = apiRes.json()), 200
+    return render_template("board.html", title = "TdA | " + apiRes.json()["name"], gameData = apiRes.json()), 200

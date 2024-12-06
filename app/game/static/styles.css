@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap');
+
 :root {
     --tda-blue: #0070BB;
     --tda-secondary: #395A9A;
@@ -12,6 +14,10 @@
 
 html {
     width: 100%;
+}
+
+body {
+    font-family: "Dosis", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .unselectable {

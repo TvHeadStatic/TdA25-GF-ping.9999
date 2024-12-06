@@ -15,7 +15,17 @@
 <body class="container-fluid bg-light">
     <br>
     <h1 class="text-center">{{ gameData["name"] }}</h1>
-    <p class="text-center">{{ gameData["difficulty"] }}</p>
+    <p class="text-center">
+        <img
+            draggable="false"
+            src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/' + gameData["difficulty"] + '/zarivka_' + gameData["difficulty"] + '_modre.png')}}"
+            class="img-fluid align-self-center"
+            alt="X"
+            style="height: 1.5rem"
+        />
+        <span class="text-primary" style="padding-left: .25rem">{{ gameData["difficulty"] }}</span>
+    </p>
+
     <div class="row justify-content-center">
         <div class="overflown col-auto g-0 p-0 border border-primary">
             <table>
@@ -24,25 +34,25 @@
                     {% for x in y %}
                     <td style="padding: 0px;">
                         <button type="button"
-                            class="btn bg-white rounded-0 border d-flex"
-                            style="aspect-ratio: 1/ 1; width: 2.5em; border-color: lightslategrey;"
+                            class="btn bg-white rounded-0 border d-flex tickcell"
+                            style="aspect-ratio: 1/ 1; width: 2.5em; padding: 0; justify-content: center; border-color: lightgray !important;"
                             onclick="console.log('smash')"
                         >
                             {% if x == "X" %}
                             <img
                                 draggable="false"
-                                src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/X/X_modre.png')}}"
+                                src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/SVG/X/X_modre.svg')}}"
                                 class="img-fluid align-self-center"
                                 alt="X"
-                                style="height: 1rem"
+                                style="height: 1.5rem"
                             />
                             {% elif x == "O" %}
                             <img
                             draggable="false"
-                                src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/O/O_cervene.png')}}"
+                                src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/SVG/O/O_cervene.svg')}}"
                                 class="img-fluid align-self-center"
                                 alt="O"
-                                style="height: 1rem"
+                                style="height: 1.65rem"
                             />
                             {% endif %}
                         </button>
@@ -53,8 +63,6 @@
             </table>
         </div>
     </div>
-    <!-- <div class="container">
-    </div> -->
     <br>
     <br>
     <br>
@@ -65,8 +73,14 @@
     .overflown {
         overflow: hidden;
     }
+
+    .tickcell:hover {
+        background-color: lightgray !important;
+    }
+
     @media (orientation: portrait) {
         .overflown {
+            overflow-y: hidden !important;
             overflow: scroll;
         }
     }
