@@ -1,3 +1,10 @@
+:root {
+    --tda-blue: #0070BB;
+    --tda-blue-darker: #395A9A;
+    --tda-white: #FFFFFF;
+    --tda-light: #F6F6F6;
+}
+
 html {
     width: 100%;
 }

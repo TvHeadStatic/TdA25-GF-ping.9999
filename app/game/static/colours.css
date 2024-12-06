@@ -1,0 +1,26 @@
+.text-primary {
+    color: var(--tda-blue) !important;
+}
+
+.bg-primary {
+    background-color: var(--tda-blue) !important;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: var(--tda-blue) !important;
+    border-color: var(--tda-blue) !important;
+    color: var(--tda-white) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--tda-blue-darker) !important;
+    border-color: var(--tda-blue-darker) !important;
+}
+
+.text-light {
+    color: var(--tda-light) !important;
+}
+
+.bg-light {
+    background-color: var(--tda-light) !important;
+}
