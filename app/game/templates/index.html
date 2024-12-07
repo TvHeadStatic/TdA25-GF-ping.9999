@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="{{url_for('game_bp.static', filename='coolEffect.css')}}">
     <title>{{ title }}</title>
 </head>
-<body class="container-fluid bg-light">
+<body class="container-fluid bg-light d-flex flex-column min-vh-100">
     {% include 'use/navbar.html' %}
-    <br>
+    <p><br></p>
     <section class="d-flex justify-content-center" style="width: 100%;">
         <img
             draggable="false"
@@ -23,7 +23,7 @@
             alt=""
         />
     </section>
-    <br>
+    <p><br></p>
     <p class="text-center">
         <a
             name=""
@@ -46,9 +46,6 @@
             >Sign-up</a
         >
     </p>
-    <br>
-    <br>
-    <br>
     {% include 'use/footer.html' %}
 </body>
 

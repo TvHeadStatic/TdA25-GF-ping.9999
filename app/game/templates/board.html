@@ -12,8 +12,8 @@
     <title>{{ title }}</title>
 </head>
 
-<body class="container-fluid bg-light">
-    <br>
+<body class="container-fluid bg-light d-flex flex-column min-vh-100">
+    <p><br></p>
     <h1 class="text-center">{{ gameData["name"] }}</h1>
     <p class="text-center">
         <img
@@ -63,9 +63,6 @@
             </table>
         </div>
     </div>
-    <br>
-    <br>
-    <br>
     {% include 'use/footer.html' %}
 </body>
 
