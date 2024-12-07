@@ -12,10 +12,46 @@
 </head>
 <body class="container-fluid bg-light d-flex flex-column min-vh-100">
     <p><br><br><br></p>
-    <p class="text-center">UwU</p>
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        {% for game in gamez %}
+        <div class="d-none d-sm-block card m-2" style="width: 18rem;">  
+            <div class="card-body px-0">
+                <h5 class="card-title"><small>{{ game["name"] }}</small> <small><small><small>{{ game["gameState"] }}</small></small></small></h5>
+                <p>
+                    <img
+                        draggable="false"
+                        src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/' + game["difficulty"].title() + '/zarivka_' + game["difficulty"] + '_modre.png')}}"
+                        class="img-fluid align-self-center"
+                        alt="X"
+                        style="height: 1.5rem"
+                    />
+                    <span class="text-primary" style="padding-left: .25rem">{{ game["difficulty"] }}</span>
+                </p>
+                <a class="btn btn-primary" href="/game/{{ game['uuid']}}" role="button">Play</a>
+            </div>
+        </div>
+        <div class="d-sm-none card m-2" style="width: 100%;">  
+            <div class="card-body px-0">
+                <h5 class="card-title"><small>{{ game["name"] }}</small> <small><small><small>{{ game["gameState"] }}</small></small></small></h5>
+                <p>
+                    <img
+                        draggable="false"
+                        src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/' + game["difficulty"].title() + '/zarivka_' + game["difficulty"] + '_modre.png')}}"
+                        class="img-fluid align-self-center"
+                        alt="X"
+                        style="height: 1.5rem"
+                    />
+                    <span class="text-primary" style="padding-left: .25rem">{{ game["difficulty"] }}</span>
+                </p>
+                <a class="btn btn-primary" href="/game/{{ game['uuid']}}" role="button">Play</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
     <br>
     <br>
     <br>
     {% include 'use/footer.html' %}
 </body>
+
 </html>

@@ -10,7 +10,8 @@ def main():
 
 @game_bp.route("/game")
 def game():
-    return render_template("game.html", title = "TdA | Game"), 200
+    apiRez = requests.get("https://50336bc6.app.deploy.tourde.app/api/v1/games")
+    return render_template("game.html", title = "TdA | Game", gamez = apiRez.json()), 200
 
 @game_bp.route("/game/<id>")
 def gaming(id):
