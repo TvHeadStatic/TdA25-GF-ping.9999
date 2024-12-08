@@ -29,7 +29,7 @@
             name=""
             id=""
             class="btn btn-primary"
-            href="#"
+            onclick="LoginScreen()"
             role="button"
             >Log-in</a
         >
@@ -41,13 +41,18 @@
             name=""
             id=""
             class="btn btn-primary"
-            href="#"
+            onclick="SignupScreen()"
             role="button"
             >Sign-up</a
         >
     </p>
+    
+    <div id="loginOrSignupHolder">
+    </div>
+
     {% include 'use/footer.html' %}
 </body>
 
 <script src="{{url_for('game_bp.static', filename='coolEffect.js')}}"></script>
+<script src="{{ url_for('game_bp.static', filename='login_signup.js') }}"></script>
 </html>
