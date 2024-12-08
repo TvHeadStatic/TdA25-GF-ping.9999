@@ -1,0 +1,54 @@
+<div id="signupHolder" style="display: none">
+    <div class="card d-none d-sm-flex text-center align-self-center position-fixed top-50 start-50 translate-middle" style="width: 20rem;">
+        <a class="btn btn-primary position-absolute text-center p-0 d-flex justify-content-center align-items-center" style="right: 0; width: 2rem; height: 2rem;" onclick="Destroy()" role="button">
+            <img src="/TdA _ Ikonky/SVG/X/X_bile.svg" style="width: 1rem">
+        </a>
+        <div class="card-body">
+            <h1 class="card-title">Sign-up</h1>
+            <form class="row g-3">
+                <div class="col-md-4" style="width: 100%;">
+                    <label for="Username" class="form-label">Username</label>
+                    <input type="username" class="form-control" id="Username" placeholder="I... am steve" required>
+                </div>
+                <div class="col-md-4" style="width: 100%;">
+                    <label for="Email3" class="form-label">E-mail</label>
+                    <input type="email" class="form-control" id="Email3" placeholder="valid@address.cz" required>
+                </div>
+                <div class="col-md-4" style="width: 100%;">
+                    <label for="Password3" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="Password3" placeholder="UwU (8+ chars)" required>
+                </div>
+                <p class="text-info py-0 signupwarn" style="display: none">placeholder</p>
+                <div class="col-12">
+                    <button class="btn btn-primary" onclick="signup_user(document.getElementById('Username').value, document.getElementById('Email3').value, document.getElementById('Password3').value)" type="button">Sign-up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card d-sm-none text-center align-self-center position-fixed top-50 start-50 translate-middle" style="width: 100%;">
+        <a class="btn btn-primary position-absolute text-center p-0 d-flex justify-content-center align-items-center" style="right: 0; width: 2rem; height: 2rem;" onclick="Destroy()" role="button">
+            <img src="/TdA _ Ikonky/SVG/X/X_bile.svg" style="width: 1rem">
+        </a>
+        <div class="card-body">
+            <h1 class="card-title">Sign-up</h1>
+            <form class="row g-3">
+                <div class="col-md-4" style="width: 100%;">
+                    <label for="Username" class="form-label">Username</label>
+                    <input type="username" class="form-control" id="Username2" placeholder="I... am steve" required>
+                </div>
+                <div class="col-md-4" style="width: 100%;">
+                    <label for="Email4" class="form-label">E-mail</label>
+                    <input type="email" class="form-control" id="Email4" placeholder="valid@address.cz" required>
+                </div>
+                <div class="col-md-4" style="width: 100%;">
+                    <label for="Password4" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="Password4" placeholder="UwU (8+ chars)" required>
+                </div>
+                <p class="text-info py-0 signupwarn" style="display: none">placeholder</p>
+                <div class="col-12">
+                    <button class="btn btn-primary" onclick="signup_user(document.getElementById('Username2').value, document.getElementById('Email4').value, document.getElementById('Password4').value)" type="button">Sign-up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

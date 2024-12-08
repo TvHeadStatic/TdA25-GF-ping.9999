@@ -7,10 +7,39 @@ from db.db_manager import db_manager
 
 users_bp = Blueprint('users_bp', __name__)
 
+@users_bp.route("/api/users/login", methods=["POST"])
+def api_login():
+    if request.json["address"] == "" or request.json["password"] == "":
+        return jsonify({ "status": 401, "reason": "1 or more fields are empty" }), 401
+    if "@" not in str(request.json["address"]) and "." not in str(request.json["address"]) and len(str(request.json["address"])) < 5:
+        return jsonify({ "status": 401, "reason": "this 'e-mail address' is... not an e-mail address" }), 401
+    if " " in str(request.json["password"]) and len(str(request.json["password"])) < 8:
+        return jsonify({ "status": 401, "reason": "password should be atleast 8 characters long and contain no whitespace" }), 401
+    
+    dbMan = db_manager()
+    methodQuery = "SELECT * FROM users WHERE address = ?"
+    dbMan.cursor.execute(methodQuery, [request.json["address"]])
+    result = dbMan.cursor.fetchone()
+    dbMan.conn.commit()
+    dbMan.free()
+
+    if result == None or hashlib.sha256(f"{request.json['password']}{result['salt']}".encode()).hexdigest() != result['password']:
+        return jsonify({ "status": 401, "reason": "incorrect e-mail or password" }), 401
+
+    return jsonify({
+        "address": request.json["address"],
+        "username": result["username"],
+    }), 201
+
 @users_bp.route("/api/users/register", methods=["POST"])
 def api_register():
-    if "@" not in str(request.json["address"]):
-        return jsonify({ "status": 401, "reason": "this 'e-mail address' we received is... not an e-mail address" }), 401
+    if request.json["username"] == "" or request.json["address"] == "" or request.json["password"] == "":
+        return jsonify({ "status": 401, "reason": "1 or more fields are empty" }), 401
+    if "@" not in str(request.json["address"]) and "." not in str(request.json["address"]) and len(str(request.json["address"])) < 5:
+        print(len(str(request.json["address"])))
+        return jsonify({ "status": 401, "reason": "this 'e-mail address' is... not an e-mail address" }), 401
+    if " " in str(request.json["password"]) and len(str(request.json["password"])) < 8:
+        return jsonify({ "status": 401, "reason": "password should be atleast 8 characters long and contain no whitespace" }), 401
     
     dbMan = db_manager()
     methodQuery = "SELECT * FROM users WHERE address LIKE ?"
