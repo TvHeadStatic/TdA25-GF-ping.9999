@@ -15,15 +15,27 @@
     <div class="card h-20">
         <div class="card-body">
             <h1 class="card-title">Welcome!</h1>
-            <h2 class="d-none d-xl-block card-text text-center p-5">
-                <img src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/Playing/zarivka_playing_modre.png')}}" class="img-fluid" alt="" draggable="false"/>
-                Did you know that 9/10 rust programmers are cool ass furries?
+            <h2 class="d-none d-lg-flex justify-content-center align-items-center card-text text-center p-5">
+                <img src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/Playing/zarivka_playing_modre.png')}}" class="img-fluid d-inline-block float-left" alt="" draggable="false"/>
+                <span class="d-inline-block float-right" style="text-align: right;">
+                    Did you know that 9/10 rust programmers are cool ass furries?
+                    <br>
+                    yeah!
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-primary">Settings</button>
+                    <button type="button" class="btn btn-primary">Sign-out</button>
+                </span>
             </h2>
-            <h2 class="d-xl-none card-text text-center p-4">
+            <h2 class="d-lg-none card-text text-center p-4">
                 <img src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/Playing/zarivka_playing_modre.png')}}" class="img-fluid" alt="" draggable="false"/>
                 <br>
                 <br>
                 <small><small>Did you know that 9/10 rust programmers are cool ass furries?</small></small>
+                <br>
+                <br>
+                <button type="button" class="btn btn-primary">Settings</button>
+                <button type="button" class="btn btn-primary">Sign-out</button>
             </h2>
         </div>
     </div>
