@@ -6,8 +6,14 @@ function Destroy() {
     document.getElementById("loginOrSignupHolder").style.display = "none"
 }
 
-function SendData(mail, pass) {
-    localStorage.setItem("E-Mail", mail)
-    localStorage.setItem("Password", pass)
+function login_user(mail, pass) {
+    localStorage.setItem("email", mail)
+    localStorage.setItem("password", pass)
     window.location.replace("/game")
+}
+
+function signout_user() {
+    localStorage.removeItem("email")
+    localStorage.removeItem("password")
+    window.location.replace("/")
 }

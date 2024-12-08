@@ -24,7 +24,7 @@
                     <br>
                     <br>
                     <button type="button" class="btn btn-primary">Settings</button>
-                    <button type="button" class="btn btn-primary">Sign-out</button>
+                    <button type="button" class="btn btn-primary" onclick="signout_user()">Sign-out</button>
                 </span>
             </h2>
             <h2 class="d-lg-none card-text text-center p-4">
@@ -35,7 +35,7 @@
                 <br>
                 <br>
                 <button type="button" class="btn btn-primary">Settings</button>
-                <button type="button" class="btn btn-primary">Sign-out</button>
+                <button type="button" class="btn btn-primary" onclick="signout_user()">Sign-out</button>
             </h2>
         </div>
     </div>
@@ -101,4 +101,5 @@
     {% include 'use/footer.html' %}
 </body>
 
+<script src="{{ url_for('game_bp.static', filename='login_signup.js') }}"></script>
 </html>
