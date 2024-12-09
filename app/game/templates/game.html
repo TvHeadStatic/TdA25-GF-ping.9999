@@ -14,7 +14,7 @@
     <p></p>
     <div class="card h-20">
         <div class="card-body">
-            <h1 class="card-title">Welcome, <span id="userusername"></span>!</h1>
+            <h1 class="card-title">Welcome, {{ userData["username"] }}!</h1>
             <h2 class="d-none d-lg-flex justify-content-center align-items-center card-text text-center p-5">
                 <img src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/Playing/zarivka_playing_modre.png')}}" class="img-fluid d-inline-block float-left" alt="" draggable="false"/>
                 <span class="d-inline-block float-right" style="text-align: right;">
@@ -100,10 +100,6 @@
     </div>
     {% include 'use/footer.html' %}
 </body>
-
-<script>
-    document.getElementById("userusername").innerHTML = localStorage.getItem("username")
-</script>
 
 <script src="{{ url_for('game_bp.static', filename='login_signup.js') }}"></script>
 </html>

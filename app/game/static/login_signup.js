@@ -1,5 +1,5 @@
 function LoginScreen() {
-    if (localStorage.getItem("username") !== null) {
+    if (localStorage.getItem("token") !== null) {
         return window.location.replace("/game")
     }
     document.getElementById("loginHolder").style.display = "block"
@@ -34,9 +34,7 @@ function login_user(mail, pass) {
             document.getElementsByClassName("loginwarn")[0].style.display = "block"
             document.getElementsByClassName("loginwarn")[1].style.display = "block"
         } else {
-            localStorage.setItem("username", response.body["username"])
-            localStorage.setItem("email", mail)
-            localStorage.setItem("password", pass)
+            localStorage.setItem("token", response.body["token"])
             window.location.replace("/game")
         }
     })
@@ -63,17 +61,25 @@ function signup_user(name, mail, pass) {
             document.getElementsByClassName("signupwarn")[0].style.display = "block"
             document.getElementsByClassName("signupwarn")[1].style.display = "block"
         } else {
-            localStorage.setItem("username", response.body["username"])
-            localStorage.setItem("email", mail)
-            localStorage.setItem("password", pass)
+            localStorage.setItem("token", response.body["token"])
             window.location.replace("/game")
         }
     })
 }
 
 function signout_user() {
-    localStorage.removeItem("username")
-    localStorage.removeItem("email")
-    localStorage.removeItem("password")
-    window.location.replace("/")
+    fetch("/api/users/signout", {
+        method: "get",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+    .then( (response) => {
+        if (response.status == 201) {
+            localStorage.removeItem("token")
+            window.location.replace("/")
+        }
+    })
 }

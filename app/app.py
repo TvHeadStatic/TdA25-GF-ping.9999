@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify
+from datetime import timedelta
 import os
 
 from gateway.gateway import gateway_bp
@@ -8,6 +9,8 @@ from users.users import users_bp
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+app.secret_key = "test"
+app.permanent_session_lifetime = timedelta(days = 1)
 
 app.register_blueprint(gateway_bp)
 app.register_blueprint(api_bp)

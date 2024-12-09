@@ -1,5 +1,5 @@
-from flask import Flask, jsonify, Blueprint, request
-from flask_httpauth import HTTPBasicAuth
+from flask import Flask, jsonify, Blueprint, request, session
+from flask_httpauth import HTTPTokenAuth
 import requests
 import hashlib
 
@@ -9,17 +9,13 @@ gateway_bp = Blueprint('gateway_bp', __name__)
 
 apiURL = "https://50336bc6.app.deploy.tourde.app/api/v1/games"
 
-auth = HTTPBasicAuth()
+auth = HTTPTokenAuth()
 
-@auth.verify_password
-def verify_password(username, password):
-    dbMan = db_manager()
-    methodQuery = "SELECT * FROM users WHERE address LIKE ?"
-    dbMan.cursor.execute(methodQuery, [username])
-    user = dbMan.cursor.fetchone()
-    dbMan.free()
-    if user != None and user["password"] == hashlib.sha256(f"{password}{user['salt']}".encode()).hexdigest():
-        return username
+@auth.verify_token
+def verify_token(token):
+    if "user" in session and "token" in session["user"]:
+        if token == session["user"]["token"]:
+            return session["user"]["username"]
 
 @gateway_bp.route("/api/gateway", methods=["GET", "POST"])
 @auth.login_required
