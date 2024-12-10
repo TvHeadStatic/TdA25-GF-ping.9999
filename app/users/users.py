@@ -10,11 +10,10 @@ users_bp = Blueprint('users_bp', __name__)
 
 @users_bp.route("/api/users/login", methods=["POST"])
 def api_login():
-    newsessiontoken = str(uuid.uuid4())
     if "user" in session:
         return jsonify({
             "response": "session already active, you're good to go",
-            "token": newsessiontoken,
+            "token": session["user"]["token"],
         }), 201
     if request.json["address"] == "" or request.json["password"] == "":
         return jsonify({ "status": 401, "reason": "1 or more fields are empty" }), 401
@@ -32,6 +31,8 @@ def api_login():
 
     if result == None or hashlib.sha256(f"{request.json['password']}{result['salt']}".encode()).hexdigest() != result['password']:
         return jsonify({ "status": 401, "reason": "incorrect e-mail or password" }), 401
+
+    newsessiontoken = str(uuid.uuid4())
 
     session.permanent = True
     session["user"] = {
