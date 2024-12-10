@@ -1,12 +1,11 @@
 function LoginScreen() {
-    fetch("/api/users/register", {
+    fetch("/api/users/login", {
         method: "post",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
     },
         body: JSON.stringify({
-            username: "",
             address: "",
             password: ""
         })
