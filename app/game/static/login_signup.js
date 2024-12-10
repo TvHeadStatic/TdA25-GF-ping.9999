@@ -6,9 +6,9 @@ function LoginScreen() {
             'Content-Type': 'application/json'
     },
         body: JSON.stringify({
-            username: String(name),
-            address: String(mail),
-            password: String(pass)
+            username: "",
+            address: "",
+            password: ""
         })
     })
     .then(r =>  r.json().then(data => ({status: r.status, body: data})))
