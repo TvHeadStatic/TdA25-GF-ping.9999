@@ -70,13 +70,17 @@ def api_register():
     dbMan.conn.commit()
     dbMan.free()
 
+    newsessiontoken = str(uuid.uuid4())
+
     session["user"] = {
         "address": request.json["address"],
         "username": request.json["username"],
+        "token": newsessiontoken
     }
     return jsonify({
         "address": request.json["address"],
         "username": request.json["username"],
+        "token": newsessiontoken
     }), 201
 
 @users_bp.route("/api/users/signout")

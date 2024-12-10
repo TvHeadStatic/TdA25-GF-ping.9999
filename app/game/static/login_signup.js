@@ -1,8 +1,25 @@
 function LoginScreen() {
-    if (localStorage.getItem("token") !== null) {
-        return window.location.replace("/game")
-    }
-    document.getElementById("loginHolder").style.display = "block"
+    fetch("/api/users/register", {
+        method: "post",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+    },
+        body: JSON.stringify({
+            username: String(name),
+            address: String(mail),
+            password: String(pass)
+        })
+    })
+    .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+    .then( (response) => {
+        if (response.body["response"] == "session already active, you're good to go") {
+            document.getElementById("loginHolder").style.display = "block"
+        } else {
+            localStorage.setItem("token", response.body["token"])
+            return window.location.replace("/game")
+        }
+    })
 }
 
 function SignupScreen() {
