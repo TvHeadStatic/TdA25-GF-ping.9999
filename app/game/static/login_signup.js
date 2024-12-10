@@ -12,7 +12,7 @@ function LoginScreen() {
     })
     .then(r =>  r.json().then(data => ({status: r.status, body: data})))
     .then( (response) => {
-        if (response.body["response"] == "session already active, you're good to go") {
+        if (response.body["response"] != "session already active, you're good to go") {
             document.getElementById("loginHolder").style.display = "block"
         } else {
             localStorage.setItem("token", response.body["token"])
