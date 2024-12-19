@@ -23,6 +23,7 @@
                     yeah!
                     <br>
                     <br>
+                    <a type="button" class="btn btn-primary" href="/game/canvas">New Project</a>
                     <button type="button" class="btn btn-primary">Settings</button>
                     <button type="button" class="btn btn-primary" onclick="signout_user()">Sign-out</button>
                 </span>
@@ -34,6 +35,7 @@
                 <small><small>Did you know that 9/10 rust programmers are cool ass furries?</small></small>
                 <br>
                 <br>
+                <a type="button" class="btn btn-primary" href="/game/canvas">New Project</a>
                 <button type="button" class="btn btn-primary">Settings</button>
                 <button type="button" class="btn btn-primary" onclick="signout_user()">Sign-out</button>
             </h2>
@@ -61,6 +63,9 @@
                             {% include "use/board_thumbnail.html" %}
                         </div>
                         <div class="col d-flex flex-column justify-content-end align-items-center">
+                            <div class="mb-1">
+                                <a class="btn btn-primary" href="/game/{{ game['uuid']}}?edit=1" role="button">Edit</a>
+                            </div>
                             <div>
                                 <a class="btn btn-primary" href="/game/{{ game['uuid']}}" role="button">Play</a>
                             </div>
@@ -88,6 +93,9 @@
                             {% include "use/board_thumbnail_bigger.html" %}
                         </div>
                         <div class="col d-flex flex-column justify-content-center align-items-center">
+                            <div class="mb-4">
+                                <a class="btn btn-primary" style="scale: 1.5" href="/game/{{ game['uuid']}}?edit=1" role="button">Edit</a>
+                            </div>
                             <div>
                                 <a class="btn btn-primary" style="scale: 1.5" href="/game/{{ game['uuid']}}" role="button">Play</a>
                             </div>

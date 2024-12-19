@@ -13,19 +13,32 @@
 </head>
 
 <body class="container-fluid bg-light d-flex flex-column min-vh-100">
-    <p><br></p>
-    <h1 class="text-center">{{ gameData["name"] }} <small><small><small>{{ gameData["gameState"] }}</small></small></small></h1>
-    <p class="text-center">
-        <img
-            draggable="false"
-            src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/' + gameData["difficulty"].title() + '/zarivka_' + gameData["difficulty"] + '_modre.png')}}"
-            class="img-fluid align-self-center"
-            alt="X"
-            style="height: 1.5rem"
+    <p><br></p><div class="mb-3">
+        <p for="" class="form-label text-center">Name</p>
+        <input
+            type="text"
+            class="form-control"
+            name=""
+            id=""
+            aria-describedby="helpId"
+            placeholder=""
         />
-        <span class="text-primary" style="padding-left: .25rem">{{ gameData["difficulty"] }}</span>
-    </p>
-    <p id="guidetext" class="text-center p-0">[Left Click] - Place</p>
+        <div class="mb-3">
+            <p for="" class="form-label text-center">Difficulty</p>
+            <select
+                class="form-select form-select-lg"
+                name="difficulty"
+                id="difficulty"
+            >
+                <option value="easy" selected>Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+                <option value="extreme">Extreme</option>
+            </select>
+        </div>
+        
+    </div>
+    <p id="guidetext" class="text-center p-0">[Left Click] - Place | [Right Click] - Remove (edit mode)</p>
     <div class="row justify-content-center" oncontextmenu="return false;">
         <div class="overflown col-auto g-0 p-0 border border-primary">
             <table>
@@ -96,7 +109,7 @@
     ]
 </script>
 
-<script src="{{url_for('game_bp.static', filename='board.js')}}"></script>
+<script src="{{url_for('game_bp.static', filename='board_canvas.js')}}"></script>
 
 <style>
     .overflown {
