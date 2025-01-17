@@ -65,22 +65,42 @@
             </table>
         </div>
     </div>
-    <p class="text-center">
+    <p class="text-center" id="submits">
         <br>
         <a
         name=""
-        id=""
+        id="backbtn"
         class="btn btn-primary"
             href="/game"
             role="button"
             ><- Go Back</a
         >
+        <button
+            type="button"
+            class="btn btn-primary"
+            id="submitbtn"
+            onclick="http_put()"
+        >
+            Submit
+        </button>
+        
     </p>
-    
+    <div id="winScreenHolder" style="display: none;">
+        <div style="width: 20rem;" class="card d-none d-sm-flex text-center align-self-center position-fixed top-50 start-50 translate-middle">
+            <div class="card-body" id="wincont">
+            </div>
+        </div>
+    <div class="card d-sm-none text-center align-self-center position-fixed top-50 start-50 translate-middle" style="width: 100%;">
+            <div class="card-body" id="wincont2">
+            </div>
+    </div></div>
     {% include 'use/footer.html' %}
 </body>
 
 <script>
+    var uuid = "{{ gameData["uuid"] }}"
+    var gname = "{{ gameData["name"] }}"
+    var diff = "{{ gameData["difficulty"] }}"
     var currentBoard = [
         {% for y in gameData["board"] %}
         [
@@ -97,6 +117,7 @@
 </script>
 
 <script src="{{url_for('game_bp.static', filename='board.js')}}"></script>
+<script src="{{url_for('game_bp.static', filename='board_http.js')}}"></script>
 
 <style>
     .overflown {

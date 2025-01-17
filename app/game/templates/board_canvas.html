@@ -19,7 +19,7 @@
             type="text"
             class="form-control"
             name=""
-            id=""
+            id="titleofgame"
             aria-describedby="helpId"
             placeholder=""
         />
@@ -78,6 +78,7 @@
             </table>
         </div>
     </div>
+    <p class="text-center text-warning" id="badcodebad"></p>
     <p class="text-center">
         <br>
         <a
@@ -88,6 +89,13 @@
             role="button"
             ><- Go Back</a
         >
+        <button
+            type="button"
+            class="btn btn-primary"
+            onclick="http_post()"
+        >
+            Publish
+        </button>
     </p>
     
     {% include 'use/footer.html' %}
@@ -110,6 +118,8 @@
 </script>
 
 <script src="{{url_for('game_bp.static', filename='board_canvas.js')}}"></script>
+<script src="{{url_for('game_bp.static', filename='board_http.js')}}"></script>
+
 
 <style>
     .overflown {
