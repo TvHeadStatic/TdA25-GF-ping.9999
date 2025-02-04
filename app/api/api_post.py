@@ -1,5 +1,4 @@
 from flask import jsonify
-import sqlite3
 import uuid
 import datetime
 
@@ -8,7 +7,7 @@ from api.ticktacktoe_functionality import validate_gamestate, has_invalid_char, 
 
 def api_post(req):
     dbMan = db_manager()
-    methodQuery = "INSERT INTO piskvorky(uuid, createdAt, updatedAt, name, difficulty, gameState, board) VALUES(?, ?, ?, ?, ?, ?, ?)"
+    methodQuery = "INSERT INTO piskvorky(uuid, createdAt, updatedAt, name, difficulty, gameState, board) VALUES(%s, %s, %s, %s, %s, %s, %s)"
     newuuid = str(uuid.uuid4())
     createdAt = str(datetime.datetime.now())
     updatedAt = str(datetime.datetime.now())

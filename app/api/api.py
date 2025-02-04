@@ -3,7 +3,6 @@ from api.api_get import api_get, api_get_all
 from api.api_post import api_post
 from api.api_delete import api_delete
 from api.api_put import api_put
-import sqlite3
 
 api_bp = Blueprint('api_bp', __name__)
 

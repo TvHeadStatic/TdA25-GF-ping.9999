@@ -1,11 +1,14 @@
 from flask import Flask, render_template, jsonify
 from datetime import timedelta
+from dotenv import load_dotenv
 import os
 
 from gateway.gateway import gateway_bp
 from api.api import api_bp
 from game.game import game_bp
 from users.users import users_bp
+
+if os.path.isfile(".env"): load_dotenv()
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False

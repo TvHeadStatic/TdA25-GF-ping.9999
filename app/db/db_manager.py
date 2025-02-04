@@ -1,11 +1,8 @@
-import sqlite3
-
-def dict_factory(cursor, row):
-    fields = [x[0] for x in cursor.description]
-    return {key: value for key, value in zip(fields, row)}
+import os
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
 class db_manager:
-    sqlDBPath = "app/db/games.db"
     sqlInitPiskvorky = '''
     CREATE TABLE IF NOT EXISTS piskvorky (
         uuid VARCHAR(36) PRIMARY KEY,
@@ -30,9 +27,14 @@ class db_manager:
     
     def __init__(self):
         print("[uwu] database has been opened")
-        self.conn = sqlite3.connect(self.sqlDBPath)
-        self.conn.row_factory = dict_factory
-        self.cursor = self.conn.cursor()
+        self.conn = psycopg2.connect(
+            user=str(os.getenv("DB_USER")),
+            password=str(os.getenv("DB_PASS")),
+            host=str(os.getenv("DB_HOST")),
+            port=str(os.getenv("DB_PORT")),
+            dbname=str(os.getenv("DB_NAME"))
+        )
+        self.cursor = self.conn.cursor(cursor_factory=RealDictCursor)
         self.cursor.execute(self.sqlInitPiskvorky)
         self.cursor.execute(self.sqlInitUsers)
     

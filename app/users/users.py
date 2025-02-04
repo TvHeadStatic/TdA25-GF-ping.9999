@@ -23,7 +23,7 @@ def api_login():
         return jsonify({ "status": 401, "reason": "password should be atleast 8 characters long and contain no whitespace" }), 401
     
     dbMan = db_manager()
-    methodQuery = "SELECT * FROM users WHERE address = ?"
+    methodQuery = "SELECT * FROM users WHERE address = %s"
     dbMan.cursor.execute(methodQuery, [request.json["address"]])
     result = dbMan.cursor.fetchone()
     dbMan.conn.commit()
@@ -57,13 +57,13 @@ def api_register():
         return jsonify({ "status": 401, "reason": "password should be atleast 8 characters long and contain no whitespace" }), 401
     
     dbMan = db_manager()
-    methodQuery = "SELECT * FROM users WHERE address LIKE ?"
+    methodQuery = "SELECT * FROM users WHERE address LIKE %s"
     dbMan.cursor.execute(methodQuery, [request.json["address"]])
     result = dbMan.cursor.fetchone()
     if result != None:
         return jsonify({ "status": 401, "reason": "a user with this e-mail address already exists" }), 401
 
-    methodQuery = "INSERT INTO users(address, username, password, salt) VALUES(?, ?, ?, ?)"
+    methodQuery = "INSERT INTO users(address, username, password, salt) VALUES(%s, %s, %s, %s)"
     salt = hex(random.randrange(0, 2**24))
     newPassword = hashlib.sha256(f"{request.json['password']}{salt}".encode()).hexdigest()
     dbMan.cursor.execute(methodQuery, [request.json["address"], request.json["username"], newPassword, salt])

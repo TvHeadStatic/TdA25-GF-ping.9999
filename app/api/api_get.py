@@ -1,5 +1,4 @@
 from flask import jsonify
-import sqlite3
 from ast import literal_eval
 
 from db.db_manager import db_manager
@@ -16,7 +15,7 @@ def api_get_all():
 
 def api_get(id):
     dbMan = db_manager()
-    methodQuery = "SELECT * FROM piskvorky WHERE uuid LIKE ?"
+    methodQuery = "SELECT * FROM piskvorky WHERE uuid LIKE %s"
     dbMan.cursor.execute(methodQuery, [id])
     result = dbMan.cursor.fetchone()
     if result is None: return jsonify({ "response": 404 }), 404

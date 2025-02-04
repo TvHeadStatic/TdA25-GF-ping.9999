@@ -1,11 +1,10 @@
 from flask import jsonify
-import sqlite3
 
 from db.db_manager import db_manager
 
 def api_delete(id):
     dbMan = db_manager()
-    methodQuery = "DELETE FROM piskvorky WHERE uuid LIKE ?"
+    methodQuery = "DELETE FROM piskvorky WHERE uuid LIKE %s"
     dbMan.cursor.execute(methodQuery, [id])
     dbMan.conn.commit()
     dbMan.free()
