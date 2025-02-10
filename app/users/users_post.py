@@ -27,17 +27,28 @@ def users_post(req):
     newPassword = hashlib.sha256(f"{req['password']}{salt}".encode()).hexdigest()
     dbMan.cursor.execute(methodQuery, [str(uuid.uuid4()), str(datetime.datetime.now()), req["email"], req["username"], newPassword, salt, 0.0, 0, 0, 0])
     dbMan.conn.commit()
+    
+    methodQuery = "SELECT * FROM users WHERE email LIKE %s"
+    dbMan.cursor.execute(methodQuery, [req["email"]])
+    result = dbMan.cursor.fetchone()
     dbMan.free()
 
     newsessiontoken = str(uuid.uuid4())
 
     session["user"] = {
+        "uuid": result["email"],
         "email": req["email"],
         "username": req["username"],
         "token": newsessiontoken
     }
     return jsonify({
-        "email": req["email"],
-        "username": req["username"],
+        "uuid": result["email"],
+        "email": result["email"],
+        "username": result["username"],
+        "createdAt": result["createdat"],
+        "elo": result["elo"],
+        "wins": result["wins"],
+        "draws": result["draws"],
+        "losses": result["losses"],
         "token": newsessiontoken
     }), 201
