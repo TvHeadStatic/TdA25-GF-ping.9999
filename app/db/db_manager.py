@@ -16,10 +16,16 @@ class db_manager:
     '''
     sqlInitUsers = '''
     CREATE TABLE IF NOT EXISTS users (
-        address VARCHAR(36) PRIMARY KEY,
+        uuid VARCHAR(36) PRIMARY KEY,
+        createdAt DATE,
         username TEXT,
+        email VARCHAR(36),
         password TEXT,
-        salt TEXT
+        salt TEXT,
+        elo FLOAT,
+        wins INT,
+        draws INT,
+        losses INT
     )
     '''
     conn = None

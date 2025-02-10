@@ -1,12 +1,12 @@
 function LoginScreen() {
-    fetch("/api/users/login", {
+    fetch("/api/v1/users/login", {
         method: "post",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
     },
         body: JSON.stringify({
-            address: "",
+            email: "",
             password: ""
         })
     })
@@ -31,14 +31,14 @@ function Destroy() {
 }
 
 function login_user(mail, pass) {
-    fetch("/api/users/login", {
+    fetch("/api/v1/users/login", {
             method: "post",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
         },
             body: JSON.stringify({
-                address: String(mail),
+                email: String(mail),
                 password: String(pass)
         })
     })
@@ -57,7 +57,7 @@ function login_user(mail, pass) {
 }
 
 function signup_user(name, mail, pass) {
-    fetch("/api/users/register", {
+    fetch("/api/v1/users", {
             method: "post",
             headers: {
                 'Accept': 'application/json',
@@ -65,7 +65,7 @@ function signup_user(name, mail, pass) {
         },
             body: JSON.stringify({
                 username: String(name),
-                address: String(mail),
+                email: String(mail),
                 password: String(pass)
         })
     })
@@ -84,7 +84,7 @@ function signup_user(name, mail, pass) {
 }
 
 function signout_user() {
-    fetch("/api/users/signout", {
+    fetch("/api/v1/users/signout", {
         method: "get",
         headers: {
             'Accept': 'application/json',
