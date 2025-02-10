@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify
+from werkzeug.middleware.proxy_fix import ProxyFix
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
@@ -11,6 +12,7 @@ from users.users import users_bp
 if os.path.isfile(".env"): load_dotenv()
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1, x_proto=1, x_prefix=1)
 app.url_map.strict_slashes = False
 app.secret_key = "test"
 app.permanent_session_lifetime = timedelta(days = 1)
