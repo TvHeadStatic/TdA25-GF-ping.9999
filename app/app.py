@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify
+from flask_socketio import SocketIO, emit
 from werkzeug.middleware.proxy_fix import ProxyFix
 from datetime import timedelta
 from dotenv import load_dotenv
@@ -22,6 +23,12 @@ app.register_blueprint(api_bp)
 app.register_blueprint(game_bp)
 app.register_blueprint(users_bp)
 
+socketio = SocketIO(app)
+
+@socketio.on("update_game")
+def handle_my_custom_event(json):
+    emit("update_me", json, broadcast=True, include_self=True)
+
 print("API_SECRET env test (not actual key don' worry): " + str(os.getenv("API_SECRET")))
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app)

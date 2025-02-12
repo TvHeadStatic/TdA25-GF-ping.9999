@@ -54,6 +54,7 @@ def api_login():
 
     session.permanent = True
     session["user"] = {
+        "uuid": result["uuid"],
         "email": request.json["email"],
         "username": result["username"],
         "token": newsessiontoken,

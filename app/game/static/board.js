@@ -1,6 +1,5 @@
 let xImage = `<img draggable="false" src="/TdA%20_%20Ikonky/SVG/X/X_modre.svg" class="img-fluid align-self-center" alt="X" style="height: 1.5rem">`
 let oImage = `<img draggable="false" src="/TdA%20_%20Ikonky/SVG/O/O_cervene.svg" class="img-fluid align-self-center" alt="O" style="height: 1.65rem">`
-let currentPos = [69, 69]
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split("&");
@@ -70,9 +69,10 @@ function board_edit(x, y) {
         console.log("nuh uh")
         return
     }
+    let currentCoord = `button${currentPos[0]}x${currentPos[1]}`
     if (getQueryVariable("edit") != 1 && currentPos[0] != 69) {
         currentBoard[currentPos[1]][currentPos[0]] = ""
-        document.getElementById(`button${currentPos[0]}x${currentPos[1]}`).innerHTML = ""
+        document.getElementById(currentCoord).innerHTML = ""
     }
     currentPos = [x, y]
     let turn = evaluate_turn()
@@ -83,7 +83,34 @@ function board_edit(x, y) {
         document.getElementById(`button${x}x${y}`).innerHTML = xImage
         currentBoard[y][x] = "X"
     }
+    http_put()
 }
+
+socket.on("update_me", (json) => {
+    if (json["id"] != uuid) { return }
+    board_edit(json["coord"][0], json["coord"][1])
+    currentPos = [69, 69]
+    let winner
+    for (let i = 0; i < 15; i++) {
+        for (let j = 0; j < 15; j++) {
+            winner = check_winstates(i, j)
+            if (Math.abs(winner) > 4) { break }
+        }
+        if (Math.abs(winner) > 4) { break }
+    }
+    console.log(winner)
+    if (Math.abs(winner) > 4) {
+        if (winner > 0) {
+            document.getElementById("wincont").innerHTML = winX
+            document.getElementById("wincont2").innerHTML = winX
+        } else {
+            document.getElementById("wincont").innerHTML = winO
+            document.getElementById("wincont2").innerHTML = winO
+        }
+        document.getElementById("winScreenHolder").style.display = "block"
+        return
+    }
+})
 
 function board_delete(x, y) {
     if (getQueryVariable("edit") != 1) return

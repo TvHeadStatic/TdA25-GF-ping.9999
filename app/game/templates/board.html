@@ -75,15 +75,6 @@
             role="button"
             ><- Go Back</a
         >
-        <button
-            type="button"
-            class="btn btn-primary"
-            id="submitbtn"
-            onclick="http_put()"
-        >
-            Submit
-        </button>
-        
     </p>
     <div id="winScreenHolder" style="display: none;">
         <div style="width: 20rem;" class="card d-none d-sm-flex text-center align-self-center position-fixed top-50 start-50 translate-middle">
@@ -97,6 +88,7 @@
     {% include 'use/footer.html' %}
 </body>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 <script>
     var uuid = "{{ gameData["uuid"] }}"
     var gname = "{{ gameData["name"] }}"
@@ -114,6 +106,8 @@
         ],
         {% endfor %}
     ]
+    var currentPos = [69, 69]
+    var socket = io()
 </script>
 
 <script src="{{url_for('game_bp.static', filename='board.js')}}"></script>

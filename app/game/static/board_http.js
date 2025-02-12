@@ -53,6 +53,13 @@ function http_delete() {
     })
 }
 
+socket.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
+
 function http_put() {
     let winner
     for (let i = 0; i < 15; i++) {
@@ -64,6 +71,14 @@ function http_put() {
     }
     console.log(winner)
     if (Math.abs(winner) > 4) {
+        if (winner > 0) {
+            document.getElementById("wincont").innerHTML = winX
+            document.getElementById("wincont2").innerHTML = winX
+        } else {
+            document.getElementById("wincont").innerHTML = winO
+            document.getElementById("wincont2").innerHTML = winO
+        }
+        document.getElementById("winScreenHolder").style.display = "block"
         fetch(`/api/gateway/${uuid}`, {
             method: "delete",
             headers: {
@@ -73,16 +88,9 @@ function http_put() {
             }
         })
         .then( (response) => {
-            if (winner > 0) {
-                document.getElementById("wincont").innerHTML = winX
-                document.getElementById("wincont2").innerHTML = winX
-            } else {
-                document.getElementById("wincont").innerHTML = winO
-                document.getElementById("wincont2").innerHTML = winO
-            }
-            document.getElementById("submitbtn").disabled = true
-            document.getElementById("backbtn").disabled = true
-            document.getElementById("winScreenHolder").style.display = "block"
+            socket.emit("update_game", { "coord": currentPos, "id": uuid })
+            currentPos = [69, 69]
+            return
         })
         return
     }
@@ -100,10 +108,8 @@ function http_put() {
         })
     })
     .then( (response) => {
-        if (getQueryVariable("edit") == 1) {
-            window.location.replace(`/game/${uuid}?edit=1`)
-        }
-        window.location.replace(`/game/${uuid}`)
+        socket.emit("update_game", { "coord": currentPos, "id": uuid })
+        currentPos = [69, 69]
         return
     })
 }

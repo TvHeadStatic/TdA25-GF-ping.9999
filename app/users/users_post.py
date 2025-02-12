@@ -36,13 +36,13 @@ def users_post(req):
     newsessiontoken = str(uuid.uuid4())
 
     session["user"] = {
-        "uuid": result["email"],
+        "uuid": result["uuid"],
         "email": req["email"],
         "username": req["username"],
         "token": newsessiontoken
     }
     return jsonify({
-        "uuid": result["email"],
+        "uuid": result["uuid"],
         "email": result["email"],
         "username": result["username"],
         "createdAt": result["createdat"],
