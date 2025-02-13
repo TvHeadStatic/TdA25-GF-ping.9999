@@ -32,5 +32,6 @@ RUN pip install requests
 RUN pip install Flask-HTTPAuth
 RUN pip install psycopg2
 RUN pip install python-dotenv
+RUN pip install flask-socketio
 
 CMD ["python3", "-m", "flask", "--app", "app/app.py", "run", "--host=0.0.0.0", "--port=3000"]

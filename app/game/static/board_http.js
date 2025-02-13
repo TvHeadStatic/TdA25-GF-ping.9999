@@ -38,6 +38,20 @@ let winO = `
         ><- Go Back</a
     >
 </p>`
+let gameOver = `
+<h1 class="card-title" id="wintext1">Opponent left</h1>
+<p class="text-center">:/</p>
+<p class="text-center">
+    <br>
+    <a
+        name=""
+        id=""
+        class="btn btn-primary"
+        href="/game"
+        role="button"
+        ><- Go Back</a
+    >
+</p>`
 function http_delete() {
     console.log(uuid)
     fetch(`/api/gateway/${uuid}`, {
@@ -53,12 +67,37 @@ function http_delete() {
     })
 }
 
-socket.on('connection', (socket) => {
-    console.log('a user connected');
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    });
-});
+socket.on('connect', () => {
+    socket.emit("join_game", { "gameuuid": uuid , "playeruuid": userData["uuid"]})
+    console.log('a user connected')
+})
+
+socket.on("join_gamed", (json) => {
+    hturn = json["result"]
+    console.log(":3")
+})
+
+socket.on("leave_game", (json) => {
+    if (players["X"] != json["uuid"] && players["O"] != json["uuid"]) { return }
+    console.log(":(")
+    document.getElementById("wincont").innerHTML = gameOver
+    document.getElementById("wincont2").innerHTML = gameOver
+    document.getElementById("winScreenHolder").style.display = "block"
+    fetch(`/api/gateway/${uuid}`, {
+        method: "delete",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    .then( (response) => {
+        socket.emit("update_game", { "coord": currentPos, "id": uuid })
+        currentPos = [69, 69]
+        return
+    })
+    console.log(":(")
+})
 
 function http_put() {
     let winner

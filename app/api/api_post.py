@@ -7,7 +7,7 @@ from api.ticktacktoe_functionality import validate_gamestate, has_invalid_char, 
 
 def api_post(req):
     dbMan = db_manager()
-    methodQuery = "INSERT INTO piskvorky(uuid, createdAt, updatedAt, name, difficulty, gameState, board) VALUES(%s, %s, %s, %s, %s, %s, %s)"
+    methodQuery = "INSERT INTO piskvorky(uuid, createdAt, updatedAt, name, difficulty, gameState, board, x, o) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
     newuuid = str(uuid.uuid4())
     createdAt = str(datetime.datetime.now())
     updatedAt = str(datetime.datetime.now())
@@ -16,7 +16,7 @@ def api_post(req):
             "status": 422
         }), 422
     gameState = validate_gamestate(req["board"])
-    dbMan.cursor.execute(methodQuery, [newuuid, createdAt, updatedAt, req["name"], req["difficulty"], gameState, str(req["board"])])
+    dbMan.cursor.execute(methodQuery, [newuuid, createdAt, updatedAt, req["name"], req["difficulty"], gameState, str(req["board"]), str(""), str("")])
     dbMan.conn.commit()
     dbMan.free()
     return jsonify({

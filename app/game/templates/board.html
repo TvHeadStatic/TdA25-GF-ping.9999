@@ -88,26 +88,21 @@
     {% include 'use/footer.html' %}
 </body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 <script>
-    var uuid = "{{ gameData["uuid"] }}"
-    var gname = "{{ gameData["name"] }}"
-    var diff = "{{ gameData["difficulty"] }}"
-    var currentBoard = [
-        {% for y in gameData["board"] %}
-        [
-            {% for x in y %}
-            {% if x == "" %}
-                '',
-            {% else %}
-                '{{ x }}',
-            {% endif %}
-            {% endfor %}
-        ],
-        {% endfor %}
-    ]
+    var uuid = '{{ gameData["uuid"] }}'
+    var gname = '{{ gameData["name"] }}'
+    var diff = '{{ gameData["difficulty"] }}'
+    var currentBoard = {{ gameData["board"]|tojson }}
+    var players = {
+        "X": '{{ gameData["x"] }}',
+        "O": '{{ gameData["o"] }}'
+    }
+    var userData = {{ userData|tojson }}
     var currentPos = [69, 69]
     var socket = io()
+    var hturn = true
 </script>
 
 <script src="{{url_for('game_bp.static', filename='board.js')}}"></script>

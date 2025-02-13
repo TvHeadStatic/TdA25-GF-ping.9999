@@ -102,19 +102,7 @@
 </body>
 
 <script>
-    var currentBoard = [
-        {% for y in gameData["board"] %}
-        [
-            {% for x in y %}
-            {% if x == "" %}
-                '',
-            {% else %}
-                '{{ x }}',
-            {% endif %}
-            {% endfor %}
-        ],
-        {% endfor %}
-    ]
+    var currentBoard = {{ gameData["board"]|tojson }}
 </script>
 
 <script src="{{url_for('game_bp.static', filename='board_canvas.js')}}"></script>

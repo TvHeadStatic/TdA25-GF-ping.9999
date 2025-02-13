@@ -69,6 +69,10 @@ function board_edit(x, y) {
         console.log("nuh uh")
         return
     }
+    if (hturn == false) { return }
+    hturn = !hturn
+    console.log(hturn)
+    http_put()
     let currentCoord = `button${currentPos[0]}x${currentPos[1]}`
     if (getQueryVariable("edit") != 1 && currentPos[0] != 69) {
         currentBoard[currentPos[1]][currentPos[0]] = ""
@@ -83,12 +87,37 @@ function board_edit(x, y) {
         document.getElementById(`button${x}x${y}`).innerHTML = xImage
         currentBoard[y][x] = "X"
     }
-    http_put()
 }
+
+function board_edit_bypass(x, y) {
+    if (currentBoard[y][x] != "" && currentBoard[currentPos[1]][currentPos[0]] != "") {
+        console.log("nuh uh")
+        return
+    }
+    let currentCoord = `button${currentPos[0]}x${currentPos[1]}`
+    if (getQueryVariable("edit") != 1 && currentPos[0] != 69) {
+        currentBoard[currentPos[1]][currentPos[0]] = ""
+        document.getElementById(currentCoord).innerHTML = ""
+    }
+    currentPos = [x, y]
+    let turn = evaluate_turn()
+    if (turn > 0) {
+        document.getElementById(`button${x}x${y}`).innerHTML = oImage
+        currentBoard[y][x] = "O"
+    } else {
+        document.getElementById(`button${x}x${y}`).innerHTML = xImage
+        currentBoard[y][x] = "X"
+    }
+}
+
+socket.on("update_turn", (json) => {
+    hturn = !hturn
+    console.log(hturn)
+})
 
 socket.on("update_me", (json) => {
     if (json["id"] != uuid) { return }
-    board_edit(json["coord"][0], json["coord"][1])
+    board_edit_bypass(json["coord"][0], json["coord"][1])
     currentPos = [69, 69]
     let winner
     for (let i = 0; i < 15; i++) {

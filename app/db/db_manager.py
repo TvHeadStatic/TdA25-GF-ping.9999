@@ -11,7 +11,9 @@ class db_manager:
         name TEXT,
         difficulty TEXT,
         gameState TEXT,
-        board TEXT
+        board TEXT,
+        x TEXT,
+        o TEXT
     )
     '''
     sqlInitUsers = '''
