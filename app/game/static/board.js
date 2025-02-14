@@ -87,6 +87,39 @@ function board_edit(x, y) {
         document.getElementById(`button${x}x${y}`).innerHTML = xImage
         currentBoard[y][x] = "X"
     }
+    let winner
+    for (let i = 0; i < 15; i++) {
+        for (let j = 0; j < 15; j++) {
+            winner = check_winstates(i, j)
+            if (Math.abs(winner) > 4) { break }
+        }
+        if (Math.abs(winner) > 4) { break }
+    }
+    console.log(winner)
+    if (Math.abs(winner) > 4) {
+        if (winner > 0) {
+            document.getElementById("wincont").innerHTML = winX
+            document.getElementById("wincont2").innerHTML = winX
+        } else {
+            document.getElementById("wincont").innerHTML = winO
+            document.getElementById("wincont2").innerHTML = winO
+        }
+        document.getElementById("winScreenHolder").style.display = "block"
+        fetch(`/api/gateway/${uuid}`, {
+            method: "delete",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        .then( (response) => {
+            socket.emit("update_game", { "coord": currentPos, "id": uuid })
+            currentPos = [69, 69]
+            return
+        })
+        return
+    }
 }
 
 function board_edit_bypass(x, y) {
@@ -117,6 +150,16 @@ socket.on("update_turn", (json) => {
 
 socket.on("update_me", (json) => {
     if (json["id"] != uuid) { return }
+    var audio = new Audio('/351518.wav')
+    audio.play()
+    $(':button').prop('disabled', false)
+    document.getElementById("loadingscreen").style.display = "none"
+    let gta6 = "[Left Click] - Place"
+    if (hturn) {
+        document.getElementById("guidetext").innerHTML = "Your Turn Now!<br>" + gta6
+    } else {
+        document.getElementById("guidetext").innerHTML = "Opponent's Turn Now!<br>" + gta6
+    }
     board_edit_bypass(json["coord"][0], json["coord"][1])
     currentPos = [69, 69]
     let winner

@@ -67,6 +67,8 @@ function http_delete() {
     })
 }
 
+document.getElementById("loadingscreen").style.display = "flex"
+$(':button').prop('disabled', true)
 socket.on('connect', () => {
     socket.emit("join_game", { "gameuuid": uuid , "playeruuid": userData["uuid"]})
     console.log('a user connected')
@@ -75,6 +77,27 @@ socket.on('connect', () => {
 socket.on("join_gamed", (json) => {
     hturn = json["result"]
     console.log(":3")
+    document.getElementById("loadingscreen").style.display = "none"
+    $(':button').prop('disabled', true)
+    let gta6 = "[Left Click] - Place"
+    document.getElementById("guidetext").innerHTML = "Waiting for a player...<br>" + gta6
+})
+
+socket.on("X_joined", (json) => {
+    players["X"] = String(json)
+    console.log("X assigned to " + json)
+    $(':button').prop('disabled', false)
+})
+
+socket.on("O_joined", (json) => {
+    players["O"] = String(json)
+    console.log("O assigned to " + json)
+    $(':button').prop('disabled', false)
+    let gta6 = "[Left Click] - Place"
+    document.getElementById("guidetext").innerHTML = "Opponent's Turn Now!<br>" + gta6
+    if (hturn) {
+        document.getElementById("guidetext").innerHTML = "Your Turn Now!<br>" + gta6
+    }
 })
 
 socket.on("leave_game", (json) => {
@@ -100,6 +123,8 @@ socket.on("leave_game", (json) => {
 })
 
 function http_put() {
+    document.getElementById("loadingscreen").style.display = "flex"
+    $(':button').prop('disabled', true)
     let winner
     for (let i = 0; i < 15; i++) {
         for (let j = 0; j < 15; j++) {

@@ -15,20 +15,24 @@ def player_joined(json):
         methodQuery = "UPDATE piskvorky SET X = %s WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [json["playeruuid"], json["gameuuid"]])
         dbMan.conn.commit()
+        emit("X_joined", session["user"]["uuid"], broadcast=True, include_self=True)
         emit("join_gamed", { "result": True })
+        return
     elif result["o"] == "" or result["o"] == None:
         methodQuery = "UPDATE piskvorky SET O = %s WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [json["playeruuid"], json["gameuuid"]])
         dbMan.conn.commit()
+        emit("O_joined", session["user"]["uuid"], broadcast=True, include_self=True)
         emit("join_gamed", { "result": False })
+        return
 
 @socketio.on("update_game")
-def handle_my_custom_event(json):
-    emit("update_me", json, broadcast=True, include_self=True)
+def update_game_b(json):
     emit("update_turn", json, broadcast=True, include_self=False)
+    emit("update_me", json, broadcast=True, include_self=True)
 
 @socketio.on('disconnect')
-def handle_my_custom_event(json):
+def disconnect_uwu(json):
     print(json)
     print(session["user"])
     emit("leave_game", session["user"], broadcast=True, include_self=False)
