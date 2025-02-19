@@ -2,7 +2,8 @@ from flask import url_for, session
 from flask_socketio import SocketIO, emit
 import requests
 from db.db_manager import db_manager
-
+import eventlet
+eventlet.monkey_patch()
 socketio = SocketIO(cors_allowed_origins="*")
 
 @socketio.on("join_game")
