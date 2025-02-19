@@ -1,11 +1,9 @@
-
 from flask import Flask, render_template, jsonify
 from sockets.sockets import socketio
 from werkzeug.middleware.proxy_fix import ProxyFix
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
-import eventlet
 
 from gateway.gateway import gateway_bp
 from api.api import api_bp
@@ -25,9 +23,7 @@ app.register_blueprint(gateway_bp)
 app.register_blueprint(api_bp)
 app.register_blueprint(game_bp)
 app.register_blueprint(users_bp)
-with app.app_context():
-    eventlet.monkey_patch()
-socketio.init_app(app)
+socketio.init_app(app, cors_allowed_origins="*")
 
 print("API_SECRET env test (not actual key don' worry): " + str(os.getenv("API_SECRET")))
 if __name__ == '__main__':

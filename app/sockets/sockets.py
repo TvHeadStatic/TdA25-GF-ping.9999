@@ -3,7 +3,7 @@ from flask_socketio import SocketIO, emit
 import requests
 from db.db_manager import db_manager
 
-socketio = SocketIO(cors_allowed_origins="*")
+socketio = SocketIO()
 
 @socketio.on("join_game")
 def player_joined(data):
