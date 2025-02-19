@@ -10,7 +10,7 @@ def player_joined(data):
     print("data uwu:")
     print(data)
     emit("X_joined", session["user"]["uuid"], broadcast=True, include_self=True)
-    emit("join_gamed", { "result": True })
+    emit("join_gamed", data)
     # dbMan = db_manager()
     # r = requests.get(url_for("api_bp.api", id=data["gameuuid"], _external=True))
     # result = r.json()
