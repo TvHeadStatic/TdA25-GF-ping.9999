@@ -7,10 +7,10 @@ socketio = SocketIO(cors_allowed_origins="*")
 
 @socketio.on("join_game")
 def player_joined(json):
+    print(json)
     dbMan = db_manager()
     r = requests.get(url_for("api_bp.api", id=json["gameuuid"], _external=True))
     result = r.json()
-    print(json["playeruuid"])
     if result["x"] == "" or result["x"] == None:
         methodQuery = "UPDATE piskvorky SET X = %s WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [json["playeruuid"], json["gameuuid"]])
