@@ -1,6 +1,7 @@
-from flask import url_for, session
+from flask import session
 from flask_socketio import SocketIO, emit
 import requests
+from ast import literal_eval
 from db.db_manager import db_manager
 
 socketio = SocketIO()
@@ -9,25 +10,26 @@ socketio = SocketIO()
 def player_joined(data):
     print("data uwu:")
     print(data)
-    emit("X_joined", session["user"]["uuid"], broadcast=True, include_self=True)
-    emit("join_gamed", data)
-    # dbMan = db_manager()
-    # r = requests.get(url_for("api_bp.api", id=data["gameuuid"], _external=True))
-    # result = r.json()
-    # if result["x"] == "" or result["x"] == None:
-    #     methodQuery = "UPDATE piskvorky SET X = %s WHERE uuid LIKE %s"
-    #     dbMan.cursor.execute(methodQuery, [data["playeruuid"], data["gameuuid"]])
-    #     dbMan.conn.commit()
-    #     emit("X_joined", session["user"]["uuid"], broadcast=True, include_self=True)
-    #     emit("join_gamed", { "result": True })
-    #     return
-    # elif result["o"] == "" or result["o"] == None:
-    #     methodQuery = "UPDATE piskvorky SET O = %s WHERE uuid LIKE %s"
-    #     dbMan.cursor.execute(methodQuery, [data["playeruuid"], data["gameuuid"]])
-    #     dbMan.conn.commit()
-    #     emit("O_joined", session["user"]["uuid"], broadcast=True, include_self=True)
-    #     emit("join_gamed", { "result": False })
-    #     return
+    dbMan = db_manager()
+    methodQuery = "SELECT * FROM piskvorky WHERE uuid LIKE %s"
+    dbMan.cursor.execute(methodQuery, [data["gameuuid"]])
+    result = dbMan.cursor.fetchone()
+    result["board"] = literal_eval(result["board"])
+
+    if result["x"] == "" or result["x"] == None:
+        methodQuery = "UPDATE piskvorky SET X = %s WHERE uuid LIKE %s"
+        dbMan.cursor.execute(methodQuery, [data["playeruuid"], data["gameuuid"]])
+        dbMan.conn.commit()
+        emit("X_joined", session["user"]["uuid"], broadcast=True, include_self=True)
+        emit("join_gamed", { "result": True })
+        return
+    elif result["o"] == "" or result["o"] == None:
+        methodQuery = "UPDATE piskvorky SET O = %s WHERE uuid LIKE %s"
+        dbMan.cursor.execute(methodQuery, [data["playeruuid"], data["gameuuid"]])
+        dbMan.conn.commit()
+        emit("O_joined", session["user"]["uuid"], broadcast=True, include_self=True)
+        emit("join_gamed", { "result": False })
+        return
 
 @socketio.on("update_game")
 def update_game_b(data):
