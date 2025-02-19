@@ -12,20 +12,17 @@ from users.users import users_bp
 
 if os.path.isfile(".env"): load_dotenv()
 
-def init_app():
-    app = Flask(__name__)
-    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1, x_proto=1, x_prefix=1)
-    app.url_map.strict_slashes = False
-    app.secret_key = "test"
-    app.permanent_session_lifetime = timedelta(days = 1)
-    app.register_blueprint(gateway_bp)
-    app.register_blueprint(api_bp)
-    app.register_blueprint(game_bp)
-    app.register_blueprint(users_bp)
-    socketio.init_app(app)
-    return app
+app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1, x_proto=1, x_prefix=1)
+app.url_map.strict_slashes = False
+app.secret_key = "test"
+app.permanent_session_lifetime = timedelta(days = 1)
+app.register_blueprint(gateway_bp)
+app.register_blueprint(api_bp)
+app.register_blueprint(game_bp)
+app.register_blueprint(users_bp)
+socketio.init_app(app)
 
 print("API_SECRET env test (not actual key don' worry): " + str(os.getenv("API_SECRET")))
 if __name__ == '__main__':
-    app = init_app()
     socketio.run(app)
