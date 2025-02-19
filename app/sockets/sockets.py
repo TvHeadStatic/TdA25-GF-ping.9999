@@ -6,65 +6,66 @@ from db.db_manager import db_manager
 socketio = SocketIO(cors_allowed_origins="*")
 
 @socketio.on("join_game")
-def player_joined(json):
-    print(json)
+def player_joined(data):
+    print("data uwu:")
+    print(data)
     dbMan = db_manager()
-    r = requests.get(url_for("api_bp.api", id=json["gameuuid"], _external=True))
+    r = requests.get(url_for("api_bp.api", id=data["gameuuid"], _external=True))
     result = r.json()
     if result["x"] == "" or result["x"] == None:
         methodQuery = "UPDATE piskvorky SET X = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [json["playeruuid"], json["gameuuid"]])
+        dbMan.cursor.execute(methodQuery, [data["playeruuid"], data["gameuuid"]])
         dbMan.conn.commit()
         emit("X_joined", session["user"]["uuid"], broadcast=True, include_self=True)
         emit("join_gamed", { "result": True })
         return
     elif result["o"] == "" or result["o"] == None:
         methodQuery = "UPDATE piskvorky SET O = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [json["playeruuid"], json["gameuuid"]])
+        dbMan.cursor.execute(methodQuery, [data["playeruuid"], data["gameuuid"]])
         dbMan.conn.commit()
         emit("O_joined", session["user"]["uuid"], broadcast=True, include_self=True)
         emit("join_gamed", { "result": False })
         return
 
 @socketio.on("update_game")
-def update_game_b(json):
-    emit("update_turn", json, broadcast=True, include_self=False)
-    emit("update_me", json, broadcast=True, include_self=True)
+def update_game_b(data):
+    emit("update_turn", data, broadcast=True, include_self=False)
+    emit("update_me", data, broadcast=True, include_self=True)
 
 @socketio.on('disconnect')
-def disconnect_uwu(json):
-    print(json)
+def disconnect_uwu(data):
+    print(data)
     print(session["user"])
     emit("leave_game", session["user"], broadcast=True, include_self=False)
     print("player left")
 
 @socketio.on('end_game')
-def i_am_steve(json):
+def i_am_steve(data):
     dbMan = db_manager()
 
-    if json["winner"] == "x":
+    if data["winner"] == "x":
         methodQuery = "UPDATE users SET wins = wins + 1 WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [json["x"]])
+        dbMan.cursor.execute(methodQuery, [data["x"]])
         methodQuery = "UPDATE users SET losses = losses + 1 WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [json["o"]])
+        dbMan.cursor.execute(methodQuery, [data["o"]])
         print("Cum")
-        print(json)
+        print(data)
     
-    elif json["winner"] == "o":
+    elif data["winner"] == "o":
         methodQuery = "UPDATE users SET wins = wins + 1 WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [json["o"]])
+        dbMan.cursor.execute(methodQuery, [data["o"]])
         methodQuery = "UPDATE users SET losses = losses + 1 WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [json["x"]])
+        dbMan.cursor.execute(methodQuery, [data["x"]])
         print("Piss")
-        print(json)
+        print(data)
 
     
     else:
         methodQuery = "UPDATE users SET draws = draws + 1 WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [json["x"]])
-        dbMan.cursor.execute(methodQuery, [json["o"]])
+        dbMan.cursor.execute(methodQuery, [data["x"]])
+        dbMan.cursor.execute(methodQuery, [data["o"]])
         print("Peanut")
-        print(json)
+        print(data)
 
 
     dbMan.free()
