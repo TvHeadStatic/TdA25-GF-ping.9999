@@ -10,6 +10,9 @@ from api.api import api_bp
 from game.game import game_bp
 from users.users import users_bp
 
+import eventlet
+eventlet.monkey_patch()
+
 if os.path.isfile(".env"): load_dotenv()
 
 app = Flask(__name__)
