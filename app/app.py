@@ -16,6 +16,7 @@ app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1, x_proto=1, x_prefix=1)
 app.url_map.strict_slashes = False
 app.secret_key = "test"
+app.config['SECRET_KEY'] = "test"
 app.permanent_session_lifetime = timedelta(days = 1)
 app.register_blueprint(gateway_bp)
 app.register_blueprint(api_bp)
