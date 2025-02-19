@@ -37,3 +37,34 @@ def disconnect_uwu(json):
     print(session["user"])
     emit("leave_game", session["user"], broadcast=True, include_self=False)
     print("player left")
+
+@socketio.on('end_game')
+def i_am_steve(json):
+    dbMan = db_manager()
+
+    if json["winner"] == "x":
+        methodQuery = "UPDATE users SET wins = wins + 1 WHERE uuid LIKE %s"
+        dbMan.cursor.execute(methodQuery, [json["x"]])
+        methodQuery = "UPDATE users SET losses = losses + 1 WHERE uuid LIKE %s"
+        dbMan.cursor.execute(methodQuery, [json["o"]])
+        print("Cum")
+        print(json)
+    
+    elif json["winner"] == "o":
+        methodQuery = "UPDATE users SET wins = wins + 1 WHERE uuid LIKE %s"
+        dbMan.cursor.execute(methodQuery, [json["o"]])
+        methodQuery = "UPDATE users SET losses = losses + 1 WHERE uuid LIKE %s"
+        dbMan.cursor.execute(methodQuery, [json["x"]])
+        print("Piss")
+        print(json)
+
+    
+    else:
+        methodQuery = "UPDATE users SET draws = draws + 1 WHERE uuid LIKE %s"
+        dbMan.cursor.execute(methodQuery, [json["x"]])
+        dbMan.cursor.execute(methodQuery, [json["o"]])
+        print("Peanut")
+        print(json)
+
+
+    dbMan.free()

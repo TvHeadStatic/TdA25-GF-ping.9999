@@ -25,7 +25,7 @@ def users_post(req):
     methodQuery = "INSERT INTO users(uuid, createdAt, email, username, password, salt, elo, wins, draws, losses) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     salt = hex(random.randrange(0, 2**24))
     newPassword = hashlib.sha256(f"{req['password']}{salt}".encode()).hexdigest()
-    dbMan.cursor.execute(methodQuery, [str(uuid.uuid4()), str(datetime.datetime.now()), req["email"], req["username"], newPassword, salt, 0.0, 0, 0, 0])
+    dbMan.cursor.execute(methodQuery, [str(uuid.uuid4()), str(datetime.datetime.now()), req["email"], req["username"], newPassword, salt, 400.0, 0, 0, 0])
     dbMan.conn.commit()
     
     methodQuery = "SELECT * FROM users WHERE email LIKE %s"
