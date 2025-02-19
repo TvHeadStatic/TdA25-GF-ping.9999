@@ -24,6 +24,7 @@ DB_NAME="your database name"
 <li>Install the Flask-HTTPAuth package: <code>pip install Flask-HTTPAuth</code></li>
 <li>Install the dotenv package: <code>pip install python-dotenv</code></li>
 <li>Install the psycopg2 package: <code>pip install psycopg2</code></li>
+<li>Install the flask-socketio package: <code>pip install flask-socketio</code></li>
 <li>Run the project with <code>python ./app/app.py</code></li>
 </ol>
 <p><small>*note: It has come to our attention, that using Docker without build-args breaks environment variables. If you want to use Docker, <a href="https://stackoverflow.com/questions/34254200/how-to-pass-arguments-to-a-dockerfile#34254700">here's a comprehensive stack-overflow answer showing off how to build with build-args</a><small>.<br>(to make your life easier, the build-args are called the exact same as in the .env file)</p>
