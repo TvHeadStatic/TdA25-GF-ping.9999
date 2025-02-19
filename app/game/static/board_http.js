@@ -138,13 +138,11 @@ function http_put() {
         if (winner > 0) {
             document.getElementById("wincont").innerHTML = winX
             document.getElementById("wincont2").innerHTML = winX
-            socket.emit("end_game", {"winner": "x", "x": players["X"], "o": players["O"]})
-            console.log("moans")
+            
         } else {
             document.getElementById("wincont").innerHTML = winO
             document.getElementById("wincont2").innerHTML = winO
-            socket.emit("end_game", {"winner": "o", "x": players["X"], "o": players["O"]}) 
-            console.log("moanz")
+            
 
         }
         document.getElementById("winScreenHolder").style.display = "block"
