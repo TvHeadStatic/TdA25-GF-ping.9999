@@ -1,6 +1,6 @@
 from flask import session
 from flask_socketio import SocketIO, emit
-import requests
+import requests, math
 from ast import literal_eval
 from db.db_manager import db_manager
 
@@ -48,12 +48,15 @@ def i_am_steve(data):
     dbMan = db_manager()
 
     if data["winner"] == "x":
+        
         methodQuery = "UPDATE users SET wins = wins + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["x"]])
         dbMan.conn.commit()
         methodQuery = "UPDATE users SET losses = losses + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["o"]])
         dbMan.conn.commit()
+        calculate_elo(data["x"], data["o"], 1)
+        calculate_elo(data["o"], data["x"], 0)
         print("Cum")
         print(data)
     
@@ -64,14 +67,19 @@ def i_am_steve(data):
         methodQuery = "UPDATE users SET losses = losses + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["x"]])
         dbMan.conn.commit()
+        calculate_elo(data["x"], data["o"], 0)
+        calculate_elo(data["o"], data["x"], 1)
         print("Piss")
         print(data)
-
     
     else:
         methodQuery = "UPDATE users SET draws = draws + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["x"]])
+        dbMan.conn.commit()
         dbMan.cursor.execute(methodQuery, [data["o"]])
+        dbMan.conn.commit()
+        calculate_elo(data["x"], data["o"], 0.5)
+        calculate_elo(data["o"], data["x"], 0.5)
         print("Peanut")
         print(data)
 
@@ -79,13 +87,23 @@ def i_am_steve(data):
     dbMan.free()
 
 
-def calculate_elo(playerId, opponentId):
+def calculate_elo(playerId, opponentId, realScore):
     dbMan = db_manager()
     methodQuery = "SELECT users.elo, users.wins, users.draws, users.losses FROM users WHERE uuid LIKE %s"
     dbMan.cursor.execute(methodQuery, [playerId])
     playerResult = dbMan.cursor.fetchone()
     dbMan.cursor.execute(methodQuery, [opponentId])
     opponentResult = dbMan.cursor.fetchone()
+    
+    playerELO = playerResult["elo"]
+    opponentELO = opponentResult["elo"]
+    W = playerResult["wins"]
+    D = playerResult["draws"]
+    L = playerResult["losses"]
+    
+    prediction = 1 / (1 + 10**((opponentELO - playerELO) / 400))
+    finalElo = math.ceil(playerELO + (40 * (realScore - prediction) * (1 + (0.5 * (0.5 - ((W + D) / (W + D + L)))))))
+
+    dbMan.cursor.execute("UPDATE users SET elo = %s WHERE uuid LIKE %s", [finalElo, playerId])
+    dbMan.conn.commit()
     dbMan.free()
-    # Ea = 1/(1+((Rb-Ra)/40))
-    # return finalElo
