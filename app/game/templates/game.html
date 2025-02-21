@@ -11,6 +11,9 @@
     <title>{{ title }}</title>
 </head>
 <body class="container-fluid bg-light d-flex flex-column min-vh-100" style="overflow-x: hidden;">
+    <div id="loadingscreen" style="display: none;">
+        <span class="loader"></span>
+    </div>
     <p></p>
     <div class="card h-20">
         <div class="card-body">
@@ -107,5 +110,6 @@
     {% include 'use/footer.html' %}
 </body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{{ url_for('game_bp.static', filename='login_signup.js') }}"></script>
 </html>

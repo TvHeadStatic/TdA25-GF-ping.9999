@@ -1,4 +1,6 @@
 function LoginScreen() {
+    document.getElementById("loadingscreen").style.display = "flex"
+    $(':button').prop('disabled', true)
     fetch("/api/v1/users/login", {
         method: "post",
         headers: {
@@ -12,6 +14,8 @@ function LoginScreen() {
     })
     .then(r =>  r.json().then(data => ({status: r.status, body: data})))
     .then( (response) => {
+        document.getElementById("loadingscreen").style.display = "none"
+        $(':button').prop('disabled', false)
         if (response.body["response"] != "session already active, you're good to go") {
             document.getElementById("loginHolder").style.display = "block"
         } else {
@@ -31,6 +35,8 @@ function Destroy() {
 }
 
 function login_user(mail, pass) {
+    document.getElementById("loadingscreen").style.display = "flex"
+    $(':button').prop('disabled', true)
     fetch("/api/v1/users/login", {
             method: "post",
             headers: {
@@ -45,6 +51,8 @@ function login_user(mail, pass) {
     .then(r =>  r.json().then(data => ({status: r.status, body: data})))
     .then( (response) => {
         if (response.status != 201) {
+            document.getElementById("loadingscreen").style.display = "none"
+            $(':button').prop('disabled', false)
             document.getElementsByClassName("loginwarn")[0].innerHTML = response.body["reason"]
             document.getElementsByClassName("loginwarn")[1].innerHTML = response.body["reason"]
             document.getElementsByClassName("loginwarn")[0].style.display = "block"
@@ -57,6 +65,8 @@ function login_user(mail, pass) {
 }
 
 function signup_user(name, mail, pass) {
+    document.getElementById("loadingscreen").style.display = "flex"
+    $(':button').prop('disabled', true)
     fetch("/api/v1/users", {
             method: "post",
             headers: {
@@ -71,6 +81,8 @@ function signup_user(name, mail, pass) {
     })
     .then(r =>  r.json().then(data => ({status: r.status, body: data})))
     .then( (response) => {
+        document.getElementById("loadingscreen").style.display = "none"
+        $(':button').prop('disabled', false)
         if (response.status != 201) {
             document.getElementsByClassName("signupwarn")[0].innerHTML = response.body["reason"]
             document.getElementsByClassName("signupwarn")[1].innerHTML = response.body["reason"]
@@ -84,6 +96,8 @@ function signup_user(name, mail, pass) {
 }
 
 function signout_user() {
+    document.getElementById("loadingscreen").style.display = "flex"
+    $(':button').prop('disabled', true)
     fetch("/api/v1/users/signout", {
         method: "get",
         headers: {

@@ -13,6 +13,9 @@
 </head>
 <body class="container-fluid bg-light d-flex flex-column min-vh-100">
     {% include 'use/navbar.html' %}
+    <div id="loadingscreen" style="display: none">
+        <span class="loader"></span>
+    </div>
     <p><br></p>
     <section class="d-flex justify-content-center" style="width: 100%;">
         <img
@@ -52,6 +55,53 @@
     {% include 'use/footer.html' %}
 </body>
 
+<style>
+    #loadingscreen {
+        width: 100%;
+        height: 100%;
+        /* background: #00000073; */
+        position: fixed;
+        left: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9;
+    }
+
+    @media (orientation: portrait) {
+        .overflown {
+            overflow-y: hidden !important;
+            overflow: scroll;
+        }
+    }
+    .loader {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        position: relative;
+        transform:rotate(45deg);
+        background: var(--tda-danger);
+    }
+    .loader::before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        inset: 0px;
+        border-radius: 50%;
+        border:24px solid var(--tda-blue);
+        animation: prixClipFix .5s infinite linear;
+    }
+
+    @keyframes prixClipFix {
+        0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+        25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+        50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+        75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+        100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+    }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{{url_for('game_bp.static', filename='coolEffect.js')}}"></script>
 <script src="{{ url_for('game_bp.static', filename='login_signup.js') }}"></script>
 </html>
