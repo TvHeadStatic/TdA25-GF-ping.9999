@@ -154,7 +154,7 @@ function http_put() {
         if (Math.abs(winner) > 4) { break }
     }
     console.log(winner)
-    if (Math.abs(winner) < 5 && !exists(currentBoard, " ")) {
+    if (Math.abs(winner) < 5 && !exists(currentBoard, "")) {
         document.getElementById("wincont").innerHTML = winDraw
         document.getElementById("wincont2").innerHTML = winDraw
         socket.emit("end_game", {"winner": "Duck", "x": players["X"], "o": players["O"]})
@@ -174,7 +174,7 @@ function http_put() {
         })
         return
     }
-    else if (Math.abs(winner) > 4) {
+    if (Math.abs(winner) > 4) {
         if (winner > 0) {
             document.getElementById("wincont").innerHTML = winX
             document.getElementById("wincont2").innerHTML = winX

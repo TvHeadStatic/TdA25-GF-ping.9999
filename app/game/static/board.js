@@ -96,7 +96,7 @@ function board_edit(x, y) {
         if (Math.abs(winner) > 4) { break }
     }
     console.log(winner)
-    if (Math.abs(winner) < 5 && !exists(currentBoard, " ")) {
+    if (Math.abs(winner) < 5 && !exists(currentBoard, "")) {
         document.getElementById("wincont").innerHTML = winDraw
         document.getElementById("wincont2").innerHTML = winDraw
         socket.emit("end_game", {"winner": "Duck", "x": players["X"], "o": players["O"]})
@@ -116,7 +116,7 @@ function board_edit(x, y) {
         })
         return
     }
-    else if (Math.abs(winner) > 4) {
+    if (Math.abs(winner) > 4) {
         if (winner > 0) {
             document.getElementById("wincont").innerHTML = winX
             document.getElementById("wincont2").innerHTML = winX
@@ -195,13 +195,13 @@ socket.on("update_me", (json) => {
         if (Math.abs(winner) > 4) { break }
     }
     console.log(winner)
-    if (Math.abs(winner) < 5 && !exists(currentBoard, " ")) {
+    if (Math.abs(winner) < 5 && !exists(currentBoard, "")) {
         document.getElementById("wincont").innerHTML = winDraw
         document.getElementById("wincont2").innerHTML = winDraw
         document.getElementById("winScreenHolder").style.display = "block"
         return
     }
-    else if (Math.abs(winner) > 4) {
+    if (Math.abs(winner) > 4) {
         if (winner > 0) {
             document.getElementById("wincont").innerHTML = winX
             document.getElementById("wincont2").innerHTML = winX
