@@ -5,7 +5,7 @@ from psycopg2.extras import RealDictCursor
 class db_manager:
     sqlInitPiskvorky = '''
     CREATE TABLE IF NOT EXISTS piskvorky (
-        uuid VARCHAR(36) PRIMARY KEY,
+        uuid TEXT PRIMARY KEY,
         createdAt DATE,
         updatedAt DATE,
         name TEXT,

@@ -1,6 +1,7 @@
 from flask import jsonify
 import uuid
 import datetime
+import os
 
 from db.db_manager import db_manager
 from api.ticktacktoe_functionality import validate_gamestate, has_invalid_char, has_illegal_size, has_bad_actor
@@ -8,7 +9,7 @@ from api.ticktacktoe_functionality import validate_gamestate, has_invalid_char, 
 def api_post(req):
     dbMan = db_manager()
     methodQuery = "INSERT INTO piskvorky(uuid, createdAt, updatedAt, name, difficulty, gameState, board, x, o) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-    newuuid = str(uuid.uuid4())
+    newuuid = str(os.urandom(3).hex())
     createdAt = str(datetime.datetime.now())
     updatedAt = str(datetime.datetime.now())
     if has_invalid_char(req["board"]) or has_illegal_size(req["board"]) or has_bad_actor(req["board"]):
