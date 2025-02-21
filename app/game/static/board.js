@@ -96,7 +96,27 @@ function board_edit(x, y) {
         if (Math.abs(winner) > 4) { break }
     }
     console.log(winner)
-    if (Math.abs(winner) > 4) {
+    if (Math.abs(winner) < 5 && !exists(currentBoard, " ")) {
+        document.getElementById("wincont").innerHTML = winDraw
+        document.getElementById("wincont2").innerHTML = winDraw
+        socket.emit("end_game", {"winner": "Duck", "x": players["X"], "o": players["O"]})
+        document.getElementById("winScreenHolder").style.display = "block"
+        fetch(`/api/gateway/${uuid}`, {
+            method: "delete",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        .then( (response) => {
+            socket.emit("update_game", { "coord": currentPos, "id": uuid })
+            currentPos = [69, 69]
+            return
+        })
+        return
+    }
+    else if (Math.abs(winner) > 4) {
         if (winner > 0) {
             document.getElementById("wincont").innerHTML = winX
             document.getElementById("wincont2").innerHTML = winX
@@ -107,7 +127,6 @@ function board_edit(x, y) {
             document.getElementById("wincont2").innerHTML = winO
             socket.emit("end_game", {"winner": "o", "x": players["X"], "o": players["O"]}) 
             console.log("moanz")
-
         }
         document.getElementById("winScreenHolder").style.display = "block"
         fetch(`/api/gateway/${uuid}`, {
@@ -176,7 +195,13 @@ socket.on("update_me", (json) => {
         if (Math.abs(winner) > 4) { break }
     }
     console.log(winner)
-    if (Math.abs(winner) > 4) {
+    if (Math.abs(winner) < 5 && !exists(currentBoard, " ")) {
+        document.getElementById("wincont").innerHTML = winDraw
+        document.getElementById("wincont2").innerHTML = winDraw
+        document.getElementById("winScreenHolder").style.display = "block"
+        return
+    }
+    else if (Math.abs(winner) > 4) {
         if (winner > 0) {
             document.getElementById("wincont").innerHTML = winX
             document.getElementById("wincont2").innerHTML = winX

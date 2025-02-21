@@ -106,6 +106,9 @@
     var currentPos = [69, 69]
     var socket = io({transports: ["websocket"]})
     var hturn = true
+    function exists(arr, search) {
+        return arr.some(row => row.includes(search));
+    }
 </script>
 
 <script src="{{url_for('game_bp.static', filename='board.js')}}"></script>

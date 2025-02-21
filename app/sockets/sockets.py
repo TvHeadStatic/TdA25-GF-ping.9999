@@ -50,16 +50,20 @@ def i_am_steve(data):
     if data["winner"] == "x":
         methodQuery = "UPDATE users SET wins = wins + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["x"]])
+        dbMan.conn.commit()
         methodQuery = "UPDATE users SET losses = losses + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["o"]])
+        dbMan.conn.commit()
         print("Cum")
         print(data)
     
     elif data["winner"] == "o":
         methodQuery = "UPDATE users SET wins = wins + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["o"]])
+        dbMan.conn.commit()
         methodQuery = "UPDATE users SET losses = losses + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["x"]])
+        dbMan.conn.commit()
         print("Piss")
         print(data)
 

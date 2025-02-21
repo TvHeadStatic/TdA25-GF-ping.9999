@@ -1,5 +1,5 @@
 let winX = `
-<h1 class="card-title" id="wintext1">X Won!</h1>
+<h1 class="card-title" id="wintext1">✖️X Won!✖️</h1>
 <img
     draggable="false"
     src="/TdA%20_%20Ikonky/SVG/X/X_modre.svg"
@@ -19,12 +19,32 @@ let winX = `
     >
 </p>`
 let winO = `
-<h1 class="card-title" id="wintext1">O Won!</h1>
+<h1 class="card-title" id="wintext1">⭕O Won!⭕</h1>
 <img
     draggable="false"
     src="/TdA%20_%20Ikonky/SVG/O/O_cervene.svg"
     class="img-fluid align-self-center"
     alt="X"
+    style="height: 4rem"
+/>
+<p class="text-center">
+    <br>
+    <a
+        name=""
+        id=""
+        class="btn btn-primary"
+        href="/game"
+        role="button"
+        ><- Go Back</a
+    >
+</p>`
+let winDraw = `
+<h1 class="card-title" id="wintext1">👔It's a tie👔</h1>
+<img
+    draggable="false"
+    src="/TdA%20_%20Ikonky/SVG/Duck/flag{p1skw0rky-4r3-n0t-d34d}_1.svg"
+    class="img-fluid align-self-center"
+    alt="Duck"
     style="height: 4rem"
 />
 <p class="text-center">
@@ -134,7 +154,27 @@ function http_put() {
         if (Math.abs(winner) > 4) { break }
     }
     console.log(winner)
-    if (Math.abs(winner) > 4) {
+    if (Math.abs(winner) < 5 && !exists(currentBoard, " ")) {
+        document.getElementById("wincont").innerHTML = winDraw
+        document.getElementById("wincont2").innerHTML = winDraw
+        socket.emit("end_game", {"winner": "Duck", "x": players["X"], "o": players["O"]})
+        document.getElementById("winScreenHolder").style.display = "block"
+        fetch(`/api/gateway/${uuid}`, {
+            method: "delete",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        .then( (response) => {
+            socket.emit("update_game", { "coord": currentPos, "id": uuid })
+            currentPos = [69, 69]
+            return
+        })
+        return
+    }
+    else if (Math.abs(winner) > 4) {
         if (winner > 0) {
             document.getElementById("wincont").innerHTML = winX
             document.getElementById("wincont2").innerHTML = winX
