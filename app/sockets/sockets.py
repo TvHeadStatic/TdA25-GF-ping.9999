@@ -77,3 +77,15 @@ def i_am_steve(data):
 
 
     dbMan.free()
+
+
+def calculate_elo(playerId, opponentId):
+    dbMan = db_manager()
+    methodQuery = "SELECT users.elo, users.wins, users.draws, users.losses FROM users WHERE uuid LIKE %s"
+    dbMan.cursor.execute(methodQuery, [playerId])
+    playerResult = dbMan.cursor.fetchone()
+    dbMan.cursor.execute(methodQuery, [opponentId])
+    opponentResult = dbMan.cursor.fetchone()
+    dbMan.free()
+    # Ea = 1/(1+((Rb-Ra)/40))
+    # return finalElo
