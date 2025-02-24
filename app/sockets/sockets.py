@@ -1,6 +1,7 @@
 from flask import session
 from flask_socketio import SocketIO, emit
-import requests, math
+import requests
+from math import ceil
 from ast import literal_eval
 from db.db_manager import db_manager
 
@@ -102,7 +103,7 @@ def calculate_elo(playerId, opponentId, realScore):
     L = playerResult["losses"]
     
     prediction = 1 / (1 + 10**((opponentELO - playerELO) / 400))
-    finalElo = math.ceil(playerELO + (40 * (realScore - prediction) * (1 + (0.5 * (0.5 - ((W + D) / (W + D + L)))))))
+    finalElo = ceil(playerELO + (40 * (realScore - prediction) * (1 + (0.5 * (0.5 - ((W + D) / (W + D + L)))))))
 
     dbMan.cursor.execute("UPDATE users SET elo = %s WHERE uuid LIKE %s", [finalElo, playerId])
     dbMan.conn.commit()
