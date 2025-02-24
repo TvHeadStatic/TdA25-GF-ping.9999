@@ -16,13 +16,14 @@ def player_joined(data):
     dbMan.cursor.execute(methodQuery, [data["gameuuid"]])
     result = dbMan.cursor.fetchone()
     result["board"] = literal_eval(result["board"])
-
+    session["user"]["lastgame"] = data["gameuuid"]
     if result["x"] == "" or result["x"] == None:
         methodQuery = "UPDATE piskvorky SET X = %s WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["playeruuid"], data["gameuuid"]])
         dbMan.conn.commit()
         emit("X_joined", session["user"]["uuid"], broadcast=True, include_self=True)
         emit("join_gamed", { "result": True })
+        dbMan.free()
         return
     elif result["o"] == "" or result["o"] == None:
         methodQuery = "UPDATE piskvorky SET O = %s WHERE uuid LIKE %s"
@@ -30,6 +31,7 @@ def player_joined(data):
         dbMan.conn.commit()
         emit("O_joined", session["user"]["uuid"], broadcast=True, include_self=True)
         emit("join_gamed", { "result": False })
+        dbMan.free()
         return
 
 @socketio.on("update_game")
@@ -42,6 +44,11 @@ def disconnect_uwu(data):
     print(data)
     print(session["user"])
     emit("leave_game", session["user"], broadcast=True, include_self=False)
+    dbMan = db_manager()
+    methodQuery = "DELETE FROM piskvorky WHERE uuid LIKE %s"
+    dbMan.cursor.execute(methodQuery, [session["user"]["lastgame"]])
+    dbMan.conn.commit()
+    dbMan.free()
     print("player left")
 
 @socketio.on('end_game')
