@@ -2,6 +2,7 @@ from flask import Flask, render_template, Blueprint, request, session, url_for, 
 import requests
 from ast import literal_eval
 from db.db_manager import db_manager
+from api.api_post import api_post
 
 game_bp = Blueprint('game_bp', __name__, template_folder = "./templates", static_folder="static", static_url_path="/")
 
@@ -58,14 +59,43 @@ def gaming(id):
     return redirect(url_for("game_bp.main"))
 
 @game_bp.route("/game/matchmaking")
-def matchumakingu():
+def matchumakingu(elo):
     dbMan = db_manager()
     methodQuery = '''
-    select piskvorky.uuid, piskvorky.x, users.elo from piskvorky
-    join users on piskvorky.x = users.uuid
-    where piskvorky.o is null and elo <= %s order by elo desc limit 1;
+    SELECT piskvorky.uuid, piskvorky.x, users.elo FROM piskvorky
+    JOIN users ON piskvorky.x = users.uuid
+    WHERE piskvorky.o IS NULL AND elo <= %s + 100 ORDER BY elo DESC LIMIT 1;
     '''
-    dbMan.cursor.execute(methodQuery)
+    dbMan.cursor.execute(methodQuery, [elo])
     result = dbMan.cursor.fetchall()
     dbMan.free()
-    return result
+
+    gameDat = {
+        "board": [
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+            ],
+                "difficulty": "extreme",
+                "gameState": "opening",
+                "name": "WIP",
+    }
+
+    if len(result) == 0:
+        requests.post("api_bp.api", json = gameDat)
+        return redirect(requests.get(url_for("game_bp.gaming", id=requests.get(url_for("api_bp.api", id=id, _external=True)))))
+    else:
+        return redirect(requests.get(url_for("game_bp.gaming", id=result["uuid"])))
+    
