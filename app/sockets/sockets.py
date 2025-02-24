@@ -54,9 +54,7 @@ def disconnect_uwu(data):
 @socketio.on('end_game')
 def i_am_steve(data):
     dbMan = db_manager()
-
     if data["winner"] == "x":
-        
         methodQuery = "UPDATE users SET wins = wins + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["x"]])
         dbMan.conn.commit()
@@ -67,7 +65,6 @@ def i_am_steve(data):
         calculate_elo(data["o"], data["x"], 0)
         print("Cum")
         print(data)
-    
     elif data["winner"] == "o":
         methodQuery = "UPDATE users SET wins = wins + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["o"]])
@@ -79,7 +76,6 @@ def i_am_steve(data):
         calculate_elo(data["o"], data["x"], 1)
         print("Piss")
         print(data)
-    
     else:
         methodQuery = "UPDATE users SET draws = draws + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["x"]])
@@ -90,8 +86,6 @@ def i_am_steve(data):
         calculate_elo(data["o"], data["x"], 0.5)
         print("Peanut")
         print(data)
-
-
     dbMan.free()
 
 
