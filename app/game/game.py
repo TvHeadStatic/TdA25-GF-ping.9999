@@ -59,14 +59,17 @@ def gaming(id):
     return redirect(url_for("game_bp.main"))
 
 @game_bp.route("/game/matchmaking")
-def matchumakingu(elo):
+def matchumakingu():
     dbMan = db_manager()
+    methodQuery = "SELECT elo FROM users WHERE uuid LIKE %s"
+    dbMan.cursor.execute(methodQuery, [session["user"]["uuid"]])
+    myElo = dbMan.cursor.fetchone()
     methodQuery = '''
     SELECT piskvorky.uuid, piskvorky.x, users.elo FROM piskvorky
     JOIN users ON piskvorky.x = users.uuid
-    WHERE piskvorky.o IS NULL AND elo <= %s + 100 ORDER BY elo DESC LIMIT 1;
+    WHERE elo <= %s + 100 ORDER BY elo DESC LIMIT 1;
     '''
-    dbMan.cursor.execute(methodQuery, [elo])
+    dbMan.cursor.execute(methodQuery, [int(myElo["elo"])])
     result = dbMan.cursor.fetchall()
     dbMan.free()
 
@@ -94,8 +97,8 @@ def matchumakingu(elo):
     }
 
     if len(result) == 0:
-        requests.post("api_bp.api", json = gameDat)
-        return redirect(requests.get(url_for("game_bp.gaming", id=requests.get(url_for("api_bp.api", id=id, _external=True)))))
+        r = requests.post(url_for("api_bp.api_getall", _external=True), json = gameDat)
+        return redirect(url_for("game_bp.gaming", id=r.json()["uuid"]))
     else:
-        return redirect(requests.get(url_for("game_bp.gaming", id=result["uuid"])))
+        return redirect(url_for("game_bp.gaming", id=result[0]["uuid"]))
     
