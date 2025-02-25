@@ -15,9 +15,9 @@ dbMan = db_manager()
 
 def matchumakingu(elo):
     methodQuery = '''
-    SELECT piskvorky.uuid, piskvorky.x, users.elo FROM piskvorky
+    SELECT piskvorky.uuid, piskvorky.x, users.elo, piskvorky.gamemode FROM piskvorky
     JOIN users ON piskvorky.x = users.uuid
-    WHERE piskvorky.o IS NULL AND elo <= %s + 100 ORDER BY elo DESC LIMIT 1;
+    WHERE piskvorky.o like '' AND elo <= %s + 100 AND gamemode not like 'private' ORDER BY elo DESC;
     '''
     dbMan.cursor.execute(methodQuery, [elo])
     result = dbMan.cursor.fetchall()
