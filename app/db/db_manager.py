@@ -9,7 +9,7 @@ class db_manager:
         createdAt DATE,
         updatedAt DATE,
         name TEXT,
-        difficulty TEXT,
+        gameMode TEXT,
         gameState TEXT,
         board TEXT,
         x TEXT,

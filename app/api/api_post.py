@@ -8,7 +8,7 @@ from api.ticktacktoe_functionality import validate_gamestate, has_invalid_char, 
 
 def api_post(req):
     dbMan = db_manager()
-    methodQuery = "INSERT INTO piskvorky(uuid, createdAt, updatedAt, name, difficulty, gameState, board, x, o) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    methodQuery = "INSERT INTO piskvorky(uuid, createdAt, updatedAt, name, gameMode, gameState, board, x, o) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
     newuuid = str(os.urandom(3).hex())
     createdAt = str(datetime.datetime.now())
     updatedAt = str(datetime.datetime.now())
@@ -17,7 +17,7 @@ def api_post(req):
             "status": 422
         }), 422
     gameState = validate_gamestate(req["board"])
-    dbMan.cursor.execute(methodQuery, [newuuid, createdAt, updatedAt, req["name"], req["difficulty"], gameState, str(req["board"]), str(""), str("")])
+    dbMan.cursor.execute(methodQuery, [newuuid, createdAt, updatedAt, req["name"], req["gameMode"], gameState, str(req["board"]), str(""), str("")])
     dbMan.conn.commit()
     dbMan.free()
     return jsonify({
@@ -25,7 +25,7 @@ def api_post(req):
         "createdAt": createdAt,
         "updatedAt": updatedAt,
         "name": req["name"],
-        "difficulty": req["difficulty"],
+        "gameMode": req["gameMode"],
         "gameState": gameState,
         "board": req["board"]
     }), 201

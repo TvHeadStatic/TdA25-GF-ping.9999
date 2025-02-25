@@ -210,7 +210,7 @@ function http_put() {
         },
         body: JSON.stringify({
             'name': gname,
-            'difficulty': diff,
+            'gameMode': gameMode,
             'board': currentBoard
         })
     })
@@ -235,7 +235,7 @@ function http_post() {
         },
         body: JSON.stringify({
             'name': document.getElementById("titleofgame").value,
-            'difficulty': document.getElementById("difficulty").value,
+            'gameMode': document.getElementById("gameMode").value,
             'board': currentBoard
         })
     })

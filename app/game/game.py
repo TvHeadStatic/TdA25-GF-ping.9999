@@ -42,7 +42,7 @@ def gamemaking():
             ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
             ],
-                "difficulty": "medium",
+                "gameMode": "public",
                 "gameState": "opening",
                 "name": "",
         }
@@ -108,7 +108,7 @@ def matchumakingu():
             ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
             ],
-                "difficulty": "extreme",
+                "gameMode": "public",
                 "gameState": "opening",
                 "name": "WIP",
     }

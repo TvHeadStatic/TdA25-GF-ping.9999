@@ -10,7 +10,7 @@ class game_validation(unittest.TestCase):
     def test_post(self):
         req = {
             "name": "ah",
-            "difficulty": "medium",
+            "gameMode": "public",
             "board": [
                 [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ],
                 [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ],
@@ -33,7 +33,7 @@ class game_validation(unittest.TestCase):
     def test_put(self):
         req = {
             "name": "gah",
-            "difficulty": "medium",
+            "gameMode": "public",
             "board": [
                 [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ],
                 [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ],
