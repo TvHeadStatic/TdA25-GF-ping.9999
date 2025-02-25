@@ -17,8 +17,7 @@ def main():
 @game_bp.route("/game")
 def game():
     if "user" in session:
-        apiRez = requests.get(url_for("api_bp.api_getall", _external=True))
-        return render_template("game.html", title = "TdA | Game", gamez = apiRez.json(), userData = session["user"]), 200
+        return render_template("game.html", title = "TdA | Game", userData = session["user"]), 200
     return redirect(url_for("game_bp.main"))
 
 @game_bp.route("/game/canvas")

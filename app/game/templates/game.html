@@ -31,22 +31,21 @@
                             type="text"
                             class="form-control"
                             name=""
-                            id="roomCode"
+                            id="roomCode1"
                             placeholder="6 digit code"
                         />
-                            <button
-                                type="button"
-                                name=""
-                                id=""
-                                class="btn btn-primary"
+                        <button
+                            type="button"
+                            name=""
+                            id=""
+                            class="btn btn-primary"
+                            onclick="join_this_game()"
+                        >
                             >
-                                >
-                            </button>
+                        </button>
                     </div>
                     <a type="button" class="btn btn-primary" href="/game/canvas">New Game</a>
                     <a type="button" class="btn btn-primary" href="/game/matchmaking" onclick="throbbing()">Join casual</a>
-                    <a type="button" class="btn btn-primary" href="/game/leaderboard/elo" onclick="throbbing()">Lídr bórd</a>
-                    <button type="button" class="btn btn-danger" onclick="signout_user()">Sign-out</button>
                 </span>
             </h2>
             <h2 class="d-lg-none card-text text-center p-4">
@@ -56,31 +55,40 @@
                 <small><small>Did you know "Tick Tack Toe" has nothing to do with putting tic-tacs between your toes?</small></small>
                 <br>
                 <br>
-                <div class="input-group" style="justify-self: center;">
+                <div class="input-group" style="max-width: 10em; justify-self: center;">
                     <input
                         type="text"
                         class="form-control"
                         name=""
-                        id="roomCode"
+                        id="roomCode2"
                         placeholder="6 digit code"
                     />
-                        <button
-                            type="button"
-                            name=""
-                            id=""
-                            class="btn btn-primary"
+                    <button
+                        type="button"
+                        name=""
+                        id=""
+                        class="btn btn-primary"
+                        onclick="join_this_game_m()"
+                    >
                         >
-                            >
-                        </button>
+                    </button>
                 </div>
                 <p></p>
                 <a type="button" class="btn btn-primary" href="/game/canvas">New Game</a>
                 <a type="button" class="btn btn-primary" href="/game/matchmaking" onclick="throbbing()">Join casual</a>
-                <a type="button" class="btn btn-primary" href="/game/leaderboard/elo" onclick="throbbing()">Lídr bórd</a>
-                <button type="button" class="btn btn-danger" onclick="signout_user()">Sign-out</button>
             </h2>
         </div>
     </div>
+    <p></p>
+    <div class="card">
+        <p class="text-center p-4">
+            <br>
+            <a type="button" class="btn btn-primary" href="/game/user/{{ userData['uuid'] }}" onclick="throbbing()">My profile</a>
+            <a type="button" class="btn btn-primary" href="/game/leaderboard/elo" onclick="throbbing()">Leaderboard</a>
+            <button type="button" class="btn btn-danger" onclick="signout_user()">Sign-out</button>
+        </p>
+    </div>
+    
     {% include 'use/footer.html' %}
 </body>
 
@@ -139,8 +147,17 @@
 </style>
 
 <script>
+    document.getElementById("loadingscreen").style.display = "none"
     function throbbing() {
         document.getElementById("loadingscreen").style.display = "flex"
+    }
+    function join_this_game() {
+        window.location.href = `/game/${document.getElementById("roomCode1").value}`
+        console.log(document.getElementById("roomCode1").value)
+    }
+    function join_this_game_m() {
+        window.location.href = `/game/${document.getElementById("roomCode2").value}`
+        console.log(document.getElementById("roomCode2").value)
     }
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
