@@ -59,7 +59,7 @@ def gaming(id):
     return redirect(url_for("game_bp.main"))
 
 @game_bp.route("/game/user/<id>")
-def gaming(id):
+def profiling(id):
     if "user" in session:
         apiRes = requests.get(url_for("users_bp.api_users", id=id, _external=True))
         if apiRes.status_code != 200:
@@ -67,7 +67,7 @@ def gaming(id):
     return render_template("user_profile.html", title = "TdA | " + apiRes.json()["username"], userData = apiRes.json()), 200
 
 @game_bp.route("/game/leaderboard/<id>")
-def gaming(id):
+def jacking(id):
     dbMan = db_manager()
     methodQuery = f"SELECT username, losses, wins, draws, uuid, elo FROM users ORDER BY %s DESC LIMIT 20"
     dbMan.cursor.execute(methodQuery)
