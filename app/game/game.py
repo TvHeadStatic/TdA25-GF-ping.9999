@@ -68,6 +68,8 @@ def profiling(id):
         if result == None:
             return redirect("/404")
     print(result)
+    if session["user"]["uuid"] == result['uuid']:
+        return render_template("mein_user_profile.html", title = "TdA | " + result["username"], userData = result), 200
     return render_template("user_profile.html", title = "TdA | " + result["username"], userData = result), 200
 
 @game_bp.route("/game/leaderboard/<id>")
