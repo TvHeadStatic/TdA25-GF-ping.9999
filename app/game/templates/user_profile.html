@@ -11,12 +11,22 @@
     <title>{{ title }}</title>
 </head>
 <body class="container-fluid bg-light d-flex flex-column min-vh-100" style="overflow-x: hidden;">
-    <div class="card">
+    <p></p>
+    <div class="card p-4">
         <!-- <img class="card-img-top" src="https://i.pinimg.com/736x/9e/de/62/9ede62db93bb24e3132b3b6d2f04b338.jpg" alt="Title" /> -->
         <h1>{{ userData["username"] }} <small>joined: {{ userData["createdat"] }}</small></h1>
-        <p>W/D/L: {{ userData["wins"] }}/{{ userData["draws"] }}/{{ userData["losses"] }}</p>
-        <p>ELO: {{ userData["elo"] }}</p>
-
+        <p>W/D/L: {{ userData["wins"] }}/{{ userData["draws"] }}/{{ userData["losses"] }}
+        <br>ELO: {{ userData["elo"] }}</p>
+        <p class="" id="submits">
+            <a
+            name=""
+            id="backbtn"
+            class="btn btn-primary"
+                href="/game"
+                role="button"
+                ><- Go Back</a
+            >
+        </p>
     </div>
     
 
