@@ -3,6 +3,7 @@ import requests
 from ast import literal_eval
 from db.db_manager import db_manager
 from api.api_post import api_post
+import random
 
 game_bp = Blueprint('game_bp', __name__, template_folder = "./templates", static_folder="static", static_url_path="/")
 
@@ -16,8 +17,20 @@ def main():
 
 @game_bp.route("/game")
 def game():
+    heks = [
+        'Did you know, "Tick Tack Toe" has nothing to do with putting tic-tacs between your toes?',
+        'Did you know, that if you took out your organs and put them in a line over the equator, you\'d be dead?',
+        'Did you know, that if we\'d spinned the "X" in our game a little, we\'d be breaking the Geneva convention?',
+        'Did you know, Tick Tack Toe can be dated to 1st century BC?',
+        'Did you know, Tick Tack Toe\'s less popular name is noughts and crosses?',
+        'Did you know, that probably everyone, who\'s ever going to live, will play Tick Tack Toe at some point?',
+        'Did you know, that Tic Tac Toe has a very indepth lore?',
+        'Did you know, a game of Tic Tac Toe will always end in a tie if both players are plain at their best?',
+        'Did you know, that unlike in chess, you cannot move your pieces in Tic Tac Toe?',
+        '🤫🧏🤫🧏, 🤫🧏🤫🧏🤫🧏,🤫🧏🤫🧏?'
+    ]
     if "user" in session:
-        return render_template("game.html", title = "TdA | Game", userData = session["user"]), 200
+        return render_template("game.html", title = "TdA | Game", userData = session["user"], hek = random.choice(heks)), 200
     return redirect(url_for("game_bp.main"))
 
 @game_bp.route("/game/canvas")

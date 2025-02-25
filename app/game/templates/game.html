@@ -20,12 +20,11 @@
             <h1 class="card-title">Welcome, {{ userData["username"] }}!</h1>
             <h2 class="d-none d-lg-flex justify-content-center align-items-center card-text text-center p-5">
                 <img src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/Playing/zarivka_playing_modre.png')}}" class="img-fluid d-inline-block float-left" alt="" draggable="false"/>
-                <span class="d-inline-block float-right" style="text-align: right;">
-                    Did you know "Tick Tack Toe" has nothing to do with putting tic-tacs between your toes?
+                <span class="d-inline-grid float-right" style="text-align: right;">
+                    {{ hek }}
                     <br>
                     yeah!
-                    <br>
-                    <br>
+                    <p></p>
                     <div class="input-group" style="max-width: 6em; justify-self: right;">
                         <input
                             type="text"
@@ -44,17 +43,17 @@
                             >
                         </button>
                     </div>
-                    <a type="button" class="btn btn-primary" href="/game/canvas">New Game</a>
-                    <a type="button" class="btn btn-primary" href="/game/matchmaking" onclick="throbbing()">Join casual</a>
+                    <p style="line-height: 2em;">
+                        <a type="button" class="btn btn-primary" href="/game/canvas">Private Game</a>
+                        <a type="button" class="btn btn-primary" href="/game/matchmaking" onclick="throbbing()">Matchmaking</a>
+                    </p>
                 </span>
             </h2>
-            <h2 class="d-lg-none card-text text-center p-4">
-                <img src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/SVG/Playing/zarivka_playing_modre.svg')}}" style="max-width: 20rem;" class="img-fluid" alt="" draggable="false"/>
-                <br>
-                <br>
-                <small><small>Did you know "Tick Tack Toe" has nothing to do with putting tic-tacs between your toes?</small></small>
-                <br>
-                <br>
+            <h2 class="d-inline-grid d-lg-none card-text text-center p-4">
+                <img src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/SVG/Playing/zarivka_playing_modre.svg')}}" style="max-width: 20rem; justify-self: center;" class="img-fluid" alt="" draggable="false"/>
+                <p></p>
+                <small><small>{{ hek }}</small></small>
+                <p></p>
                 <div class="input-group" style="max-width: 10em; justify-self: center;">
                     <input
                         type="text"
@@ -74,15 +73,16 @@
                     </button>
                 </div>
                 <p></p>
-                <a type="button" class="btn btn-primary" href="/game/canvas">New Game</a>
-                <a type="button" class="btn btn-primary" href="/game/matchmaking" onclick="throbbing()">Join casual</a>
+                <p style="line-height: 2em;">
+                    <a type="button" class="btn btn-primary" href="/game/canvas">Private Game</a>
+                    <a type="button" class="btn btn-primary" href="/game/matchmaking" onclick="throbbing()">Matchmaking</a>
+                </p>
             </h2>
         </div>
     </div>
     <p></p>
     <div class="card">
-        <p class="text-center p-4">
-            <br>
+        <p class="text-center p-4 m-0" style="line-height: 3em;">
             <a type="button" class="btn btn-primary" href="/game/user/{{ userData['uuid'] }}" onclick="throbbing()">My profile</a>
             <a type="button" class="btn btn-primary" href="/game/leaderboard/elo" onclick="throbbing()">Leaderboard</a>
             <button type="button" class="btn btn-danger" onclick="signout_user()">Sign-out</button>
