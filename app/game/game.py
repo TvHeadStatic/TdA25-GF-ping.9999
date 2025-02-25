@@ -58,6 +58,23 @@ def gaming(id):
         return render_template("board.html", title = "TdA | " + apiRes.json()["name"], gameData = apiRes.json(), userData = session["user"]), 200
     return redirect(url_for("game_bp.main"))
 
+@game_bp.route("/game/user/<id>")
+def gaming(id):
+    if "user" in session:
+        apiRes = requests.get(url_for("users_bp.api_users", id=id, _external=True))
+        if apiRes.status_code != 200:
+            return redirect("/404")
+    return render_template("user_profile.html", title = "TdA | " + apiRes.json()["username"], userData = apiRes.json()), 200
+
+@game_bp.route("/game/leaderboard/<id>")
+def gaming(id):
+    dbMan = db_manager()
+    methodQuery = f"SELECT username, losses, wins, draws, uuid, elo FROM users ORDER BY %s DESC LIMIT 20"
+    dbMan.cursor.execute(methodQuery)
+    result = dbMan.cursor.fetchall()
+    dbMan.free()
+    return render_template("leaderboard.html", title = "TdA | Leaderboard " + id, boardData = result), 200
+
 @game_bp.route("/game/matchmaking")
 def matchumakingu():
     dbMan = db_manager()
