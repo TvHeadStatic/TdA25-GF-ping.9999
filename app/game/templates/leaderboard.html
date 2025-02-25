@@ -11,7 +11,6 @@
     <title>{{ title }}</title>
 </head>
 <body class="container-fluid bg-light d-flex flex-column min-vh-100" style="overflow-x: hidden;">
-    {% include 'use/navbar.html' %}
     <div class="card">
         <br>
         <h1 class="text-center">Leaderboard - {{ orderedby|title }}</h1>
@@ -42,7 +41,6 @@
                 >Losses</a
             >
         </p>
-        {{ userData["username"] }}
         <ol class="p-0">
             {% for i in range(0, boardData|length) %}
             <li class="text-center" style="list-style-position: inside;">
