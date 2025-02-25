@@ -26,8 +26,9 @@
                     yeah!
                     <br>
                     <br>
+                    <a type="button" class="btn btn-primary" href="/game/leaderboard/elo" onclick="throbbing()">Lídr bórd</a>
                     <a type="button" class="btn btn-primary" href="/game/canvas">New Game</a>
-                    <button type="button" class="btn btn-primary" href="/game/matchmaking" onclick="throbbing()">Join casual</button>
+                    <a type="button" class="btn btn-primary" href="/game/matchmaking" onclick="throbbing()">Join casual</a>
                     <button type="button" class="btn btn-danger" onclick="signout_user()">Sign-out</button>
                 </span>
             </h2>
@@ -104,7 +105,6 @@
 <script>
     function throbbing() {
         document.getElementById("loadingscreen").style.display = "flex"
-        window.location.replace("/game/matchmaking")
     }
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
