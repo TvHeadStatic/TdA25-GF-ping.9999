@@ -16,7 +16,7 @@
     <p><br></p>
     <h1 class="text-center">{{ gameData["name"] }} <small><small><small>{{ gameData["gameState"] }}</small></small></small></h1>
     <p class="text-center">
-        <span class="text-primary" style="padding-left: .25rem">{{ gameData["gameMode"] }}</span>
+        <span class="text-primary" style="padding-left: .25rem">{{ gameData["gamemode"] }}</span>
     </p>
     <div id="loadingscreen">
         <span class="loader"></span>
@@ -89,7 +89,7 @@
 <script>
     var uuid = '{{ gameData["uuid"] }}'
     var gname = '{{ gameData["name"] }}'
-    var diff = '{{ gameData["gameMode"] }}'
+    var diff = '{{ gameData["gamemode"] }}'
     var currentBoard = {{ gameData["board"]|tojson }}
     var players = {
         "X": '{{ gameData["x"] }}',
