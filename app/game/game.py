@@ -64,7 +64,8 @@ def profiling(id):
         apiRes = requests.get(url_for("users_bp.api_users", id=id, _external=True))
         if apiRes.status_code != 200:
             return redirect("/404")
-    return render_template("user_profile.html", title = "TdA | " + apiRes.json()["username"], userData = apiRes.json()), 200
+    print(apiRes.json()[0])
+    return render_template("user_profile.html", title = "TdA | " + apiRes.json()[0]["username"], userData = apiRes.json()[0]), 200
 
 @game_bp.route("/game/leaderboard/<id>")
 def jacking(id):
