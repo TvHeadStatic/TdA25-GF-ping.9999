@@ -12,10 +12,49 @@
 </head>
 <body class="container-fluid bg-light d-flex flex-column min-vh-100" style="overflow-x: hidden;">
     {% include 'use/navbar.html' %}
-    
-    {{ boardData }}
-    
-    {% include 'use/footer.html' %}
+    <div class="card">
+        <br>
+        <h1 class="text-center">Leaderboard - {{ orderedby|title }}</h1>
+        <br>
+        <p class="text-center">
+            <a
+                name=""
+                id=""
+                class="btn btn-primary"
+                href="/game/leaderboard/elo"
+                role="button"
+                >Elo</a
+            >
+            <a
+                name=""
+                id=""
+                class="btn btn-primary"
+                href="/game/leaderboard/wins"
+                role="button"
+                >Wins</a
+            >
+            <a
+                name=""
+                id=""
+                class="btn btn-primary"
+                href="/game/leaderboard/losses"
+                role="button"
+                >Losses</a
+            >
+        </p>
+        <ol class="p-0">
+            {% for i in range(0, boardData|length) %}
+            <li class="text-center" style="list-style-position: inside;">
+                {% if i == 0 %}👑{% endif %}
+                <a href="/game/user/{{ boardData[i]['uuid'] }}">{{ boardData[i]["username"] }}</a>
+                {% if i == 0 %}👑{% endif %}
+                <p>W/D/L: {{ boardData[i]["wins"] }}/{{ boardData[i]["draws"] }}/{{ boardData[i]["losses"] }}<br>elo: {{ boardData[i]["elo"] }}</p>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+
+    {% include 'use/footer.html' %}    
 </body>
 
 <script src="{{ url_for('game_bp.static', filename='login_signup.js') }}"></script>

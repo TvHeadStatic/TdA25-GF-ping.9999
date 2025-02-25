@@ -69,11 +69,17 @@ def profiling(id):
 @game_bp.route("/game/leaderboard/<id>")
 def jacking(id):
     dbMan = db_manager()
-    methodQuery = f"SELECT username, losses, wins, draws, uuid, elo FROM users ORDER BY %s DESC LIMIT 20"
+    match(id):
+        case "losses":
+            methodQuery = "SELECT username, losses, wins, draws, uuid, elo FROM users ORDER BY losses DESC LIMIT 20"
+        case "wins":
+            methodQuery = "SELECT username, losses, wins, draws, uuid, elo FROM users ORDER BY wins DESC LIMIT 20"
+        case _:
+            methodQuery = "SELECT username, losses, wins, draws, uuid, elo FROM users ORDER BY elo DESC LIMIT 20"
     dbMan.cursor.execute(methodQuery)
     result = dbMan.cursor.fetchall()
     dbMan.free()
-    return render_template("leaderboard.html", title = "TdA | Leaderboard " + id, boardData = result), 200
+    return render_template("leaderboard.html", title = "TdA | Leaderboard " + id, boardData = result, orderedby = id), 200
 
 @game_bp.route("/game/matchmaking")
 def matchumakingu():
