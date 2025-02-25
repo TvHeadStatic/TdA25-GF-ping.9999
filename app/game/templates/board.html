@@ -16,13 +16,6 @@
     <p><br></p>
     <h1 class="text-center">{{ gameData["name"] }} <small><small><small>{{ gameData["gameState"] }}</small></small></small></h1>
     <p class="text-center">
-        <img
-            draggable="false"
-            src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/' + gameData["difficulty"].title() + '/zarivka_' + gameData["difficulty"] + '_modre.png')}}"
-            class="img-fluid align-self-center"
-            alt="X"
-            style="height: 1.5rem"
-        />
         <span class="text-primary" style="padding-left: .25rem">{{ gameData["difficulty"] }}</span>
     </p>
     <div id="loadingscreen">
