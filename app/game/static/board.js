@@ -169,14 +169,14 @@ function board_edit_bypass(x, y) {
 }
 
 socket.on("update_turn", (json) => {
-    clearTimeout(myTimeout)
-    myTimeout = setTimeout(countdownUpdate, 1000);
     hturn = !hturn
     console.log(hturn)
 })
 
 socket.on("update_me", (json) => {
     if (json["id"] != uuid) { return }
+    clearTimeout(myTimeout)
+    myTimeout = setTimeout(countdownUpdate, 1000);
     var audio = new Audio('/351518.wav')
     audio.play()
     $(':button').prop('disabled', false)
