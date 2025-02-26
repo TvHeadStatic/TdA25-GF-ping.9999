@@ -14,15 +14,15 @@
 
 <body class="container-fluid bg-light d-flex flex-column min-vh-100">
     <p><br></p>
-    <h1 class="text-center">{{ gameData["name"] }} <small><small><small>{{ gameData["gameState"] }}</small></small></small></h1>
+    <!-- <h1 class="text-center">{{ gameData["name"] }}</h1> -->
     <p class="text-center">
         <span class="text-primary" style="padding-left: .25rem">{{ gameData["gamemode"] }}</span>
     </p>
     <div id="loadingscreen">
         <span class="loader"></span>
     </div>
+    <h2 class="text-center">{{ userData["username"] }} <span class="border border-primary" id="myclock">8:00</span> | <span class="border border-primary" id="opclock">8:00</span> <span id="opnametag">???</span></h2>
     <p id="guidetext" class="text-center p-0">[Left Click] - Place</p>
-    <h2 class="text-center"><span class="border border-primary" id="myclock">10:00</span> | <span class="border border-primary" id="opclock">10:00</span></h2>
     <div class="row justify-content-center" oncontextmenu="return false;">
         <div class="overflown col-auto g-0 p-0 border border-primary">
             <table>
@@ -103,8 +103,8 @@
     function exists(arr, search) {
         return arr.some(row => row.includes(search));
     }
-    var myTime = [10, 0]
-    var opTime = [10, 0]
+    var myTime = [1, 0]
+    var opTime = [1, 0]
     var myTimeout
 </script>
 

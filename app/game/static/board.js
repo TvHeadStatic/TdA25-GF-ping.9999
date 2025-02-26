@@ -65,12 +65,12 @@ function check_winstates(i, j) {
 }
 
 function board_edit(x, y) {
-    clearTimeout(myTimeout)
     if (currentBoard[y][x] != "" && currentBoard[currentPos[1]][currentPos[0]] != "") {
         console.log("nuh uh")
         return
     }
     if (hturn == false) { return }
+    clearTimeout(myTimeout)
     hturn = !hturn
     console.log(hturn)
     http_put()
@@ -171,7 +171,7 @@ function board_edit_bypass(x, y) {
 socket.on("update_turn", (json) => {
     opTime[0] = json["mytime"][0]
     opTime[1] = json["mytime"][1]
-    document.getElementById("opclock").innerHTML = `${opTime[0]}:${opTime[1]}`
+    document.getElementById("opclock").innerHTML = `${opTime[0]}:${pad(opTime[1])}`
     hturn = !hturn
     console.log(hturn)
 })
@@ -220,6 +220,47 @@ socket.on("update_me", (json) => {
     }
 })
 
+socket.on("show_pre_loss", (json) => {
+    clearTimeout(myTimeout)
+    loss_ontime(false)
+})
+
+function loss_ontime(a) {
+    clearTimeout(myTimeout)
+    if (userData["uuid"] == players["O"]) {
+        document.getElementById("wincont").innerHTML = winX
+        document.getElementById("wincont2").innerHTML = winX
+        socket.emit("end_game", {"winner": "x", "x": players["X"], "o": players["O"]})
+        console.log("moans")
+    } else if (userData["uuid"] == players["X"]) {
+        document.getElementById("wincont").innerHTML = winO
+        document.getElementById("wincont2").innerHTML = winO
+        socket.emit("end_game", {"winner": "o", "x": players["X"], "o": players["O"]}) 
+        console.log("moanz")
+    }
+    document.getElementById("winScreenHolder").style.display = "block"
+    fetch(`/api/gateway/${uuid}`, {
+        method: "delete",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    .then( (response) => {
+        if (a) {
+            socket.emit("update_game", { "coord": currentPos, "id": uuid, "premature": true })
+            currentPos = [69, 69]
+        }
+        return
+    })
+    return
+}
+
+function pad(d) {
+    return (d < 10) ? '0' + d.toString() : d.toString();
+}
+
 function countdownUpdate() {
     if (hturn) {
         myTime[1] -= 1
@@ -227,14 +268,17 @@ function countdownUpdate() {
             myTime[0] -= 1
             myTime[1] = 59
         }
-        document.getElementById("myclock").innerHTML = `${myTime[0]}:${myTime[1]}`
+        if (myTime[0] == 0 && myTime[1] == 0) {
+            loss_ontime(true)
+        }
+        document.getElementById("myclock").innerHTML = `${myTime[0]}:${pad(myTime[1])}`
     } else {
         opTime[1] -= 1
         if (opTime[1] < 0) {
             opTime[0] -= 1
             opTime[1] = 59
         }
-        document.getElementById("opclock").innerHTML = `${opTime[0]}:${opTime[1]}`
+        document.getElementById("opclock").innerHTML = `${opTime[0]}:${pad(opTime[1])}`
     }
     myTimeout = setTimeout(countdownUpdate, 1000);
 }

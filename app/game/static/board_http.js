@@ -119,10 +119,43 @@ socket.on("O_joined", (json) => {
     if (hturn) {
         document.getElementById("guidetext").innerHTML = "Your Turn Now!<br>" + gta6
     }
+
+    if (userData["uuid"] == players["X"]) {
+        fetch(`/api/v1/users/${players["O"]}`, {
+            method: "get",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+        .then( (response) => {
+            console.log(response.body)
+            document.getElementById("opnametag").innerHTML = response.body["username"]
+            return
+        })
+    } else if (userData["uuid"] == players["O"]) {
+        fetch(`/api/v1/users/${players["X"]}`, {
+            method: "get",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+        .then( (response) => {
+            console.log(response.body)
+            document.getElementById("opnametag").innerHTML = response.body["username"]
+            return
+        })
+    }
 })
 
 socket.on("leave_game", (json) => {
     if (players["X"] != json["uuid"] && players["O"] != json["uuid"]) { return }
+    clearTimeout(myTimeout)
     console.log(":(")
     document.getElementById("wincont").innerHTML = gameOver
     document.getElementById("wincont2").innerHTML = gameOver

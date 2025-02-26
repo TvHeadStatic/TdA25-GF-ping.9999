@@ -36,6 +36,8 @@ def player_joined(data):
 
 @socketio.on("update_game")
 def update_game_b(data):
+    if "premature" in data:
+        emit("show_pre_loss", data, broadcast=True, include_self=False)
     emit("update_turn", data, broadcast=True, include_self=False)
     emit("update_me", data, broadcast=True, include_self=True)
 
