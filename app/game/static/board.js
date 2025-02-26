@@ -65,6 +65,7 @@ function check_winstates(i, j) {
 }
 
 function board_edit(x, y) {
+    clearTimeout(myTimeout)
     if (currentBoard[y][x] != "" && currentBoard[currentPos[1]][currentPos[0]] != "") {
         console.log("nuh uh")
         return
@@ -168,6 +169,8 @@ function board_edit_bypass(x, y) {
 }
 
 socket.on("update_turn", (json) => {
+    clearTimeout(myTimeout)
+    myTimeout = setTimeout(countdownUpdate, 1000);
     hturn = !hturn
     console.log(hturn)
 })
@@ -213,6 +216,25 @@ socket.on("update_me", (json) => {
         return
     }
 })
+
+function countdownUpdate() {
+    if (hturn) {
+        myTime[1] -= 1
+        if (myTime[1] < 0) {
+            myTime[0] -= 1
+            myTime[1] = 59
+        }
+        document.getElementById("myclock").innerHTML = `${myTime[0]}:${myTime[1]}`
+    } else {
+        opTime[1] -= 1
+        if (opTime[1] < 0) {
+            opTime[0] -= 1
+            opTime[1] = 59
+        }
+        document.getElementById("opclock").innerHTML = `${opTime[0]}:${opTime[1]}`
+    }
+    myTimeout = setTimeout(countdownUpdate, 1000);
+}
 
 function board_delete(x, y) {
     if (getQueryVariable("edit") != 1) return
