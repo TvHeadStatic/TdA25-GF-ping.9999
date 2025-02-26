@@ -115,6 +115,7 @@ socket.on("O_joined", (json) => {
     $(':button').prop('disabled', false)
     let gta6 = "[Left Click] - Place"
     document.getElementById("guidetext").innerHTML = "Opponent's Turn Now!<br>" + gta6
+    myTimeout = setTimeout(countdownUpdate, 1000);
     if (hturn) {
         document.getElementById("guidetext").innerHTML = "Your Turn Now!<br>" + gta6
     }
