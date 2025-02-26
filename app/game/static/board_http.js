@@ -136,7 +136,7 @@ socket.on("leave_game", (json) => {
         }
     })
     .then( (response) => {
-        socket.emit("update_game", { "coord": currentPos, "id": uuid })
+        socket.emit("update_game", { "coord": currentPos, "id": uuid, "mytime": myTime })
         currentPos = [69, 69]
         return
     })
@@ -169,7 +169,7 @@ function http_put() {
             }
         })
         .then( (response) => {
-            socket.emit("update_game", { "coord": currentPos, "id": uuid })
+            socket.emit("update_game", { "coord": currentPos, "id": uuid, "mytime": myTime })
             currentPos = [69, 69]
             return
         })
@@ -196,7 +196,7 @@ function http_put() {
             }
         })
         .then( (response) => {
-            socket.emit("update_game", { "coord": currentPos, "id": uuid })
+            socket.emit("update_game", { "coord": currentPos, "id": uuid, "mytime": myTime })
             currentPos = [69, 69]
             return
         })
@@ -216,7 +216,7 @@ function http_put() {
         })
     })
     .then( (response) => {
-        socket.emit("update_game", { "coord": currentPos, "id": uuid })
+        socket.emit("update_game", { "coord": currentPos, "id": uuid, "mytime": myTime })
         currentPos = [69, 69]
         return
     })

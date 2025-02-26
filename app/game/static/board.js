@@ -169,6 +169,9 @@ function board_edit_bypass(x, y) {
 }
 
 socket.on("update_turn", (json) => {
+    opTime[0] = data["mytime"][0]
+    opTime[1] = data["mytime"][1]
+    document.getElementById("opclock").innerHTML = `${opTime[0]}:${opTime[1]}`
     hturn = !hturn
     console.log(hturn)
 })
