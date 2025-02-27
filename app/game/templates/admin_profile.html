@@ -18,55 +18,6 @@
         <p>W/D/L: {{ userData["wins"] }}/{{ userData["draws"] }}/{{ userData["losses"] }}
         <br>ELO: {{ userData["elo"] }}</p>
 
-        <div class="mb-3">
-            <label for="" class="form-label">Account details:</label>
-            <input
-                type="text"
-                class="form-control"
-                name=""
-                id="User"
-                placeholder="username"
-            />
-        </div>
-        <div class="mb-3">
-            <label for="" class="form-label"></label>
-            <input
-                type="text"
-                class="form-control"
-                name=""
-                id="Email"
-                placeholder="email"
-            />
-        </div>
-        <div class="mb-3">
-            <label for="" class="form-label"></label>
-            <input
-                type="text"
-                class="form-control"
-                name=""
-                id="Password"
-                placeholder="password"
-            />
-        </div>
-        <div class="mb-3">
-            <label for="" class="form-label"></label>
-            <input
-                type="text"
-                class="form-control"
-                name=""
-                id="Password"
-                placeholder="password"
-            />
-        </div>
-        <p class="" id="submits">
-       <button
-        type="button"
-        class="btn btn-primary"
-        onclick="updateUserData('{{ userData["uuid"] }}', document.getElementById('User').value, document.getElementById('Email').value, document.getElementById('Password').value)"
-       >
-        Update
-       </button></p>
-        
         <p class="" id="submits">
             <a
             name=""
@@ -94,7 +45,7 @@
                             class="form-control newElo"
                             name=""
                             id=""
-                            placeholder="{{ allUserData[user]["elo"] }}"
+                            value="{{ allUserData[user]["elo"] }}"
                         />
                         <input
                             name=""
@@ -191,21 +142,6 @@
     }
 </style>
 <script>
-    function updateUserData(uuid, name, mail, pass) {
-        fetch(`/api/v1/users/${uuid}`, {
-                method: "put",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-            },
-                body: JSON.stringify({
-                    "username": String(name),
-                    "email": String(mail),
-                    "password": String(pass)
-            })
-        })
-    }
-
     function deleteUser(uuid) {
         fetch(`/api/v1/users/${uuid}`, {
             method: "delete",
@@ -217,15 +153,16 @@
     }
 
     function changeElo(uuid, i) {
+        console.log(uuid, i)
         fetch(`/api/v1/users/${uuid}`, {
             method: "put",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: {
-                elo: String(document.getElementsByClassName("newElo")[i].value)
-            }
+            body: JSON.stringify({
+                'elo': parseFloat(document.getElementsByClassName("newElo")[i].value)
+            })
         })
     }
     

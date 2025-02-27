@@ -25,7 +25,7 @@ def users_put(id, req):
             dbMan.conn.commit()
             dbMan.conn.commit()
     if ("elo" in req):
-        if (req["elo"] != "" and not req["elo"].isspace() and req["elo"] != None):
+        if (req["elo"] != "" and req["elo"] != None):
             methodQuery = "UPDATE users SET elo = %s WHERE uuid LIKE %s"
             dbMan.cursor.execute(methodQuery, [req["elo"], id])
             dbMan.conn.commit()
