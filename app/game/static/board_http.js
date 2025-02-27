@@ -104,76 +104,81 @@ socket.on("join_gamed", (json) => {
 })
 
 socket.on("X_joined", (json) => {
-    players["X"] = String(json)
-    console.log("X assigned to " + json)
-    $(':button').prop('disabled', false)
+    if (players["X"] == "" || players["X"] == null) {
+        players["X"] = String(json)
+        console.log("X assigned to " + json)
+        $(':button').prop('disabled', false)
+    }
 })
 
 socket.on("O_joined", (json) => {
-    players["O"] = String(json)
-    console.log("O assigned to " + json)
-    $(':button').prop('disabled', false)
-    let gta6 = "[Left Click] - Place"
-    document.getElementById("guidetext").innerHTML = "Opponent's Turn Now!<br>" + gta6
-    myTimeout = setTimeout(countdownUpdate, 1000);
-    if (hturn) {
-        document.getElementById("guidetext").innerHTML = "Your Turn Now!<br>" + gta6
-    }
+    if (players["X"] == json[1]) {
+        players["O"] = String(json[0])
+        console.log("O assigned to " + json[0])
+        $(':button').prop('disabled', false)
+        let gta6 = "[Left Click] - Place"
+        document.getElementById("guidetext").innerHTML = "Opponent's Turn Now!<br>" + gta6
+        myTimeout = setTimeout(countdownUpdate, 1000);
+        if (hturn) {
+            document.getElementById("guidetext").innerHTML = "Your Turn Now!<br>" + gta6
+        }
 
-    if (userData["uuid"] == players["X"]) {
-        fetch(`/api/v1/users/${players["O"]}`, {
-            method: "get",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }
-        })
-        .then(r =>  r.json().then(data => ({status: r.status, body: data})))
-        .then( (response) => {
-            console.log(response.body)
-            document.getElementById("opnametag").innerHTML = response.body["username"]
-            return
-        })
-    } else if (userData["uuid"] == players["O"]) {
-        fetch(`/api/v1/users/${players["X"]}`, {
-            method: "get",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }
-        })
-        .then(r =>  r.json().then(data => ({status: r.status, body: data})))
-        .then( (response) => {
-            console.log(response.body)
-            document.getElementById("opnametag").innerHTML = response.body["username"]
-            return
-        })
+        if (userData["uuid"] == players["X"]) {
+            fetch(`/api/v1/users/${players["O"]}`, {
+                method: "get",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+            })
+            .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+            .then( (response) => {
+                console.log(response.body)
+                document.getElementById("opnametag").innerHTML = response.body["username"]
+                return
+            })
+        } else if (userData["uuid"] == players["O"]) {
+            fetch(`/api/v1/users/${players["X"]}`, {
+                method: "get",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+            })
+            .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+            .then( (response) => {
+                console.log(response.body)
+                document.getElementById("opnametag").innerHTML = response.body["username"]
+                return
+            })
+        }
     }
 })
 
 socket.on("leave_game", (json) => {
-    if (players["X"] != json["uuid"] || players["O"] != json["uuid"]) { return }
-    clearTimeout(myTimeout)
-    console.log(":(")
-    document.getElementById("wincont").innerHTML = gameOver
-    document.getElementById("wincont2").innerHTML = gameOver
-    document.getElementById("winScreenHolder").style.display = "block"
-    fetch(`/api/gateway/${uuid}`, {
-        method: "delete",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }
-    })
-    .then( (response) => {
-        socket.emit("update_game", { "coord": currentPos, "id": uuid, "mytime": myTime })
-        currentPos = [69, 69]
-        return
-    })
-    console.log(":(")
+    if (players["X"] == json || players["O"] == json) {
+        clearTimeout(myTimeout)
+        console.log(":(")
+        document.getElementById("wincont").innerHTML = gameOver
+        document.getElementById("wincont2").innerHTML = gameOver
+        document.getElementById("winScreenHolder").style.display = "block"
+        fetch(`/api/gateway/${uuid}`, {
+            method: "delete",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        .then( (response) => {
+            socket.emit("update_game", { "coord": currentPos, "id": uuid, "mytime": myTime })
+            currentPos = [69, 69]
+            return
+        })
+        console.log(":(")
+    }
 })
 
 function http_put() {
