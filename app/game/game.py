@@ -74,7 +74,7 @@ def gaming(id):
 def profiling(id):
     if "user" in session:
         dbMan = db_manager()
-        methodQuery = "SELECT username, losses, wins, draws, uuid, elo, createdat, email FROM users WHERE uuid LIKE %s"
+        methodQuery = "SELECT username, losses, wins, draws, uuid, elo, createdat, email, \"gameHistory\" FROM users WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [id])
         result = dbMan.cursor.fetchone()
         methodQuery = "SELECT username, losses, wins, draws, uuid, elo, createdat, email FROM users"
@@ -83,9 +83,11 @@ def profiling(id):
         dbMan.free()
         if result == None:
             return redirect("/404")
-    print(result)
+        print(result)
+    else:
+        return redirect(url_for("game_bp.main"))
     if session["user"]["uuid"] == result['uuid']:
-        if result['email'] == "UwU@OwO.TwT":
+        if result['email'] == "tda@scg.cz":
             return render_template("admin_profile.html", title = "TdA | " + result["username"], userData = result, allUserData = result2), 200
         return render_template("mein_user_profile.html", title = "TdA | " + result["username"], userData = result), 200
     return render_template("user_profile.html", title = "TdA | " + result["username"], userData = result), 200

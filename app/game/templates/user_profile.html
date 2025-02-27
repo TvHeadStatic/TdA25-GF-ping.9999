@@ -22,14 +22,34 @@
             name=""
             id="backbtn"
             class="btn btn-primary"
-                href="/game"
+                href="javascript:history.back()"
                 role="button"
                 ><- Go Back</a
             >
         </p>
     </div>
-    
-
+    <p></p>
+    <div class="card p-4">
+        <h1>Games played:</h1>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for ind in range(userData["gameHistory"]|length)%}
+            <div class="d-block card m-2" style="width: 20rem;">
+                <div class="card-body">
+                    <h4 class="card-title">{{ userData["gameHistory"][ind]["title"] }}</h4>
+                    <p class="card-text">ELO: {{ userData["gameHistory"][ind]["elo"] }}</p>
+                    <a
+                        name=""
+                        id=""
+                        class="btn btn-primary"
+                        href="/game/user/{{ userData["gameHistory"][ind]["opid"] }}"
+                        role="button"
+                        >view opponent's profile</a
+                    >
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
     {% include 'use/footer.html' %}
 </body>
 

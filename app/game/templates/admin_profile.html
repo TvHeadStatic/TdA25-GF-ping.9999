@@ -19,12 +19,12 @@
         <br>ELO: {{ userData["elo"] }}</p>
 
         <div class="mb-3">
-            <label for="" class="form-label"></label>
+            <label for="" class="form-label">Account details:</label>
             <input
                 type="text"
                 class="form-control"
                 name=""
-                id=""
+                id="User"
                 placeholder="username"
             />
         </div>
@@ -34,7 +34,7 @@
                 type="text"
                 class="form-control"
                 name=""
-                id=""
+                id="Email"
                 placeholder="email"
             />
         </div>
@@ -44,32 +44,39 @@
                 type="text"
                 class="form-control"
                 name=""
-                id=""
+                id="Password"
                 placeholder="password"
             />
         </div>
-
+        <div class="mb-3">
+            <label for="" class="form-label"></label>
+            <input
+                type="text"
+                class="form-control"
+                name=""
+                id="Password"
+                placeholder="password"
+            />
+        </div>
         <p class="" id="submits">
-        <a 
-            name=""
-            id=""
-            class="btn btn-primary"
-            href=""
-            role="button"
-            >Update</a
-        ></p>
-        
-        
+       <button
+        type="button"
+        class="btn btn-primary"
+        onclick="updateUserData('{{ userData["uuid"] }}', document.getElementById('User').value, document.getElementById('Email').value, document.getElementById('Password').value)"
+       >
+        Update
+       </button></p>
         
         <p class="" id="submits">
             <a
             name=""
             id="backbtn"
             class="btn btn-primary"
-                href="/game"
+                href="javascript:history.back()"
                 role="button"
                 ><- Go Back</a
             >
+            <button type="button" class="btn btn-danger" onclick="signout_user()">Sign-out</button>
         </p>
     </div>
 
@@ -117,14 +124,88 @@
         </div>
         {% endfor %}
     </div>
-    
-    
-
     {% include 'use/footer.html' %}
 </body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{{ url_for('game_bp.static', filename='login_signup.js') }}"></script>
 <script>
+    function updateUserData(uuid, name, mail, pass) {
+        fetch(`/api/v1/users/${uuid}`, {
+                method: "put",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+            },
+                body: JSON.stringify({
+                    "username": String(name),
+                    "email": String(mail),
+                    "password": String(pass)
+            })
+        })
+    }
+</script>
+<style>
+    #loadingscreen {
+        width: 100%;
+        height: 100%;
+        /* background: #00000073; */
+        position: fixed;
+        left: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9;
+    }
+
+    @media (orientation: portrait) {
+        .overflown {
+            overflow-y: hidden !important;
+            overflow: scroll;
+        }
+    }
+    .loader {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        position: relative;
+        transform:rotate(45deg);
+        background: var(--tda-danger);
+    }
+    .loader::before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        inset: 0px;
+        border-radius: 50%;
+        border:24px solid var(--tda-blue);
+        animation: prixClipFix .5s infinite linear;
+    }
+
+    @keyframes prixClipFix {
+        0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+        25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+        50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+        75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+        100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+    }
+</style>
+<script>
+    function updateUserData(uuid, name, mail, pass) {
+        fetch(`/api/v1/users/${uuid}`, {
+                method: "put",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+            },
+                body: JSON.stringify({
+                    "username": String(name),
+                    "email": String(mail),
+                    "password": String(pass)
+            })
+        })
+    }
+
     function deleteUser(uuid) {
         fetch(`/api/v1/users/${uuid}`, {
             method: "delete",
