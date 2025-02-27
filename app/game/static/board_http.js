@@ -154,7 +154,7 @@ socket.on("O_joined", (json) => {
 })
 
 socket.on("leave_game", (json) => {
-    if (players["X"] != json["uuid"] && players["O"] != json["uuid"]) { return }
+    if (players["X"] != json["uuid"] || players["O"] != json["uuid"]) { return }
     clearTimeout(myTimeout)
     console.log(":(")
     document.getElementById("wincont").innerHTML = gameOver
