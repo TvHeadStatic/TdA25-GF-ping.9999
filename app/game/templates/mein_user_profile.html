@@ -24,7 +24,7 @@
                 type="text"
                 class="form-control"
                 name=""
-                id=""
+                id="User"
                 placeholder="username"
             />
         </div>
@@ -34,7 +34,7 @@
                 type="text"
                 class="form-control"
                 name=""
-                id=""
+                id="Email"
                 placeholder="email"
             />
         </div>
@@ -44,7 +44,7 @@
                 type="text"
                 class="form-control"
                 name=""
-                id=""
+                id="Password"
                 placeholder="password"
             />
         </div>
@@ -56,6 +56,7 @@
             class="btn btn-primary"
             href=""
             role="button"
+            onclick="updateUserData('{{ userData["uuid"] }}', document.getElementById("User").value, document.getElementById("Email").value, document.getElementById("Password").value)"
             >Update</a
         ></p>
         
@@ -78,4 +79,20 @@
 </body>
 
 <script src="{{ url_for('game_bp.static', filename='login_signup.js') }}"></script>
+<script>
+    function updateUserData(uuid, name, mail, pass) {
+        fetch(`/api/v1/users/${uuid}`, {
+                method: "put",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+            },
+                body: JSON.stringify({
+                    username: String(name),
+                    email: String(mail),
+                    password: String(pass)
+            })
+        })
+    }
+</script>
 </html>

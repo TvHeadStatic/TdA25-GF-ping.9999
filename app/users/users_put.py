@@ -13,25 +13,25 @@ def users_put(id, req):
         methodQuery = "UPDATE users SET password = %s, salt = %s WHERE uuid LIKE %s"
         salt = hex(random.randrange(0, 2**24))
         newPassword = hashlib.sha256(f"{req['password']}{salt}".encode()).hexdigest()
-        dbMan.cursor.execute(methodQuery, [newPassword, salt])
+        dbMan.cursor.execute(methodQuery, [newPassword, salt, id])
     if (req["username"] != "" or req["username"] != None):
         methodQuery = "UPDATE users SET username = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [req["username"]])
+        dbMan.cursor.execute(methodQuery, [req["username"], id])
     if (req["elo"] != "" or req["elo"] != None):
         methodQuery = "UPDATE users SET elo = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [req["elo"]])
+        dbMan.cursor.execute(methodQuery, [req["elo"], id])
     if (req["wins"] != "" or req["wins"] != None):
         methodQuery = "UPDATE users SET wins = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [req["wins"]])
+        dbMan.cursor.execute(methodQuery, [req["wins"], id])
     if (req["draws"] != "" or req["draws"] != None):
         methodQuery = "UPDATE users SET draws = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [req["draws"]])
+        dbMan.cursor.execute(methodQuery, [req["draws"], id])
     if (req["losses"] != "" or req["losses"] != None):
         methodQuery = "UPDATE users SET losses = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [req["losses"]])
+        dbMan.cursor.execute(methodQuery, [req["losses"], id])
     if (req["email"] != "" or req["email"] != None):
         methodQuery = "UPDATE users SET email = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [req["email"]])
+        dbMan.cursor.execute(methodQuery, [req["email"], id])
 
     methodQuery = "SELECT users.uuid, users.createdAt, users.username, users.elo, users.wins, users.draws, users.losses FROM users WHERE uuid LIKE %s"
     dbMan.cursor.execute(methodQuery, [id])
