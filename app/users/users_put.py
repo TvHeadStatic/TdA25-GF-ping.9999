@@ -10,7 +10,7 @@ def users_put(id, req):
     dbMan = db_manager()
 
     if ("password" in req):
-        if (req["password"].isspace() or req["password"] != None):
+        if (req["password"] != "" and req["password"].isspace() and req["password"] != None):
             methodQuery = "UPDATE users SET password = %s, salt = %s WHERE uuid LIKE %s"
             salt = hex(random.randrange(0, 2**24))
             newPassword = hashlib.sha256(f"{req['password']}{salt}".encode()).hexdigest()
