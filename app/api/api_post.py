@@ -2,6 +2,7 @@ from flask import jsonify
 import uuid
 import datetime
 from random import randrange
+import json
 
 from db.db_manager import db_manager
 from api.ticktacktoe_functionality import validate_gamestate, has_invalid_char, has_illegal_size, has_bad_actor

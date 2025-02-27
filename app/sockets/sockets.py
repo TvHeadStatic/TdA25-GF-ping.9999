@@ -4,6 +4,7 @@ import requests
 from math import ceil
 from ast import literal_eval
 from db.db_manager import db_manager
+import json
 
 socketio = SocketIO()
 
@@ -56,7 +57,12 @@ def disconnect_uwu(data):
 @socketio.on('end_game')
 def i_am_steve(data):
     dbMan = db_manager()
+    methodQuery = "SELECT users.username, users.elo FROM users WHERE uuid LIKE %s"
+    dbMan.cursor.execute(methodQuery, [session["user"]["uuid"]])
+    myResult = dbMan.cursor.fetchone()
     if data["winner"] == "x":
+        dbMan.cursor.execute(methodQuery, [data["o"]])
+        opResult = dbMan.cursor.fetchone()
         methodQuery = "UPDATE users SET wins = wins + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["x"]])
         dbMan.conn.commit()
@@ -65,9 +71,13 @@ def i_am_steve(data):
         dbMan.conn.commit()
         calculate_elo(data["x"], data["o"], 1)
         calculate_elo(data["o"], data["x"], 0)
+        append_game_to_history(session["user"]["username"], opResult["username"], myResult["elo"], session["user"]["uuid"], data["o"], " - win")
+        append_game_to_history(opResult["username"], session["user"]["username"], opResult["elo"], data["o"], session["user"]["uuid"], " - loss")
         print("Cum")
         print(data)
     elif data["winner"] == "o":
+        dbMan.cursor.execute(methodQuery, [data["x"]])
+        opResult = dbMan.cursor.fetchone()
         methodQuery = "UPDATE users SET wins = wins + 1 WHERE uuid LIKE %s"
         dbMan.cursor.execute(methodQuery, [data["o"]])
         dbMan.conn.commit()
@@ -76,6 +86,8 @@ def i_am_steve(data):
         dbMan.conn.commit()
         calculate_elo(data["x"], data["o"], 0)
         calculate_elo(data["o"], data["x"], 1)
+        append_game_to_history(session["user"]["username"], opResult["username"], myResult["elo"], session["user"]["uuid"], data["x"], " - win")
+        append_game_to_history(opResult["username"], session["user"]["username"], opResult["elo"], data["x"], session["user"]["uuid"], " - loss")
         print("Piss")
         print(data)
     else:
@@ -86,10 +98,19 @@ def i_am_steve(data):
         dbMan.conn.commit()
         calculate_elo(data["x"], data["o"], 0.5)
         calculate_elo(data["o"], data["x"], 0.5)
+        append_game_to_history(session["user"]["username"], opResult["username"], myResult["elo"], session["user"]["uuid"], data["x"], " - draw")
+        append_game_to_history(opResult["username"], session["user"]["username"], opResult["elo"], data["x"], session["user"]["uuid"], " - draw")
         print("Peanut")
         print(data)
     dbMan.free()
 
+
+def append_game_to_history(myname, opname, myelo, myuuid, opuuid, gameresult):
+    dbMan = db_manager()
+    methodQuery = "UPDATE users SET \"gameHistory\" = %s::jsonb || \"gameHistory\" WHERE uuid LIKE %s"
+    dbMan.cursor.execute(methodQuery, [json.dumps({"title": str(myname + " Vs. " + opname + gameresult), "opid": opuuid, "elo": myelo}), myuuid])
+    dbMan.conn.commit()
+    dbMan.free()
 
 def calculate_elo(playerId, opponentId, realScore):
     dbMan = db_manager()

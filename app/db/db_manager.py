@@ -27,7 +27,8 @@ class db_manager:
         elo FLOAT,
         wins INT,
         draws INT,
-        losses INT
+        losses INT,
+        gameHistory jsonb
     )
     '''
     conn = None

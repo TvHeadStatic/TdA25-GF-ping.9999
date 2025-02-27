@@ -22,7 +22,7 @@ def users_post(req):
     if result != None:
         return jsonify({ "status": 401, "reason": "a user with this e-mail email already exists" }), 401
 
-    methodQuery = "INSERT INTO users(uuid, createdAt, email, username, password, salt, elo, wins, draws, losses) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    methodQuery = "INSERT INTO users(uuid, createdAt, email, username, password, salt, elo, wins, draws, losses, gameHistory) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, array[]::jsonb)"
     salt = hex(random.randrange(0, 2**24))
     newPassword = hashlib.sha256(f"{req['password']}{salt}".encode()).hexdigest()
     dbMan.cursor.execute(methodQuery, [str(uuid.uuid4()), str(datetime.datetime.now()), req["email"], req["username"], newPassword, salt, 400.0, 0, 0, 0])
