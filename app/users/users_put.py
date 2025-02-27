@@ -9,37 +9,52 @@ from db.db_manager import db_manager
 def users_put(id, req):
     dbMan = db_manager()
 
-    if (req["password"] != "" or req["password"] != None):
-        methodQuery = "UPDATE users SET password = %s, salt = %s WHERE uuid LIKE %s"
-        salt = hex(random.randrange(0, 2**24))
-        newPassword = hashlib.sha256(f"{req['password']}{salt}".encode()).hexdigest()
-        dbMan.cursor.execute(methodQuery, [newPassword, salt, id])
-    if (req["username"] != "" or req["username"] != None):
-        methodQuery = "UPDATE users SET username = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [req["username"], id])
-    if (req["elo"] != "" or req["elo"] != None):
-        methodQuery = "UPDATE users SET elo = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [req["elo"], id])
-    if (req["wins"] != "" or req["wins"] != None):
-        methodQuery = "UPDATE users SET wins = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [req["wins"], id])
-    if (req["draws"] != "" or req["draws"] != None):
-        methodQuery = "UPDATE users SET draws = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [req["draws"], id])
-    if (req["losses"] != "" or req["losses"] != None):
-        methodQuery = "UPDATE users SET losses = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [req["losses"], id])
-    if (req["email"] != "" or req["email"] != None):
-        methodQuery = "UPDATE users SET email = %s WHERE uuid LIKE %s"
-        dbMan.cursor.execute(methodQuery, [req["email"], id])
+    if ("password" in req):
+        if (req["password"].isspace() or req["password"] != None):
+            methodQuery = "UPDATE users SET password = %s, salt = %s WHERE uuid LIKE %s"
+            salt = hex(random.randrange(0, 2**24))
+            newPassword = hashlib.sha256(f"{req['password']}{salt}".encode()).hexdigest()
+            dbMan.cursor.execute(methodQuery, [newPassword, salt, id])
+    if ("username" in req):
+        print("tvoje mama")
+        if (req["username"] != "" and not req["username"].isspace() and req["username"] != None):
+            if "user" in session:
+                session["user"]["username"] = req["username"]
+            methodQuery = "UPDATE users SET username = %s WHERE uuid LIKE %s"
+            dbMan.cursor.execute(methodQuery, [req["username"], id])
+            dbMan.conn.commit()
+            dbMan.conn.commit()
+    if ("elo" in req):
+        if (req["elo"] != "" and not req["elo"].isspace() and req["elo"] != None):
+            methodQuery = "UPDATE users SET elo = %s WHERE uuid LIKE %s"
+            dbMan.cursor.execute(methodQuery, [req["elo"], id])
+            dbMan.conn.commit()
+    if ("wins" in req):
+        if (req["wins"] != "" and not req["wins"].isspace() and req["wins"] != None):
+            methodQuery = "UPDATE users SET wins = %s WHERE uuid LIKE %s"
+            dbMan.cursor.execute(methodQuery, [req["wins"], id])
+            dbMan.conn.commit()
+    if ("draws" in req):
+        if (req["draws"] != "" and not req["draws"].isspace() and req["draws"] != None):
+            methodQuery = "UPDATE users SET draws = %s WHERE uuid LIKE %s"
+            dbMan.cursor.execute(methodQuery, [req["draws"], id])
+            dbMan.conn.commit()
+    if ("losses" in req):
+        if (req["losses"] != "" and not req["losses"].isspace() and req["losses"] != None):
+            methodQuery = "UPDATE users SET losses = %s WHERE uuid LIKE %s"
+            dbMan.cursor.execute(methodQuery, [req["losses"], id])
+            dbMan.conn.commit()
+    if ("email" in req):
+        if (req["email"] != "" and not req["email"].isspace() and req["email"] != None):
+            if "user" in session:
+                session["user"]["email"] = req["email"]
+            methodQuery = "UPDATE users SET email = %s WHERE uuid LIKE %s"
+            dbMan.cursor.execute(methodQuery, [req["email"], id])
+            dbMan.conn.commit()
 
     methodQuery = "SELECT users.uuid, users.createdAt, users.username, users.elo, users.wins, users.draws, users.losses FROM users WHERE uuid LIKE %s"
     dbMan.cursor.execute(methodQuery, [id])
     result = dbMan.cursor.fetchone()
     dbMan.free()
-
-    if "user" in session:
-        if req["email"] != None: session["user"]["email"] = req["email"]
-        if req["username"] != None: session["user"]["username"] = req["username"]
 
     return jsonify(result), 200
