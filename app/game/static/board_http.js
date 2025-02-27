@@ -191,7 +191,7 @@ function http_put() {
     if (Math.abs(winner) < 5 && !exists(currentBoard, "")) {
         document.getElementById("wincont").innerHTML = winDraw
         document.getElementById("wincont2").innerHTML = winDraw
-        socket.emit("end_game", {"winner": "Duck", "x": players["X"], "o": players["O"]})
+        socket.emit("end_game", {"winner": "Duck", "x": players["X"], "o": players["O"], "mode": gameMode})
         document.getElementById("winScreenHolder").style.display = "block"
         fetch(`/api/gateway/${uuid}`, {
             method: "delete",

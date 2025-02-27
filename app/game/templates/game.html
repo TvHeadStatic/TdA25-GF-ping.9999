@@ -44,7 +44,7 @@
                         </button>
                     </div>
                     <p style="line-height: 2em;">
-                        <a type="button" class="btn btn-primary" href="/game/canvas">Private Game</a>
+                        <button type="button" class="btn btn-primary" onclick="create_private_game()">Private Game</button>
                         <a type="button" class="btn btn-primary" href="/game/matchmaking" onclick="throbbing()">Matchmaking</a>
                     </p>
                 </span>
@@ -74,7 +74,7 @@
                 </div>
                 <p></p>
                 <p style="line-height: 2em;">
-                    <a type="button" class="btn btn-primary" href="/game/canvas">Private Game</a>
+                    <button type="button" class="btn btn-primary" onclick="create_private_game()">Private Game</button>
                     <a type="button" class="btn btn-primary" href="/game/matchmaking" onclick="throbbing()">Matchmaking</a>
                 </p>
             </h2>
@@ -159,6 +159,47 @@
     function join_this_game_m() {
         window.location.href = `/game/${document.getElementById("roomCode2").value}`
         console.log(document.getElementById("roomCode2").value)
+    }
+    function create_private_game() {
+        document.getElementById("loadingscreen").style.display = "flex"
+        fetch(`/api/gateway`, {
+        method: "post",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        },
+            body: JSON.stringify({
+                'name': "freeplay",
+                'gameMode': "private",
+                'board': [
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                ]
+            })
+        })
+        .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+        .then( (response) => {
+            document.getElementById("loadingscreen").style.display = "none"
+            if (response.status != 201) {
+                document.getElementById("badcodebad").innerHTML = response.body["reason"]
+            } else {
+                window.location.replace(`/game/${response.body["uuid"]}`)
+            }
+        })
     }
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

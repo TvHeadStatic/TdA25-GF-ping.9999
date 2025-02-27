@@ -60,6 +60,9 @@ def i_am_steve(data):
     methodQuery = "SELECT users.username, users.elo FROM users WHERE uuid LIKE %s"
     dbMan.cursor.execute(methodQuery, [session["user"]["uuid"]])
     myResult = dbMan.cursor.fetchone()
+    if data["mode"] == "private":
+        print("privát ;3")
+        return
     if data["winner"] == "x":
         dbMan.cursor.execute(methodQuery, [data["o"]])
         opResult = dbMan.cursor.fetchone()

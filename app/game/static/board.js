@@ -100,7 +100,7 @@ function board_edit(x, y) {
     if (Math.abs(winner) < 5 && !exists(currentBoard, "")) {
         document.getElementById("wincont").innerHTML = winDraw
         document.getElementById("wincont2").innerHTML = winDraw
-        socket.emit("end_game", {"winner": "Duck", "x": players["X"], "o": players["O"]})
+        socket.emit("end_game", {"winner": "Duck", "x": players["X"], "o": players["O"], "mode": gameMode})
         document.getElementById("winScreenHolder").style.display = "block"
         fetch(`/api/gateway/${uuid}`, {
             method: "delete",
@@ -121,12 +121,12 @@ function board_edit(x, y) {
         if (winner > 0) {
             document.getElementById("wincont").innerHTML = winX
             document.getElementById("wincont2").innerHTML = winX
-            socket.emit("end_game", {"winner": "x", "x": players["X"], "o": players["O"]})
+            socket.emit("end_game", {"winner": "x", "x": players["X"], "o": players["O"], "mode": gameMode})
             console.log("moans")
         } else {
             document.getElementById("wincont").innerHTML = winO
             document.getElementById("wincont2").innerHTML = winO
-            socket.emit("end_game", {"winner": "o", "x": players["X"], "o": players["O"]}) 
+            socket.emit("end_game", {"winner": "o", "x": players["X"], "o": players["O"], "mode": gameMode}) 
             console.log("moanz")
         }
         document.getElementById("winScreenHolder").style.display = "block"
@@ -230,12 +230,12 @@ function loss_ontime(a) {
     if (userData["uuid"] == players["O"]) {
         document.getElementById("wincont").innerHTML = winX
         document.getElementById("wincont2").innerHTML = winX
-        socket.emit("end_game", {"winner": "x", "x": players["X"], "o": players["O"]})
+        socket.emit("end_game", {"winner": "x", "x": players["X"], "o": players["O"], "mode": gameMode})
         console.log("moans")
     } else if (userData["uuid"] == players["X"]) {
         document.getElementById("wincont").innerHTML = winO
         document.getElementById("wincont2").innerHTML = winO
-        socket.emit("end_game", {"winner": "o", "x": players["X"], "o": players["O"]}) 
+        socket.emit("end_game", {"winner": "o", "x": players["X"], "o": players["O"], "mode": gameMode}) 
         console.log("moanz")
     }
     document.getElementById("winScreenHolder").style.display = "block"
