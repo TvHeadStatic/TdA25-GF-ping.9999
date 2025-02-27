@@ -44,6 +44,9 @@ def update_game_b(data):
 
 @socketio.on('disconnect')
 def disconnect_uwu(data):
+    if "user" in session:
+        if "isguest" in session["user"]:
+            session.pop("user", None)
     print(data)
     print(session["user"])
     emit("leave_game", session["user"], broadcast=True, include_self=False)

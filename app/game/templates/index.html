@@ -27,6 +27,29 @@
         />
     </section>
     <p><br></p>
+    <div style="display: inline-grid;">
+        <div class="input-group" style="max-width: 10em; justify-self: center;">
+            <input
+                type="text"
+                class="form-control"
+                name=""
+                id="roomCode1"
+                placeholder="6 digit code"
+            />
+            <button
+                type="button"
+                name=""
+                id=""
+                class="btn btn-primary"
+                style="z-index: 0;"
+                onclick="join_this_game()"
+            >
+                >
+            </button>
+        </div>
+    </div>
+    <p></p>
+    <p class="text-center unselectable">---- or ----</p>
     <p class="text-center">
         <a
             name=""
@@ -104,4 +127,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{{url_for('game_bp.static', filename='coolEffect.js')}}"></script>
 <script src="{{ url_for('game_bp.static', filename='login_signup.js') }}"></script>
+<script>
+    function join_this_game() {
+        window.location.href = `/freeplay?code=${document.getElementById("roomCode1").value}`
+        console.log(document.getElementById("roomCode1").value)
+    }
+</script>
 </html>

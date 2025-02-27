@@ -16,7 +16,7 @@
     </div>
     <p></p>
     <div class="card h-20">
-        <div class="card-body">
+        <div class="card-body" style="display: inline-grid;">
             <h1 class="card-title">Welcome, {{ userData["username"] }}!</h1>
             <h2 class="d-none d-lg-flex justify-content-center align-items-center card-text text-center p-5">
                 <img src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/PNG/Playing/zarivka_playing_modre.png')}}" class="img-fluid d-inline-block float-left" alt="" draggable="false"/>
@@ -49,7 +49,7 @@
                     </p>
                 </span>
             </h2>
-            <h2 class="d-inline-grid d-lg-none card-text text-center p-4">
+            <h2 class="d-inline-grid d-lg-none card-text text-center p-4" style="justify-self: center;">
                 <img src="{{url_for('game_bp.static', filename='/TdA _ Ikonky/SVG/Playing/zarivka_playing_modre.svg')}}" style="max-width: 20rem; justify-self: center;" class="img-fluid" alt="" draggable="false"/>
                 <p></p>
                 <small><small>{{ hek }}</small></small>
@@ -153,11 +153,11 @@
         document.getElementById("loadingscreen").style.display = "none"
     }
     function join_this_game() {
-        window.location.href = `/game/${document.getElementById("roomCode1").value}`
+        window.location.href = `/freeplay?code=${document.getElementById("roomCode1").value}`
         console.log(document.getElementById("roomCode1").value)
     }
     function join_this_game_m() {
-        window.location.href = `/game/${document.getElementById("roomCode2").value}`
+        window.location.href = `/freeplay?code=${document.getElementById("roomCode2").value}`
         console.log(document.getElementById("roomCode2").value)
     }
     function create_private_game() {
@@ -197,7 +197,7 @@
             if (response.status != 201) {
                 document.getElementById("badcodebad").innerHTML = response.body["reason"]
             } else {
-                window.location.replace(`/game/${response.body["uuid"]}`)
+                window.location.replace(`/freeplay?code=${response.body["uuid"]}`)
             }
         })
     }

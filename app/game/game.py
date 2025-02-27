@@ -30,6 +30,9 @@ def game():
         '🤫🧏🤫🧏, 🤫🧏🤫🧏🤫🧏,🤫🧏🤫🧏?'
     ]
     if "user" in session:
+        if "isguest" in session["user"]:
+            session.pop("user", None)
+            return redirect(url_for("game_bp.main"))
         return render_template("game.html", title = "TdA | Game", userData = session["user"], hek = random.choice(heks)), 200
     return redirect(url_for("game_bp.main"))
 
@@ -69,6 +72,27 @@ def gaming(id):
             return redirect("/404")
         return render_template("board.html", title = "TdA | " + apiRes.json()["name"], gameData = apiRes.json(), userData = session["user"]), 200
     return redirect(url_for("game_bp.main"))
+
+@game_bp.route("/freeplay")
+def free_of_charge():
+    if "code" not in request.args:
+        return redirect("/404")
+    apiRes = requests.get(url_for("api_bp.api", id=request.args.get("code"), _external=True))
+    if apiRes.status_code != 200:
+        return redirect("/404")
+    if "gamemode" in apiRes.json():
+        if apiRes.json()["gamemode"] != "private":
+            return redirect("/404")
+    if "user" not in session:
+        session.permanent = False
+        session["user"] = {
+                "uuid": str(random.randrange(0, 2**24)),
+                "email": "guester",
+                "username": "guest" + str(random.randrange(0, 2**24)),
+                "token": str(random.randrange(0, 2**24)),
+                "isguest": True
+        }
+    return render_template("board.html", title = "TdA | " + apiRes.json()["name"], gameData = apiRes.json(), userData = session["user"]), 200
 
 @game_bp.route("/game/user/<id>")
 def profiling(id):
@@ -142,7 +166,7 @@ def matchumakingu():
             ],
                 "gameMode": "public",
                 "gameState": "opening",
-                "name": "WIP",
+                "name": "Match",
     }
 
     if len(result) == 0:

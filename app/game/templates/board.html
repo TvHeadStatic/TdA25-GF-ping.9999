@@ -15,6 +15,9 @@
 <body class="container-fluid bg-light d-flex flex-column min-vh-100">
     <p><br></p>
     <!-- <h1 class="text-center">{{ gameData["name"] }}</h1> -->
+    {% if gameData["gamemode"] == "private" %}
+    <p class="text-center">game code: {{ gameData["uuid"] }}</p>
+    {% endif %}
     <p class="text-center">
         <span class="text-primary" style="padding-left: .25rem">{{ gameData["gamemode"] }}</span>
     </p>
