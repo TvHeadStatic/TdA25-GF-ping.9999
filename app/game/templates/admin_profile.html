@@ -81,6 +81,25 @@
                     <h3 class="card-title">{{ user["username"] }}</h3>
                     <p class="card-text">W/D/L: {{ user["wins"] }}/{{ user["draws"] }}/{{ user["losses"] }}
                         <br>ELO: {{ user["elo"] }}</p>
+                    <div class="mb-3 ">
+                        <input
+                            type="text"
+                            class="form-control"
+                            name=""
+                            id="newElo"
+                            placeholder="{{ user["elo"] }}"
+                        />
+                        <input
+                            name=""
+                            id=""
+                            class="btn btn-primary"
+                            type="button"
+                            value="Change user ELO"
+                            onclick="ChangeElo('{{ user["uuid"] }}', document.getElementById("newElo"))"
+                        />
+                        
+                    </div>
+                    
                     <div class="d-grid gap-2">
                         <button
                             type="button"
@@ -113,6 +132,19 @@
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
+        })
+    }
+
+    function changeElo(uuid, newElo) {
+        fetch(`/api/v1/users/${uuid}`, {
+            method: "put",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: {
+                elo: String(newElo)
+            }
         })
     }
     
