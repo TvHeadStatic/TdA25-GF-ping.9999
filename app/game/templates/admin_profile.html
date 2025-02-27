@@ -74,20 +74,20 @@
     </div>
 
     <div class="row">
-        {% for user in allUserData %}
+        {% for user in range(allUserData|length) %}
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title">{{ user["username"] }}</h3>
-                    <p class="card-text">W/D/L: {{ user["wins"] }}/{{ user["draws"] }}/{{ user["losses"] }}
-                        <br>ELO: {{ user["elo"] }}</p>
+                    <h3 class="card-title">{{ allUserData[user]["username"] }}</h3>
+                    <p class="card-text">W/D/L: {{ allUserData[user]["wins"] }}/{{ allUserData[user]["draws"] }}/{{ allUserData[user]["losses"] }}
+                        <br>ELO: {{ allUserData[user]["elo"] }}</p>
                     <div class="mb-3 ">
                         <input
                             type="text"
-                            class="form-control"
+                            class="form-control newElo"
                             name=""
-                            id="newElo"
-                            placeholder="{{ user["elo"] }}"
+                            id=""
+                            placeholder="{{ allUserData[user]["elo"] }}"
                         />
                         <input
                             name=""
@@ -95,7 +95,7 @@
                             class="btn btn-primary"
                             type="button"
                             value="Change user ELO"
-                            onclick="ChangeElo('{{ user["uuid"] }}', document.getElementById("newElo"))"
+                            onclick="changeElo('{{ allUserData[user]["uuid"] }}', {{ user }})"
                         />
                         
                     </div>
@@ -106,7 +106,7 @@
                             name=""
                             id=""
                             class="btn btn-danger"
-                            onclick="deleteUser('{{ user["uuid"] }}')"
+                            onclick="deleteUser('{{ allUserData[user]["uuid"] }}')"
                         >
                             Ban user
                         </button>
@@ -135,7 +135,7 @@
         })
     }
 
-    function changeElo(uuid, newElo) {
+    function changeElo(uuid, i) {
         fetch(`/api/v1/users/${uuid}`, {
             method: "put",
             headers: {
@@ -143,7 +143,7 @@
                 'Content-Type': 'application/json'
             },
             body: {
-                elo: String(newElo)
+                elo: String(document.getElementsByClassName("newElo")[i].value)
             }
         })
     }
