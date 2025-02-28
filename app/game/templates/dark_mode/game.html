@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{url_for('game_bp.static', filename='colours.css')}}">
     <title>{{ title }}</title>
 </head>
-<body class="container-fluid bg-light d-flex flex-column min-vh-100" style="overflow-x: hidden;">
+<body class="container-fluid bg-muted d-flex flex-column min-vh-100 text-white" style="overflow-x: hidden;">
     <div id="loadingscreen" style="display: none;">
         <span class="loader"></span>
     </div>
@@ -37,15 +37,15 @@
                             type="button"
                             name=""
                             id=""
-                            class="btn btn-primary"
+                            class="btn btn-danger"
                             onclick="join_this_game()"
                         >
                             >
                         </button>
                     </div>
                     <p style="line-height: 2em;">
-                        <button type="button" class="btn btn-primary" onclick="create_private_game()">Private Game</button>
-                        <a type="button" class="btn btn-primary" href="/game/matchmaking" onclick="throbbing()">Matchmaking</a>
+                        <button type="button" class="btn btn-danger" onclick="create_private_game()">Private Game</button>
+                        <a type="button" class="btn btn-danger" href="/game/matchmaking?darkmode=true" onclick="throbbing()">Matchmaking</a>
                     </p>
                 </span>
             </h2>
@@ -66,7 +66,7 @@
                         type="button"
                         name=""
                         id=""
-                        class="btn btn-primary"
+                        class="btn btn-danger"
                         onclick="join_this_game_m()"
                     >
                         >
@@ -74,8 +74,8 @@
                 </div>
                 <p></p>
                 <p style="line-height: 2em;">
-                    <button type="button" class="btn btn-primary" onclick="create_private_game()">Private Game</button>
-                    <a type="button" class="btn btn-primary" href="/game/matchmaking" onclick="throbbing()">Matchmaking</a>
+                    <button type="button" class="btn btn-danger" onclick="create_private_game()">Private Game</button>
+                    <a type="button" class="btn btn-danger" href="/game/matchmaking?darkmode=true" onclick="throbbing()">Matchmaking</a>
                 </p>
             </h2>
         </div>
@@ -83,10 +83,10 @@
     <p></p>
     <div class="card">
         <p class="text-center p-4 m-0" style="line-height: 3em;">
-            <a type="button" class="btn btn-primary" href="/game/user/{{ userData['uuid'] }}" onclick="throbbing()">My profile</a>
-            <a type="button" class="btn btn-primary" href="/game/leaderboard/elo" onclick="throbbing()">Leaderboard</a>
-            <a type="button" class="btn btn-primary" href="/game?darkmode=true">darkmode</a>
-            <button type="button" class="btn btn-danger" onclick="signout_user()">Sign-out</button>
+            <a type="button" class="btn btn-danger" href="/game/user/{{ userData['uuid'] }}?darkmode=true" onclick="throbbing()">My profile</a>
+            <a type="button" class="btn btn-danger" href="/game/leaderboard/elo?darkmode=true" onclick="throbbing()">Leaderboard</a>
+            <a type="button" class="btn btn-danger" href="/game">lightmode</a>
+            <button type="button" class="btn btn-warning" onclick="signout_user()">Sign-out</button>
         </p>
     </div>
     
@@ -154,11 +154,11 @@
         document.getElementById("loadingscreen").style.display = "none"
     }
     function join_this_game() {
-        window.location.href = `/freeplay?code=${document.getElementById("roomCode1").value}`
+        window.location.href = `/freeplay?code=${document.getElementById("roomCode1").value}?darkmode=true`
         console.log(document.getElementById("roomCode1").value)
     }
     function join_this_game_m() {
-        window.location.href = `/freeplay?code=${document.getElementById("roomCode2").value}`
+        window.location.href = `/freeplay?code=${document.getElementById("roomCode2").value}?darkmode=true`
         console.log(document.getElementById("roomCode2").value)
     }
     function create_private_game() {
@@ -198,7 +198,7 @@
             if (response.status != 201) {
                 document.getElementById("badcodebad").innerHTML = response.body["reason"]
             } else {
-                window.location.replace(`/freeplay?code=${response.body["uuid"]}`)
+                window.location.replace(`/freeplay?code=${response.body["uuid"]}?darkmode=true`)
             }
         })
     }
