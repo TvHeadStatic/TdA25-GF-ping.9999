@@ -1,6 +1,0 @@
-body {
-    background-image: linear-gradient(lightgray 2px, transparent 2px), linear-gradient(to right, lightgray 2px, var(--tda-white) 2px);
-    background-size: 32px 32px;
-    background-position: -13.5px -21px;
-    background-attachment: fixed;
-}
