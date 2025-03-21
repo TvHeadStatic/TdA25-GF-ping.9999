@@ -21,7 +21,7 @@ socketio.init_app(app, cors_allowed_origins="*")
 def home():
     return render_template("home.html")
 
-@app.route("/featuires")
+@app.route("/features")
 def features():
     return render_template("features.html")
 
