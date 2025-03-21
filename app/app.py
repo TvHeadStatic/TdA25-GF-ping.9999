@@ -25,6 +25,10 @@ def home():
 def features():
     return render_template("features.html")
 
+@socketio.on('message')
+def handle_message(data):
+    print('received message: ' + data["data"])
+
 print("API_SECRET env test (not actual key don' worry): " + str(os.getenv("API_SECRET")))
 if __name__ == '__main__':
     socketio.run(app)
