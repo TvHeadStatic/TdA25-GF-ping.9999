@@ -21,7 +21,9 @@ socketio.init_app(app, cors_allowed_origins="*")
 def home():
     return render_template("home.html")
 
-#socketio.init_app(app, cors_allowed_origins="*")
+@app.route("/featuires")
+def home():
+    return render_template("features.html")
 
 print("API_SECRET env test (not actual key don' worry): " + str(os.getenv("API_SECRET")))
 if __name__ == '__main__':
