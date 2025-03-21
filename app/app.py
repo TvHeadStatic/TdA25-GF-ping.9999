@@ -22,7 +22,7 @@ def home():
     return render_template("home.html")
 
 @app.route("/featuires")
-def home():
+def features():
     return render_template("features.html")
 
 print("API_SECRET env test (not actual key don' worry): " + str(os.getenv("API_SECRET")))
