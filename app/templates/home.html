@@ -63,18 +63,9 @@
                 <h4 class="card-title text-center">Innovation</h4>
                 <p class="card-text text-center">Innovator</p>
                 <div class="grid text-center">
-                    <button
-                        type="button"
-                        class="btn btn-success g-col-1 btn-lg"
-                    >
-                        Gud
-                    </button>
-                    <button
-                        type="button"
-                        class="btn btn-danger g-col-2 btn-lg"
-                    >
-                        Bad
-                    </button>
+                    <label for="customRange1" class="form-label">Rating</label>
+                    <input type="range" class="form-range" min="1" max="6" value="1" oninput="this.nextElementSibling.value = this.value" id="customRange1">
+                    <output>1</output>
                 </p>
             </div>
         </div>
