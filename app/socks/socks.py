@@ -22,4 +22,4 @@ def send_message(data):
     room = data['room']
     join_room(room)
     print(data["text"])
-    emit("receive", data["text"], broadcast=True, include_self=True, to=room)
+    emit("receive", data['username'] + "> " + data["text"], broadcast=True, include_self=True, to=room)

@@ -23,20 +23,20 @@
             </button>
             
         </div>
-        <div class="card border border-dark">
+        <div class="card border border-dark fixed-bottom">
             <div class="card-body">
                 <h4 class="card-title text-center">Innovation</h4>
                 <p class="card-text text-center">Innovator</p>
-                <p class="text-center">
+                <div class="grid text-center">
                     <button
                         type="button"
-                        class="btn btn-success"
+                        class="btn btn-success g-col-1 btn-lg"
                     >
                         Gud
                     </button>
                     <button
                         type="button"
-                        class="btn btn-danger"
+                        class="btn btn-danger g-col-2 btn-lg"
                     >
                         Bad
                     </button>
@@ -48,17 +48,19 @@
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf-8">
+        var urlParams = new URLSearchParams(window.location.search)
         var socket = io();
         socket.on('connect', function() {
-            socket.emit('join_room', {"username": "greg", "room": "yoyo"});
-        });
+            socket.emit('join_room', {"username": "greg", "room": String(urlParams.get('room'))});
+        })
+        
         socket.on('receive', (data) => {
             console.log(data)
             document.getElementById("boxik").innerHTML += `<p>${data}</p>`
         })
 
         function a() {
-            socket.emit('send_message', {"text": document.getElementById("mess").value, "username": "greg", "room": "yoyo"})
+            socket.emit('send_message', {"text": document.getElementById("mess").value, "username": "greg", "room": String(urlParams.get('room'))})
         }
     </script>
 </html>
