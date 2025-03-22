@@ -58,7 +58,7 @@
         })
 
         function a() {
-            socket.emit('send_message', {"text": document.getElementById("mess").value})
+            socket.emit('send_message', {"text": document.getElementById("mess").value, "username": "greg", "room": "yoyo"})
         }
     </script>
 </html>
