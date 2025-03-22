@@ -63,9 +63,19 @@
                 <h4 class="card-title text-center">Innovation</h4>
                 <p class="card-text text-center">Innovator</p>
                 <div class="grid text-center">
-                    <label for="customRange1" class="form-label">Rating</label>
-                    <input type="range" class="form-range" min="1" max="6" value="1" oninput="this.nextElementSibling.value = this.value" id="customRange1">
-                    <output>1</output>
+                    <label for="ratingUsefulness" class="form-label">How useful?</label>
+                    <input type="range" class="form-range" min="1" max="6" value="1" oninput="Output()">
+                    <h1 id="output0">💀</h1>
+                </p>
+                <div class="grid text-center">
+                    <label for="ratingCreativity" class="form-label">How creative?</label>
+                    <input type="range" class="form-range" min="1" max="6" value="1" oninput="Output()">
+                    <h1 id="output1">💀</h1>
+                </p>
+                <div class="grid text-center">
+                    <label for="ratingPossibility" class="form-label">How Possible?</label>
+                    <input type="range" class="form-range" min="1" max="6" value="1" oninput="Output()">
+                    <h1 id="output2">💀</h1>
                 </p>
             </div>
         </div>
@@ -109,6 +119,32 @@
 
         function a() {
             socket.emit('send_message', {"text": document.getElementById("mess").value, "username": selectedUsername, "room": selectedRoom})
+        }
+        
+        function Output() {
+            for (let i = 0 ; i < document.getElementsByClassName("form-range").length ; i++) {
+                let value = document.getElementsByClassName("form-range")[i].value
+                switch(value) {
+                    case "1":
+                        document.getElementById(`output${i}`).innerHTML = "💀"
+                        break;
+                    case "2":
+                        document.getElementById(`output${i}`).innerHTML = "😭"
+                        break;
+                    case "3":
+                        document.getElementById(`output${i}`).innerHTML = "😐"
+                        break;
+                    case "4":
+                        document.getElementById(`output${i}`).innerHTML = "😳"
+                        break;
+                    case "5":
+                        document.getElementById(`output${i}`).innerHTML = "🥵"
+                        break;
+                    case "6":
+                        document.getElementById(`output${i}`).innerHTML = "🗿"
+                        break;
+                }
+            }
         }
     </script>
 </html>
