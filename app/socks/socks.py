@@ -2,28 +2,9 @@ from flask_socketio import SocketIO, send, emit, join_room, leave_room
 from random import randrange
 
 rooms = {
-    "test0": {
-        "started": False,
-        "employees": {},
-        "presented": [],
-        "presenting": ""
-    },
-    "test1": {
-        "started": False,
-        "employees": {},
-        "presented": [],
-        "presenting": ""
-    }
 }
 
 history = [
-    {
-        "name": "noway",
-        "data": {
-            "a": 1,
-            "b": 10
-        }
-    }
 ]
 
 socketio = SocketIO()
