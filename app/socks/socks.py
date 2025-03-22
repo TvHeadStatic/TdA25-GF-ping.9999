@@ -22,6 +22,9 @@ def join_me(data):
     if room not in rooms:
         emit("bring_back")
         return
+    if rooms[room]:
+        emit("bring_back")
+        return
     join_room(room)
     print(username + " joined room " + room)
 
