@@ -1,10 +1,11 @@
 from flask import Flask, render_template, jsonify, Blueprint
+from socks.socks import rooms
 
 home_bp = Blueprint('home_bp', __name__, template_folder='templates')
 
 @home_bp.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("home.html", elementsuwu=rooms)
 
 @home_bp.route("/features")
 def features():
@@ -13,3 +14,7 @@ def features():
 @home_bp.route("/manager")
 def manager():
     return render_template("managerstuff.html")
+
+@home_bp.route("/testing")
+def testing():
+    return render_template("placeholder.html")
