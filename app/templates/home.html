@@ -152,6 +152,7 @@
         })
         
         socket.on('show_results', (data) => {
+            document.getElementById("presentjumpscare").classList.replace("d-flex", "d-none")
             document.getElementById("votingcard").classList.replace("d-flex", "d-none")
             console.log(data)
             document.getElementById('restitle').innerHTML = JSON.stringify(data["data"]["employees"])
@@ -177,8 +178,10 @@
         socket.on('change_person', (data) => {
             document.getElementById("inovatorname").innerHTML = data["name"]
             if (selectedUsername == data["name"]) {
+                document.getElementById("presentjumpscare").classList.replace("d-none", "d-flex")
                 document.getElementById("votingcard").classList.replace("d-flex", "d-none")
             } else {
+                document.getElementById("presentjumpscare").classList.replace("d-flex", "d-none")
                 document.getElementById("votingcard").classList.replace("d-none", "d-flex")
             }
         })
