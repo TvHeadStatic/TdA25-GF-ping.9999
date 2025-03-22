@@ -5,7 +5,7 @@ from datetime import timedelta
 from dotenv import load_dotenv
 import os
 
-messages = []
+from home.home import home_bp
 
 if os.path.isfile(".env"): load_dotenv()
 
@@ -18,13 +18,7 @@ app.permanent_session_lifetime = timedelta(days = 1)
 socketio = SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
-@app.route("/")
-def home():
-    return render_template("home.html", heynow=messages)
-
-@app.route("/features")
-def features():
-    return render_template("features.html")
+app.register_blueprint(home_bp)
 
 @socketio.on('message')
 def handle_message(data):
@@ -38,4 +32,4 @@ def send_message(data):
 
 print("API_SECRET env test (not actual key don' worry): " + str(os.getenv("API_SECRET")))
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, debug=True)
