@@ -1,11 +1,10 @@
 from flask import Flask, render_template, jsonify, Blueprint
-from socks.socks import messages
 
 home_bp = Blueprint('home_bp', __name__, template_folder='templates')
 
 @home_bp.route("/")
 def home():
-    return render_template("home.html", heynow=messages)
+    return render_template("home.html")
 
 @home_bp.route("/features")
 def features():
