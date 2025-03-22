@@ -1,0 +1,207 @@
+.text-primary {
+    color: var(--tda-blue) !important;
+}
+
+.bg-primary {
+    background-color: var(--tda-blue) !important;
+}
+
+.border-primary {
+    border-color: var(--tda-blue) !important;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: var(--tda-blue) !important;
+    border-color: var(--tda-blue) !important;
+    color: var(--tda-white) !important;
+
+}
+
+.btn-primary:hover {
+    background-color: var(--tda-secondary) !important;
+    border-color: var(--tda-secondary) !important;
+}
+.text-secondary {
+    color: var(--tda-secondary) !important;
+}
+
+.bg-secondary {
+    background-color: var(--tda-secondary) !important;
+}
+
+.border-secondary {
+    border-color: var(--tda-secondary) !important;
+}
+
+.btn-secondary, .btn-secondary:active, .btn-secondary:visited {
+    background-color: var(--tda-secondary) !important;
+    border-color: var(--tda-secondary) !important;
+    color: var(--tda-white) !important;
+
+}
+
+.btn-secondary:hover {
+    background-color: var(--tda-secondary) !important;
+    border-color: var(--tda-secondary) !important;
+}
+.text-danger {
+    color: var(--tda-danger) !important;
+}
+
+.bg-danger {
+    background-color: var(--tda-danger) !important;
+}
+
+.border-danger {
+    border-color: var(--tda-danger) !important;
+}
+
+.btn-danger, .btn-danger:active, .btn-danger:visited {
+    background-color: var(--tda-danger) !important;
+    border-color: var(--tda-danger) !important;
+    color: var(--tda-white) !important;
+
+}
+
+.btn-danger:hover {
+    background-color: var(--tda-warning) !important;
+    border-color: var(--tda-warning) !important;
+}
+.text-warning {
+    color: var(--tda-warning) !important;
+}
+
+.bg-warning {
+    background-color: var(--tda-warning) !important;
+}
+
+.border-warning {
+    border-color: var(--tda-warning) !important;
+}
+
+.btn-warning, .btn-warning:active, .btn-warning:visited {
+    background-color: var(--tda-warning) !important;
+    border-color: var(--tda-warning) !important;
+    color: var(--tda-white) !important;
+
+}
+
+.btn-warning:hover {
+    background-color: var(--tda-info) !important;
+    border-color: var(--tda-info) !important;
+}
+.text-info {
+    color: var(--tda-info) !important;
+}
+
+.bg-info {
+    background-color: var(--tda-info) !important;
+}
+
+.border-info {
+    border-color: var(--tda-info) !important;
+}
+
+.btn-info, .btn-info:active, .btn-info:visited {
+    background-color: var(--tda-info) !important;
+    border-color: var(--tda-info) !important;
+    color: var(--tda-white) !important;
+
+}
+
+.btn-info:hover {
+    background-color: var(--tda-warning) !important;
+    border-color: var(--tda-warning) !important;
+}
+.text-light {
+    color: var(--tda-light) !important;
+}
+
+.bg-light {
+    background-color: var(--tda-light) !important;
+}
+
+.border-light {
+    border-color: var(--tda-light) !important;
+}
+
+.btn-light, .btn-light:active, .btn-light:visited {
+    background-color: var(--tda-light) !important;
+    border-color: var(--tda-light) !important;
+    color: var(--tda-dark) !important;
+
+}
+
+.btn-light:hover {
+    background-color: var(--tda-white) !important;
+    border-color: var(--tda-white) !important;
+}
+.text-dark {
+    color: var(--tda-dark) !important;
+}
+
+.bg-dark {
+    background-color: var(--tda-dark) !important;
+}
+
+.border-dark {
+    border-color: var(--tda-dark) !important;
+}
+
+.btn-dark, .btn-dark:active, .btn-dark:visited {
+    background-color: var(--tda-dark) !important;
+    border-color: var(--tda-dark) !important;
+    color: var(--tda-white) !important;
+
+}
+
+.btn-dark:hover {
+    background-color: var(--tda-muted) !important;
+    border-color: var(--tda-muted) !important;
+}
+.text-muted {
+    color: var(--tda-muted) !important;
+}
+
+.bg-muted {
+    background-color: var(--tda-muted) !important;
+}
+
+.border-muted {
+    border-color: var(--tda-muted) !important;
+}
+
+.btn-muted, .btn-muted:active, .btn-muted:visited {
+    background-color: var(--tda-muted) !important;
+    border-color: var(--tda-muted) !important;
+    color: var(--tda-white) !important;
+
+}
+
+.btn-muted:hover {
+    background-color: var(--tda-dark) !important;
+    border-color: var(--tda-dark) !important;
+}
+.text-white {
+    color: var(--tda-white) !important;
+}
+
+.bg-white {
+    background-color: var(--tda-white) !important;
+}
+
+.border-white {
+    border-color: var(--tda-white) !important;
+}
+
+.btn-white, .btn-white:active, .btn-white:visited {
+    background-color: var(--tda-white) !important;
+    border-color: var(--tda-white) !important;
+    color: var(--tda-dark) !important;
+
+}
+
+.btn-white:hover {
+    background-color: var(--tda-light) !important;
+    border-color: var(--tda-light) !important;
+}
