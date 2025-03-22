@@ -10,9 +10,11 @@
         <link rel="stylesheet" href="static/styles.css">
     </head>
     <body class="container-fluid">
-        <div class="card" id="boxik">
+        <h1 id="lobbyname"></h1>
+        <div class="card" style="min-height: 4rem;" id="boxik">
+            <h2>chat:</h2>
         </div>
-        <div class="mb-3">
+        <p class="mb-3">
             <label for="" class="form-label">
             </label>
             <textarea id="mess" class="form-control" name="" id="" rows="3"></textarea>
@@ -24,15 +26,24 @@
                 Submit
             </button>
             
-        </div>
+        </p>
         
-        <div class="card d-flex text-center align-self-center position-fixed top-50 start-50 translate-middle" style="width: 20rem;">
+        <div id="roomsmenu" class="card d-flex text-center align-self-center position-fixed top-50 start-50 translate-middle" style="width: 20rem;">
             <div class="card-body">
-                <h1 class="card-title">Rooms</h1>
+                <h1 class="card-title">Enter lobby code</h1>
+                <form class="row g-3">
+                    <div class="col-md-4" style="width: 100%;">
+                        <label for="lobby" class="form-label">lobby id</label>
+                        <input type="text" class="form-control" id="lobby" placeholder="######" required>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" onclick="show_username_ah()" type="button">></button>
+                    </div>
+                </form>
             </div>
         </div>
         
-        <div class="card d-none text-center align-self-center position-fixed top-50 start-50 translate-middle" style="width: 20rem;">
+        <div id="usermenu" class="card d-none text-center align-self-center position-fixed top-50 start-50 translate-middle" style="width: 20rem;">
             <div class="card-body">
                 <h1 class="card-title">Gib Username</h1>
                 <form class="row g-3">
@@ -41,7 +52,7 @@
                         <input type="text" class="form-control" id="user" placeholder="Username" required>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-primary" onclick="" type="button">Das it</button>
+                        <button class="btn btn-primary" onclick="join_that()" type="button">></button>
                     </div>
                 </form>
             </div>
@@ -74,8 +85,11 @@
     <script type="text/javascript" charset="utf-8">
         var urlParams = new URLSearchParams(window.location.search)
         var socket = io();
+        var selectedRoom = ""
+        var selectedUsername = ""
+
         socket.on('connect', function() {
-            socket.emit('join_room', {"username": "greg", "room": String(urlParams.get('room'))});
+            
         })
         
         socket.on('receive', (data) => {
@@ -83,8 +97,27 @@
             document.getElementById("boxik").innerHTML += `<p>${data}</p>`
         })
 
+        socket.on('bring_back', (data) => {
+            document.getElementById("usermenu").classList.replace("d-flex", "d-none")
+            document.getElementById("roomsmenu").classList.replace("d-none", "d-flex")
+            document.getElementById("lobbyname").innerHTML = ""
+        })
+        
+        function show_username_ah() {
+            selectedRoom = document.getElementById("lobby").value
+            document.getElementById("roomsmenu").classList.replace("d-flex", "d-none")
+            document.getElementById("usermenu").classList.replace("d-none", "d-flex")
+        }
+
+        function join_that() {
+            selectedUsername = document.getElementById("user").value
+            document.getElementById("usermenu").classList.replace("d-flex", "d-none")
+            document.getElementById("lobbyname").innerHTML = selectedRoom
+            socket.emit('join_room', {"username": selectedUsername, "room": selectedRoom});
+        }
+
         function a() {
-            socket.emit('send_message', {"text": document.getElementById("mess").value, "username": "greg", "room": String(urlParams.get('room'))})
+            socket.emit('send_message', {"text": document.getElementById("mess").value, "username": selectedUsername, "room": selectedRoom})
         }
     </script>
 </html>
