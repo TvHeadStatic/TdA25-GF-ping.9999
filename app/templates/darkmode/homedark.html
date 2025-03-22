@@ -32,17 +32,17 @@
             >
                 Submit
             </button>
-            <a type="button" class="btn btn-primary" href="/">lightmode</a>
+            <a type="button" class="btn btn-danger" href="/">lightmode</a>
             <button
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-danger"
                 onclick="ontop()"
             >
             🤫
             </button>
             <button
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-danger"
                 onclick="ontopbruw()"
             >
             🧏‍♂️
@@ -78,6 +78,22 @@
                         <button class="btn btn-danger" onclick="join_that()" type="button">></button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div id="" class="card d-none text-center align-self-center position-fixed top-50 start-50 translate-middle bg-dark text-white" style="width: 20rem;">
+            <div class="card-body bg-dark text-white">
+                <h1 class="card-title">Results</h1>
+                <ul class="list-group list-group">
+                    <li class="list-group-item bg-dark text-white">Item</li>
+                </ul>
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                >
+                    Disconnect
+                </button>
+                
             </div>
         </div>
 
@@ -148,10 +164,10 @@
             }
         })
         function ontop() {
-            document.getElementById("mess").value += "🤫"
+            socket.emit('send_message', {"text": "🤫", "username": selectedUsername, "room": selectedRoom})
         }
         function ontopbruw() {
-            document.getElementById("mess").value += "🧏‍♂️"
+            socket.emit('send_message', {"text": "🧏‍♂️", "username": selectedUsername, "room": selectedRoom})
         }
 
         function votetete() {
