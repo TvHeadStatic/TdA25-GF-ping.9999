@@ -10,3 +10,7 @@ def home():
 @home_bp.route("/features")
 def features():
     return render_template("features.html")
+
+@home_bp.route("/testing")
+def testing():
+    return render_template("placeholder.html")
