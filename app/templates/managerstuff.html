@@ -54,14 +54,17 @@
             {% endfor %}
         </div>
     </div>
+    <h2>History:</h2>
+    {% for x in chronicals %}
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">{{Placeholder}}</h4>
+            <h4 class="card-title">{{ x["name"] }}</h4>
             <ul class="list-group list-group-">
-                <li class="list-group-item">UwU</li>
+                <li class="list-group-item">{{ x["data"] }}</li>
             </ul>
         </div>
-    </div>  
+    </div>
+    {% endfor %}
     
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>

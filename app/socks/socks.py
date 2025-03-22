@@ -16,6 +16,16 @@ rooms = {
     }
 }
 
+history = [
+    {
+        "name": "noway",
+        "data": {
+            "a": 1,
+            "b": 10
+        }
+    }
+]
+
 socketio = SocketIO()
 
 @socketio.on('create_room')
@@ -57,6 +67,13 @@ def next_in_line_pls(data):
     else:
         print("noone")
     join_room(room)
+    for x in rooms[room]['presented']:
+        if x not in rooms[room]['employees']:
+            break
+        history.append({ "name": room, "data": {k: v for k, v in sorted(rooms[room]['employees'].items(), key=lambda item: item[1])}})
+        emit("show_results", { "data": rooms[room] }, broadcast=True, include_self=True, to=room)
+        print("history")
+        print(history)
     emit("change_person", { "name": rooms[room]['presenting'] }, broadcast=True, include_self=True, to=room)
 
 @socketio.on('join_room')
