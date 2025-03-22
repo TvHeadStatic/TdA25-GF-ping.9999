@@ -33,6 +33,20 @@
                 Submit
             </button>
             <a type="button" class="btn btn-primary" href="/?darkmode=true">darkmode</a>
+            <button
+                type="button"
+                class="btn btn-primary"
+                onclick="ontop()"
+            >
+            🤫
+            </button>
+            <button
+                type="button"
+                class="btn btn-primary"
+                onclick="ontopbruw()"
+            >
+            🧏‍♂️
+            </button>
             
         </p>
         
@@ -132,7 +146,13 @@
                 document.getElementById("votingcard").classList.replace("d-none", "d-flex")
             }
         })
-        
+        function ontop() {
+            socket.emit('send_message', {"text": "🤫", "username": selectedUsername, "room": selectedRoom})
+        }
+        function ontopbruw() {
+            socket.emit('send_message', {"text": "🧏‍♂️", "username": selectedUsername, "room": selectedRoom})
+        }
+
         function votetete() {
             document.getElementById("votebuton").disabled = true
             let ratatata = 0

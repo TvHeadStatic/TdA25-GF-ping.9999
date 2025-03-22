@@ -33,6 +33,20 @@
                 Submit
             </button>
             <a type="button" class="btn btn-primary" href="/">lightmode</a>
+            <button
+                type="button"
+                class="btn btn-primary"
+                onclick="ontop()"
+            >
+            🤫
+            </button>
+            <button
+                type="button"
+                class="btn btn-primary"
+                onclick="ontopbruw()"
+            >
+            🧏‍♂️
+            </button>
 
             
         </p>
@@ -133,7 +147,13 @@
                 document.getElementById("votingcard").classList.replace("d-none", "d-flex")
             }
         })
-        
+        function ontop() {
+            document.getElementById("mess").value += "🤫"
+        }
+        function ontopbruw() {
+            document.getElementById("mess").value += "🧏‍♂️"
+        }
+
         function votetete() {
             document.getElementById("votebuton").disabled = true
             let ratatata = 0
