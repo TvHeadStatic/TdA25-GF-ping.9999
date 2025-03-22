@@ -9,3 +9,7 @@ def home():
 @home_bp.route("/features")
 def features():
     return render_template("features.html")
+
+@home_bp.route("/manager")
+def manager():
+    return render_template("managerstuff.html")
