@@ -1,82 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="static/colours.css">
-        <link rel="stylesheet" href="static/styles.css">
-        <title>TdA</title>
-    </head>
-    <body>
-         
-          <div class="Container d-grid" style="gap: 1rem;">
-            <div class="row">
-        <div class="card text-center align-self-center">
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="" class="form-label"></label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        name=""
-                        id=""
-                        aria-describedby="helpId"
-                        placeholder="Room name"
-                    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="static/colours.css">
+    <link rel="stylesheet" href="static/styles.css">
+    <title>TdA</title>
+</head>
+<body class="container-fluid">
+    <div class="Container d-grid" style="gap: 1rem;">
+        <div class="row">
+            <div class="card text-center align-self-center">
+                <div class="card-body">
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        onclick="create_lobby()"
+                    >
+                        Create New Lobby
+                    </button>
                     
                 </div>
-                <a 
-                name=""
-                id=""
+            </div> 
+        </div>
+        <div class="list-group">
+            {% for x in elementsuwu %}
+            <p href="#" class="list-group-item list-group-item-action"
+            >Code: {{ x }}
+            <button
+                type="button"
                 class="btn btn-primary"
-                href="#"
-                role="button"
-                >New room</a>
-            <a
-                name=""
-                id=""
+                onclick="nextlol('{{ x }}')"
+            >
+                next
+            </button>
+            <button
+                type="button"
                 class="btn btn-primary"
-                href="#"
-                role="button"
-                >start room</a>
-            </div>
-        </div> 
-    </div>
-    
-    <div class="row">
-        <div class="card text-center align-self-center">
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="" class="form-label"></label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        name=""
-                        id=""
-                        aria-describedby="helpId"
-                        placeholder="Room name"
-                    />
-                    
-                </div>
-            </div>
+            >
+                join
+            </button>
+            <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=50336bc6.app.deploy.tourde.app/?room={{ x }}"
+                class="img-fluid rounded-top"
+                alt=""
+            />
+            
+            </p
+            >
+            {% endfor %}
         </div>
     </div>
- <div class="list-group">
-    <a href="#" class="list-group-item list-group-item-action active"
-        >Active item</a
-    >
-    <a href="#" class="list-group-item list-group-item-action"
-        >Item</a
-    >
-    <a href="#" class="list-group-item list-group-item-action disabled"
-        >Disabled item</a
-    >
- </div>
- </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script>
+    var urlParams = new URLSearchParams(window.location.search)
+    var socket = io();
 
- 
+    socket.on('connect', function() {
+        console.log("I... am admin")
+    })
 
-    </body>
+    function create_lobby() {
+        socket.emit('create_room')
+        location.reload()
+    }
+
+    function nextlol(r) {
+        socket.emit('do_next', { "room": r })
+    }
+</script>
 </html>

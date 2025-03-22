@@ -58,10 +58,10 @@
             </div>
         </div>
 
-        <div class="card d-flex text-center align-self-center fixed-bottom">
+        <div id="votingcard" class="d-none text-center align-self-center fixed-bottom">
             <div class="card-body">
                 <h4 class="card-title text-center">Innovation</h4>
-                <p class="card-text text-center">Innovator</p>
+                <p id="inovatorname" class="card-text text-center">Innovator</p>
                 <div class="grid text-center">
                     <label for="ratingUsefulness" class="form-label">How useful?</label>
                     <input type="range" class="form-range" min="1" max="6" value="1" oninput="Output()">
@@ -77,6 +77,15 @@
                     <input type="range" class="form-range" min="1" max="6" value="1" oninput="Output()">
                     <h1 id="output2">💀</h1>
                 </p>
+                <button
+                    type="button"
+                    id="votebuton"
+                    class="btn btn-primary"
+                    onclick="votetete()"
+                >
+                    Vote
+                </button>
+                
             </div>
         </div>
         
@@ -90,7 +99,10 @@
         var selectedUsername = ""
 
         socket.on('connect', function() {
-            
+            if (urlParams.get('room') != null) {
+                document.getElementById("lobby").value = urlParams.get('room')
+                show_username_ah()
+            }
         })
         
         socket.on('receive', (data) => {
@@ -103,7 +115,25 @@
             document.getElementById("roomsmenu").classList.replace("d-none", "d-flex")
             document.getElementById("lobbyname").innerHTML = ""
         })
+
+        socket.on('change_person', (data) => {
+            document.getElementById("inovatorname").innerHTML = data["name"]
+            if (selectedUsername == data["name"]) {
+                document.getElementById("votingcard").classList.replace("d-flex", "d-none")
+            } else {
+                document.getElementById("votingcard").classList.replace("d-none", "d-flex")
+            }
+        })
         
+        function votetete() {
+            document.getElementById("votebuton").disabled = true
+            let ratatata = 0
+            for (let i = 0; i < 3; i++) {
+                ratatata += Number(document.getElementsByClassName('form-range')[i].value)
+            }
+            socket.emit('vote_on', {"points": ratatata, "room": selectedRoom});
+        }
+
         function show_username_ah() {
             selectedRoom = document.getElementById("lobby").value
             document.getElementById("roomsmenu").classList.replace("d-flex", "d-none")
@@ -120,7 +150,7 @@
         function a() {
             socket.emit('send_message', {"text": document.getElementById("mess").value, "username": selectedUsername, "room": selectedRoom})
         }
-        
+
         function Output() {
             for (let i = 0 ; i < document.getElementsByClassName("form-range").length ; i++) {
                 let value = document.getElementsByClassName("form-range")[i].value
