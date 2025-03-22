@@ -1,11 +1,14 @@
-from flask import Flask, render_template, jsonify, Blueprint
+from flask import Flask, render_template, jsonify, Blueprint, request
 from socks.socks import rooms
 
 home_bp = Blueprint('home_bp', __name__, template_folder='templates')
 
 @home_bp.route("/")
 def home():
-    return render_template("home.html")
+    finalPage = "home.html"
+    if "darkmode" in request.args:
+        finalPage = "darkmode/homedark.html"
+    return render_template(finalPage) 
 
 @home_bp.route("/features")
 def features():
@@ -13,8 +16,8 @@ def features():
 
 @home_bp.route("/manager")
 def manager():
-    return render_template("managerstuff.html",  elementsuwu=rooms)
+    finalPage = "managerstuff.html"
+    if "darkmode" in request.args:
+        finalPage = "darkmode/managerstuffdark.html"
+    return render_template(finalPage, elementsuwu = rooms)
 
-@home_bp.route("/testing")
-def testing():
-    return render_template("placeholder.html")

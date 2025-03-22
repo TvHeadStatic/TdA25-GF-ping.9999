@@ -9,37 +9,37 @@
     <link rel="stylesheet" href="static/styles.css">
     <title>TdA</title>
 </head>
-<body class="container-fluid">
+<body class="container-fluid text-white bg-black">
     <div class="Container d-grid" style="gap: 1rem;">
         <div class="row">
-            <div class="card text-center align-self-center">
+            <div class="card text-center align-self-center text-white bg-dark">
                 <div class="card-body">
                     <button
                         type="button"
-                        class="btn btn-primary"
+                        class="btn btn-danger"
                         onclick="create_lobby()"
                     >
                         Create New Lobby
                     </button>
-                    <a type="button" class="btn btn-primary" href="/manager?darkmode=true">darkmode</a>
+                    <a type="button" class="btn btn-primary" href="/manager">lightmode</a>
                     
                 </div>
             </div> 
         </div>
         <div class="list-group">
             {% for x in elementsuwu %}
-            <p href="#" class="list-group-item list-group-item-action"
+            <p href="#" class="list-group-item list-group-item-action text-white bg-dark border-black"
             >Code: {{ x }}
             <button
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-danger"
                 onclick="nextlol('{{ x }}')"
             >
                 next
             </button>
             <button
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-danger"
             >
                 join
             </button>

@@ -6,67 +6,68 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <title>TdA</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="stylesheet" href="static/colours.css">
         <link rel="stylesheet" href="static/styles.css">
+        <link rel="stylesheet" href="static/colours.css">
     </head>
-    <body class="container-fluid">
+    <body class="container-fluid bg-black">
         <h1 id="lobbyname"></h1>
-        <div class="card"
+        <div class="card text-white bg-dark"
         style="
         min-height: 4rem;
         overflow-x: hidden;
         overflow-y: auto;
         max-height: 15rem;
-        padding: .5rem;" 
+        padding: .5rem;"
         id="boxik">
             <h2>chat:</h2>
         </div>
         <p class="mb-3">
-            <label for="" class="form-label">
+            <label for="" class="form-label ">
             </label>
-            <textarea id="mess" class="form-control" name="" id="" rows="3"></textarea>
+            <textarea id="mess" class="form-control text-white bg-dark border-black" name="" id="" rows="3"></textarea>
             <button
                 type="submit"
-                class="btn btn-primary"
+                class="btn btn-danger"
                 onclick="a()"
             >
                 Submit
             </button>
-            <a type="button" class="btn btn-primary" href="/?darkmode=true">darkmode</a>
+            <a type="button" class="btn btn-primary" href="/">lightmode</a>
+
             
         </p>
         
-        <div id="roomsmenu" class="card d-flex text-center align-self-center position-fixed top-50 start-50 translate-middle" style="width: 20rem;">
+        <div id="roomsmenu" class="card d-flex text-center align-self-center position-fixed top-50 start-50 translate-middle text-white bg-dark" style="width: 20rem;">
             <div class="card-body">
                 <h1 class="card-title">Enter lobby code</h1>
                 <form class="row g-3">
                     <div class="col-md-4" style="width: 100%;">
                         <label for="lobby" class="form-label">lobby id</label>
-                        <input type="text" class="form-control" id="lobby" placeholder="######" required>
+                        <input type="text" class="form-control text-white bg-dark" id="lobby" placeholder="######" required>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-primary" onclick="show_username_ah()" type="button">></button>
+                        <button class="btn btn-danger" onclick="show_username_ah()" type="button">></button>
                     </div>
                 </form>
             </div>
         </div>
         
         <div id="usermenu" class="card d-none text-center align-self-center position-fixed top-50 start-50 translate-middle" style="width: 20rem;">
-            <div class="card-body">
+            <div class="card-body text-white bg-dark">
                 <h1 class="card-title">Gib Username</h1>
                 <form class="row g-3">
                     <div class="col-md-4" style="width: 100%;">
                         <label for="user" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="user" placeholder="Username" required>
+                        <input type="text" class="form-control text-white bg-dark" id="user" placeholder="Username" required>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-primary" onclick="join_that()" type="button">></button>
+                        <button class="btn btn-danger" onclick="join_that()" type="button">></button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div id="votingcard" class="d-none text-center align-self-center fixed-bottom bg-white">
+        <div id="votingcard" class="d-none text-center align-self-center fixed-bottom text-white bg-dark">
             <div class="card-body">
                 <h4 class="card-title text-center">Innovation</h4>
                 <p id="inovatorname" class="card-text text-center">Innovator</p>
@@ -88,7 +89,7 @@
                 <button
                     type="button"
                     id="votebuton"
-                    class="btn btn-primary"
+                    class="btn btn-danger"
                     onclick="votetete()"
                 >
                     Vote
