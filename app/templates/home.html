@@ -80,15 +80,16 @@
             </div>
         </div>
 
-        <div id="" class="card d-none text-center align-self-center position-fixed top-50 start-50 translate-middle" style="width: 20rem;">
+        <div id="resres" class="card d-none text-center align-self-center position-fixed top-50 start-50 translate-middle" style="width: 20rem;">
             <div class="card-body">
                 <h1 class="card-title">Results</h1>
                 <ul class="list-group list-group">
-                    <li class="list-group-item">Item</li>
+                    <li class="list-group-item" id="restitle">Item</li>
                 </ul>
                 <button
                     type="button"
                     class="btn btn-primary"
+                    onclick="cumback()"
                 >
                     Disconnect
                 </button>
@@ -143,6 +144,18 @@
             }
         })
         
+        socket.on('show_results', (data) => {
+            document.getElementById("votingcard").classList.replace("d-flex", "d-none")
+            console.log(data)
+            document.getElementById('restitle').innerHTML = JSON.stringify(data["data"]["employees"])
+            document.getElementById("resres").classList.replace("d-none", "d-flex")
+        })
+        
+        function cumback() {
+            socket.emit('leave_room', { "username": selectedUsername, "room": selectedRoom })
+            location.reload()
+        }
+
         socket.on('receive', (data) => {
             console.log(data)
             document.getElementById("boxik").innerHTML += `<p>${data}</p>`
