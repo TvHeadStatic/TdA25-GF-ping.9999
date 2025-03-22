@@ -176,6 +176,7 @@
         })
 
         socket.on('change_person', (data) => {
+            document.getElementById("votebuton").disabled = false
             document.getElementById("inovatorname").innerHTML = data["name"]
             if (selectedUsername == data["name"]) {
                 document.getElementById("presentjumpscare").classList.replace("d-none", "d-flex")
