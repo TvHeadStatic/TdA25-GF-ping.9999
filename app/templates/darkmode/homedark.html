@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="static/colours.css">
     </head>
     <body class="container-fluid bg-black">
-        <h1 id="lobbyname"></h1>
+        <h1 id="lobbyname" class="text-white"></h1>
         <div class="card text-white bg-dark"
         style="
         min-height: 4rem;
@@ -106,17 +106,17 @@
                     <label for="ratingUsefulness" class="form-label">How useful?</label>
                     <input type="range" class="form-range" min="1" max="6" value="1" oninput="Output()">
                     <h1 id="output0">💀</h1>
-                </p>
+                </div>
                 <div class="grid text-center">
                     <label for="ratingCreativity" class="form-label">How creative?</label>
                     <input type="range" class="form-range" min="1" max="6" value="1" oninput="Output()">
                     <h1 id="output1">💀</h1>
-                </p>
+                </div>
                 <div class="grid text-center">
                     <label for="ratingPossibility" class="form-label">How Possible?</label>
                     <input type="range" class="form-range" min="1" max="6" value="1" oninput="Output()">
                     <h1 id="output2">💀</h1>
-                </p>
+                </div>
                 <button
                     type="button"
                     id="votebuton"
@@ -130,7 +130,7 @@
         </div>
 
 
-        <div id="presentjumpscare" class="d-none text-center align-self-center fixed-bottom bg-dark text-white">
+        <div id="presentjumpscare" class="d-none text-center align-self-center position-fixed top-50 start-50 translate-middle bg-dark text-white">
             <div class="card-body">
                 <h1>You... Are Presenting</h1>
             </div>
