@@ -1,8 +1,7 @@
 from flask import Flask, render_template, jsonify, Blueprint
+from socks.socks import messages
 
 home_bp = Blueprint('home_bp', __name__, template_folder='templates')
-
-messages = []
 
 @home_bp.route("/")
 def home():
