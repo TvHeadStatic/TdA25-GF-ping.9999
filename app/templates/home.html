@@ -53,7 +53,7 @@
     <script type="text/javascript" charset="utf-8">
         var socket = io();
         socket.on('connect', function() {
-            socket.emit('join_room', {data: 'I\'m connected!'});
+            socket.emit('join_room', {"username": "greg", "room": "yoyo"});
         });
         socket.on('receive', (data) => {
             console.log(data)
