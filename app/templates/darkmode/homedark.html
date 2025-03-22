@@ -218,6 +218,7 @@
 
         function a() {
             socket.emit('send_message', {"text": document.getElementById("mess").value, "username": selectedUsername, "room": selectedRoom})
+            document.getElementById("mess").value = ""
         }
 
         function Output() {
