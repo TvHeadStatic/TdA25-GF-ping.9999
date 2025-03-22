@@ -86,5 +86,4 @@ def send_message(data):
     room = data['room']
     if room not in rooms: return
     join_room(room)
-    del rooms[room]['employees'][username]
     emit("receive", data['username'] + "> " + data["text"], broadcast=True, include_self=True, to=room)
